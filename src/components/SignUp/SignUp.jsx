@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import signinBg from '../../assets/signin-bg.png';
-import logo from '../../assets/kawanLogoMsg.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Helmet } from 'react-helmet-async';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../../providers/AuthProvider';
+import { updateProfile } from 'firebase/auth';
+import { auth } from '../../firebase/firebase.init';
 
 
 const SignUp = () => {
@@ -14,11 +18,91 @@ const SignUp = () => {
     const [newPasswordValue, setNewPasswordValue] = useState('');
     const [confirmPasswordValue, setConfirmPasswordValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+    const navigate = useNavigate();
+    const { signInUser, createUser, signInWithGoogle } = useContext(AuthContext);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleRegister = (event) => {
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        const name = event.target.name.value;
+        const lastName = event.target.lastName.value;
+
+        console.log(email, password, name, lastName);
+
+        // reset error and status
+        setErrorMessage('');
+
+        if (password.length < 6) {
+            const error = 'Password should be 6 characters or longer';
+            setErrorMessage(error);
+            toast.error(error);
+            return;
+        }
+
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]).+$/;
+
+        if (!passwordRegex.test(password)) {
+            const error = 'At least one uppercase, one lowercase';
+            setErrorMessage(error);
+            toast.error(error);
+            return;
+        }
+
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user);
+
+                event.target.reset();
+                navigate('/');
+
+                const profile = {
+                    displayName: name
+                }
+                updateProfile(auth.currentUser, profile)
+                    .then(() => {
+
+                    })
+                logInUser(email, password);
+
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                setErrorMessage(errorMessage);
+                toast.error(error);
+            })
+    }
+
+    const logInUser = async (email, password) => {
+        try {
+            const result = await signInUser(email, password);
+            navigate('/');
+        } catch (error) {
+            console.error('Sign in error:', error.message);
+        }
+    }
+
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithGoogle();
+            navigate('/');
+        } catch (error) {
+            console.error('Google login error:', error.message);
+        }
+    };
+
     return (
         <div className="mx-auto mb-24">
             <Helmet>
                 <title>SignUp | Kawan</title>
             </Helmet>
+
+            <ToastContainer />
+
+
             <div className="w-10/12 lg:flex bg-white shadow-2xl p-5 rounded-2xl mx-auto mt-20">
                 <div style={{ backgroundImage: `url(${signinBg})` }} className='rounded-xl w-1/2 bg-cover bg-center content-center'>
                     <div className='bg-gray-950 bg-opacity-20 w-full h-full content-center rounded-2xl'>
@@ -30,7 +114,7 @@ const SignUp = () => {
                 </div>
                 <div className="mt-10 mb-10 card w-1/2 max-w-xl shrink-0 content-center mx-auto">
                     <h2 className='text-4xl font-bold mb-5 mx-auto text-black'>Create a new account !</h2>
-                    <form className="card-body">
+                    <form onSubmit={handleRegister} className="card-body">
                         <div className='grid lg:grid-cols-2 gap-3 mb-5'>
                             {/* First Name  */}
                             <div className="relative">
@@ -38,6 +122,7 @@ const SignUp = () => {
                                     type="text"
                                     id="first-name"
                                     placeholder=" "
+                                    name='name'
                                     value={firstNameValue}
                                     onChange={(e) => setFirstNameValue(e.target.value)}
                                     className={`peer input input-bordered w-full h-12 px-3 pt-6 text-gray-700 bg-transparent border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 pb-2 ${firstNameValue
@@ -57,11 +142,12 @@ const SignUp = () => {
                                 </label>
                             </div>
 
-                            {/* Email  */}
+                            {/* Last Name */}
                             <div className="relative">
                                 <input
                                     type="text"
                                     id="last-name"
+                                    name='lastName'
                                     placeholder=" "
                                     value={lastNameValue}
                                     onChange={(e) => setLastNameValue(e.target.value)}
@@ -88,6 +174,7 @@ const SignUp = () => {
                             <input
                                 type="email"
                                 id="email"
+                                name='email'
                                 placeholder=" "
                                 value={emailValue}
                                 onChange={(e) => setEmailValue(e.target.value)}
@@ -114,6 +201,7 @@ const SignUp = () => {
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 id="password"
+                                name='password'
                                 placeholder=" "
                                 value={newPasswordValue}
                                 onChange={(e) => setNewPasswordValue(e.target.value)}
@@ -145,7 +233,7 @@ const SignUp = () => {
                             {/* Password Input */}
                             <input
                                 type={showPassword ? 'text' : 'password'}
-                                id="password"
+                                id="confirm-password"
                                 placeholder=" "
                                 value={confirmPasswordValue}
                                 onChange={(e) => setConfirmPasswordValue(e.target.value)}
@@ -181,9 +269,12 @@ const SignUp = () => {
                         <p className='text-gray-500'>Or</p>
                         <hr className='mr-10 ml-2 w-1/2 border' />
                     </div>
-                    <button className='btn btn-outline mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-purple-200 hover:border-purple-200 hover:text-black'>
+                    <button
+                        onClick={handleGoogleLogin}
+                        className='btn btn-outline mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-purple-200 hover:border-purple-200 hover:text-black'>
                         <FcGoogle className='text-4xl'></FcGoogle>
-                        Sign up with Google</button>
+                        Sign up with Google
+                    </button>
                     <div className='mx-auto mt-8 font-medium'>
                         <p>Don't haven an account? <span><Link to={'/signin'} className='hover:underline text-blue-700 font-medium'>Login here</Link></span> </p>
                     </div>
