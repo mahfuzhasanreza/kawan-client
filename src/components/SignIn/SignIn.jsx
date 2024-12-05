@@ -11,7 +11,7 @@ const SignIn = () => {
     const [passwordValue, setPasswordValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     return (
-        <div className="mx-auto min-h-screen">
+        <div className="mx-auto mb-24">
             <div className="w-10/12 lg:flex bg-white shadow-2xl p-5 rounded-2xl mx-auto mt-20">
                 <div style={{ backgroundImage: `url(${signinBg})` }} className='rounded-xl w-1/2 bg-cover bg-center content-center'>
                     <div className='bg-gray-950 bg-opacity-20 w-full h-full content-center rounded-2xl'>
@@ -85,7 +85,7 @@ const SignIn = () => {
                         </label>
 
                         <div className="form-control mt-2">
-                            <button className="btn btn-primary bg-purple-500 text-white font-bold text-lg border-none hover:bg-purple-900">Login</button>
+                            <button className="btn btn-primary bg-purple-600 text-white font-bold text-lg border-none hover:bg-purple-900">Login</button>
                         </div>
                     </form>
                     <div className='flex items-center'>

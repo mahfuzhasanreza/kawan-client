@@ -4,7 +4,7 @@ import logo from '../../assets/kawanLogoMsg.png';
 
 const Navbar = () => {
     return (
-        <div className='w-full bg-purple-500'>
+        <div className='w-full bg-purple-600'>
             <div className="flex justify-between px-16 navbar">
             <div>
                 <Link to={'/'}>
