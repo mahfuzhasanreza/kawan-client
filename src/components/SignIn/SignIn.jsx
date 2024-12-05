@@ -16,7 +16,7 @@ const SignIn = () => {
                 <div style={{ backgroundImage: `url(${signinBg})` }} className='rounded-xl w-1/2 bg-cover bg-center content-center'>
                     <div className='bg-gray-950 bg-opacity-20 w-full h-full content-center rounded-2xl'>
                         <div className="text-center space-y-5">
-                            <h2 className='text-white text-opacity-90 font-bold text-6xl'>Start Your Journey</h2>
+                            <h2 className='text-white text-opacity-90 font-bold text-5xl'>Meet Your Friend - KAWAN</h2>
                             <p className='text-gray-400 text-4xl'>Move Towards Light</p>
                         </div>
                     </div>
@@ -97,7 +97,7 @@ const SignIn = () => {
                         <FcGoogle className='text-4xl'></FcGoogle>
                         Sign up with Google</button>
                     <div className='mx-auto mt-8 font-medium'>
-                        <p>Don't haven an account? <span><Link className='hover:underline text-blue-700 font-medium'>Register here</Link></span> </p>
+                        <p>Don't haven an account? <span><Link to={'/signup'} className='hover:underline text-blue-700 font-medium'>Register here</Link></span> </p>
                     </div>
                 </div>
             </div>
