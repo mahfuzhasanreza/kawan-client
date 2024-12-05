@@ -11,6 +11,7 @@ import Home from './components/Home/Home';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import AuthProvider from './providers/AuthProvider';
+import SignUp2 from './components/SignUp2/SignUp2';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'signup',
         element: <SignUp></SignUp>
+      },
+      {
+        path: 'signup2',
+        element: <SignUp2></SignUp2>
       }
     ]
   },
