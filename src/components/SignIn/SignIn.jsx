@@ -4,6 +4,7 @@ import logo from '../../assets/kawanLogoMsg.png';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { Helmet } from 'react-helmet-async';
 
 
 const SignIn = () => {
@@ -12,6 +13,9 @@ const SignIn = () => {
     const [showPassword, setShowPassword] = useState(false);
     return (
         <div className="mx-auto mb-24">
+            <Helmet>
+                <title>SignIn | Kawan</title>
+            </Helmet>
             <div className="w-10/12 lg:flex bg-white shadow-2xl p-5 rounded-2xl mx-auto mt-20">
                 <div style={{ backgroundImage: `url(${signinBg})` }} className='rounded-xl w-1/2 bg-cover bg-center content-center'>
                     <div className='bg-gray-950 bg-opacity-20 w-full h-full content-center rounded-2xl'>

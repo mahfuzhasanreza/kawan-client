@@ -12,11 +12,14 @@ import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import AuthProvider from './providers/AuthProvider';
 import SignUp2 from './components/SignUp2/SignUp2';
+import ErrorPage from './components/ErrorPage/ErrorPage';
+import { HelmetProvider } from 'react-helmet-async';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout></Layout>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: '/',
@@ -40,8 +43,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </HelmetProvider>
   </StrictMode>,
 )
