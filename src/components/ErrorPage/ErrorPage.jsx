@@ -22,7 +22,7 @@ const ErrorPage = () => {
                     </p>
                     <button
                         onClick={goHome}
-                        className="btn btn-primary mt-4"
+                        className="btn btn-primary bg-purple-600 border-none hover:bg-purple-500 mt-4"
                     >
                         Go Back to Home
                     </button>

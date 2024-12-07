@@ -6,7 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../providers/AuthProvider';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 const SignIn = () => {
@@ -49,7 +49,7 @@ const SignIn = () => {
     const handleGoogleLogin = async () => {
         try {
             const result = await signInWithGoogle();
-            console.log(result.user);
+            // console.log(result.user);
             navigate(location?.state ? location.state : '/');
         } catch (error) {
             console.error('Google login error:', error.message);
@@ -61,6 +61,9 @@ const SignIn = () => {
             <Helmet>
                 <title>SignIn | Kawan</title>
             </Helmet>
+
+            <ToastContainer />
+
             <div className="w-10/12 lg:flex bg-white shadow-2xl p-5 rounded-2xl mx-auto mt-20">
                 <div style={{ backgroundImage: `url(${signinBg})` }} className='rounded-xl w-1/2 bg-cover bg-center content-center'>
                     <div className='bg-gray-950 bg-opacity-20 w-full h-full content-center rounded-2xl'>
@@ -78,7 +81,8 @@ const SignIn = () => {
                         <div className="relative">
                             <input
                                 type="email"
-                                id="email"
+                                name='email'
+                                ref={emailRef}
                                 placeholder=" "
                                 value={emailValue}
                                 onChange={(e) => setEmailValue(e.target.value)}
@@ -105,6 +109,7 @@ const SignIn = () => {
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 id="password"
+                                name='password'
                                 placeholder=" "
                                 value={passwordValue}
                                 onChange={(e) => setPasswordValue(e.target.value)}
@@ -139,6 +144,9 @@ const SignIn = () => {
                             <button className="btn btn-primary bg-purple-600 text-white font-bold text-lg border-none hover:bg-purple-900">Login</button>
                         </div>
                     </form>
+
+                    {success && <p className="text-green-500 text-center mt-4">Login successful!</p>}
+
                     <div className='flex items-center'>
                         <hr className='ml-10 mr-2 w-1/2 border' />
                         <p className='text-gray-500'>Or</p>

@@ -14,6 +14,7 @@ import AuthProvider from './providers/AuthProvider';
 import SignUp2 from './components/SignUp2/SignUp2';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import { HelmetProvider } from 'react-helmet-async';
+import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: 'signup2',
         element: <SignUp2></SignUp2>
+      },
+      {
+        path: 'forget-password',
+        element: <ForgetPassword></ForgetPassword>
       }
     ]
   },
