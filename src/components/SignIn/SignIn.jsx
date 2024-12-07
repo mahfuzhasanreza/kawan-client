@@ -1,16 +1,61 @@
-import React, { useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import signinBg from '../../assets/signin-bg.png';
 import logo from '../../assets/kawanLogoMsg.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Helmet } from 'react-helmet-async';
+import { AuthContext } from '../../providers/AuthProvider';
+import { toast } from 'react-toastify';
 
 
 const SignIn = () => {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { signInUser, signInWithGoogle } = useContext(AuthContext);
+    const [success, setSuccess] = useState(false);
+    const emailRef = useRef();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+
+        // Reset status
+        setSuccess(false);
+
+
+        try {
+            const result = await signInUser(email, password);
+            console.log(result.user);
+            setSuccess(true);
+            e.target.reset();
+            navigate(location?.state ? location.state : '/');
+        } catch (error) {
+            toast.error(error.message); // Trigger toast notification
+        }
+    };
+
+    const handleForgetPassword = () => {
+        const email = emailRef.current.value;
+        navigate('/forget-password', { state: { inputEmail: email } });
+    };
+
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithGoogle();
+            console.log(result.user);
+            navigate(location?.state ? location.state : '/');
+        } catch (error) {
+            console.error('Google login error:', error.message);
+        }
+    };
+
     return (
         <div className="mx-auto mb-24">
             <Helmet>
@@ -27,7 +72,8 @@ const SignIn = () => {
                 </div>
                 <div className="mt-10 mb-10 card w-1/2 max-w-xl shrink-0 content-center mx-auto">
                     <h2 className='text-4xl font-bold mb-5 mx-auto text-black'>Welcome Back !</h2>
-                    <form className="card-body">
+                    <form onSubmit={handleLogin}
+                        className="card-body">
                         {/* Email  */}
                         <div className="relative">
                             <input
@@ -84,7 +130,8 @@ const SignIn = () => {
                                 {showPassword ? <FaEye className='text-lg text-black'></FaEye> : <FaEyeSlash className='text-black text-lg'></FaEyeSlash>}
                             </button>
                         </div>
-                        <label className="label">
+                        <label onClick={handleForgetPassword}
+                            className="label">
                             <a href="#" className="label-text-alt link link-hover text-blue-700 font-medium">Forgotten password?</a>
                         </label>
 
@@ -97,7 +144,8 @@ const SignIn = () => {
                         <p className='text-gray-500'>Or</p>
                         <hr className='mr-10 ml-2 w-1/2 border' />
                     </div>
-                    <button className='btn btn-outline mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-purple-200 hover:border-purple-200 hover:text-black'>
+                    <button onClick={handleGoogleLogin}
+                        className='btn btn-outline mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-purple-200 hover:border-purple-200 hover:text-black'>
                         <FcGoogle className='text-4xl'></FcGoogle>
                         Sign up with Google</button>
                     <div className='mx-auto mt-8 font-medium'>
