@@ -1,17 +1,21 @@
-import React, { useContext, useState } from 'react';
-import signinBg from '../../assets/signin-bg.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+import { updateProfile } from 'firebase/auth';
+import { auth } from '../../firebase.init';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthContext } from '../../providers/AuthProvider';
-import { updateProfile } from 'firebase/auth';
-import { auth } from '../../firebase/firebase.init';
+import { FcGoogle } from 'react-icons/fc';
+
+const Register = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { signInUser, createUser, signInWithGoogle } = useContext(AuthContext);
 
 
-const SignUp = () => {
     const [firstNameValue, setFirstNameValue] = useState('');
     const [lastNameValue, setLastNameValue] = useState('');
     const [emailValue, setEmailValue] = useState('');
@@ -19,8 +23,7 @@ const SignUp = () => {
     const [confirmPasswordValue, setConfirmPasswordValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
-    const navigate = useNavigate();
-    const { signInUser, createUser, signInWithGoogle } = useContext(AuthContext);
+
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleRegister = (event) => {
@@ -28,83 +31,92 @@ const SignUp = () => {
         const email = event.target.email.value;
         const password = event.target.password.value;
         const name = event.target.name.value;
-        const lastName = event.target.lastName.value;
+        const photo = event.target.photo.value;
 
-        console.log(email, password, name, lastName);
+
+        // console.log(email, password, name, photo);
 
         // reset error and status
         setErrorMessage('');
 
+
         if (password.length < 6) {
-            const error = 'Password should be 6 characters or longer';
-            setErrorMessage(error);
-            toast.error(error);
+            setErrorMessage('Password should be 6 character or longer');
+            toast.error(errorMessage);
             return;
         }
-
 
         const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]).+$/;
 
         if (!passwordRegex.test(password)) {
-            const error = 'At least one uppercase, one lowercase';
-            setErrorMessage(error);
-            toast.error(error);
+            setErrorMessage('At least one uppercase, one lowercase');
+            toast.error(errorMessage);
             return;
         }
 
+
         createUser(email, password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
 
                 event.target.reset();
                 navigate('/');
 
+
                 const profile = {
-                    displayName: name
+                    displayName: name,
+                    photoURL: photo
                 }
                 updateProfile(auth.currentUser, profile)
                     .then(() => {
 
+
                     })
+
+                // signInUser(email, password);
+                // event.target.reset();
+                // navigate('/');
                 logInUser(email, password);
+
 
             })
             .catch(error => {
-                const errorMessage = error.message;
-                setErrorMessage(errorMessage);
-                toast.error(error);
+                setErrorMessage(error.message);
+                toast.error(errorMessage);
             })
+
     }
 
     const logInUser = async (email, password) => {
         try {
             const result = await signInUser(email, password);
-            navigate('/');
+            navigate(location?.state ? location.state : '/');
         } catch (error) {
-            console.error('Sign in error:', error.message);
+            //  console.error('Sign in error:', error.message);
         }
     }
 
     const handleGoogleLogin = async () => {
         try {
             const result = await signInWithGoogle();
-            navigate('/');
+            navigate(location?.state ? location.state : '/');
         } catch (error) {
-            console.error('Google login error:', error.message);
+            // console.error('Google login error:', error.message);
+
         }
     };
 
     return (
         <div className="mx-auto mb-24">
             <Helmet>
-                <title>SignUp | Kawan</title>
+                <title>Register | Kawan</title>
             </Helmet>
 
             <ToastContainer />
 
 
             <div className="w-10/12 lg:flex bg-white shadow-2xl p-5 rounded-2xl mx-auto mt-20">
-                <div style={{ backgroundImage: `url(${signinBg})` }} className='rounded-xl w-1/2 bg-cover bg-center content-center'>
+                <div style={{ backgroundImage: `url(${``})` }} className='rounded-xl w-1/2 bg-cover bg-center content-center'>
                     <div className='bg-gray-950 bg-opacity-20 w-full h-full content-center rounded-2xl'>
                         <div className="text-center space-y-5">
                             <h2 className='text-white text-opacity-90 font-bold text-6xl'>Start Your Journey</h2>
@@ -171,6 +183,7 @@ const SignUp = () => {
 
                         {/* Email  */}
                         <div className="relative">
+                    
                             <input
                                 type="email"
                                 id="email"
@@ -284,4 +297,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default Register;

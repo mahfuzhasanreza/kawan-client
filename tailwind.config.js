@@ -1,3 +1,5 @@
+import daisyui from 'daisyui';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -8,7 +10,10 @@ export default {
     extend: {},
   },
   plugins: [
-    require('daisyui'),
+    daisyui,
   ],
+  daisyui: {
+    themes: ['light', 'dark'],
+  },
 }
 

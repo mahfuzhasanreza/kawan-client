@@ -1,24 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Allison&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-.italiana-font {
-  font-family: "Italiana", sans-serif;
-}
-
-.allison-font {
-  font-family: "Allison", cursive;
-}
-
-.bg-orange{
-  background-color: #DD6700;
-  opacity: 85%;
-}
-
-body{
-  background-color: rgba(153, 0, 255, 0.096);
+svg.star-svg {
+    display: inline;
 }

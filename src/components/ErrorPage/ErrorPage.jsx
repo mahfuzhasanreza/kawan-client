@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet-async";
 const ErrorPage = () => {
     const navigate = useNavigate();
 
-    // Function to handle redirection to the home page
     const goHome = () => {
         navigate('/');
     };
@@ -22,7 +21,7 @@ const ErrorPage = () => {
                     </p>
                     <button
                         onClick={goHome}
-                        className="btn btn-primary bg-purple-600 border-none hover:bg-purple-500 mt-4"
+                        className="btn btn-primary bg-orange-500 border-none hover:bg-orange-200 mt-4"
                     >
                         Go Back to Home
                     </button>

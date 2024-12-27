@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../../firebase.init';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Helmet } from 'react-helmet-async';
-import { auth } from '../../firebase/firebase.init';
-import { sendPasswordResetEmail } from 'firebase/auth';
 
 const ForgetPassword = () => {
     const navigate = useNavigate();
@@ -13,40 +13,23 @@ const ForgetPassword = () => {
 
     // Use the location to access the passed email from Login
     useEffect(() => {
-        console.log("Location state: ", location.state);
-        console.log(email);
+        // console.log("Location state: ", location.state);
+        // console.log(email);
 
         if (location.state?.inputEmail) {
             setEmail(location.state.inputEmail); // Auto-fill the email input
         }
     }, [location]);
-    
 
-    const handleResetPassword = async (e) => {
-        e.preventDefault();
-
-        if (!email) {
-            toast.error('Please provide a valid email address');
-            return;
-        }
-
-        try {
-            await sendPasswordResetEmail(auth, email);
-            window.open('https://mail.google.com', '_blank');
-        } catch (error) {
-            console.error('Error sending password reset email:', error.message);
-            toast.error(error.message);
-        }
-    };
 
     return (
         <div className="min-h-screen bg-base-200 flex flex-col items-center justify-center">
             <Helmet>
-                <title>Reset Password | Kawan</title>
+                <title>Reset Password | Eco-Adventure</title>
             </Helmet>
             <ToastContainer />
             <h1 className="text-3xl font-bold mb-5">Reset Your Password</h1>
-            <form onSubmit={handleResetPassword} className="card bg-white shadow-xl w-96 p-5 space-y-5">
+            <form className="card bg-white shadow-xl w-96 p-5 space-y-5">
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Email</span>
@@ -61,7 +44,7 @@ const ForgetPassword = () => {
                     />
 
                 </div>
-                <button type="submit" className="btn btn-primary bg-green-700 text-white w-full">
+                <button type="submit" className="btn btn-primary bg-orange-700 hover:bg-orange-500 text-white w-full">
                     Reset Password
                 </button>
             </form>
