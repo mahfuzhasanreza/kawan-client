@@ -47,6 +47,10 @@ const router = createBrowserRouter([
         element: <Register></Register>
       },
       {
+        path: 'e-book',
+        element: <Register></Register>
+      },
+      {
         path: 'profile',
         element: <PrivateRoute><Profile></Profile></PrivateRoute>
       },

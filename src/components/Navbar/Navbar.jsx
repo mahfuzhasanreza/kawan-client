@@ -2,31 +2,28 @@ import { Link, useNavigate } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import logo from '../../assets/kawanLogoMsg.png'
+import logo from '../../assets/kawanLogoMsg.png';
 
 const Navbar = () => {
     const navigate = useNavigate();
     const { user, signOutUser, theme, setTheme } = useContext(AuthContext);
 
-
     const userName = user?.displayName;
-
-
 
     const handleSignOutUser = () => {
         signOutUser()
-            .then(() => {
-
-            })
-
-    }
+            .then(() => { });
+    };
 
     useEffect(() => {
         document.querySelector('html').setAttribute('data-theme', theme);
     }, [theme]);
 
     return (
-        <div className={`navbar bg-fuchsia-600 text-white lg:px-10 mx-auto max-w-[5000px]`}>
+        <div
+            className={`navbar bg-fuchsia-600 text-white lg:px-10 mx-auto max-w-[5000px] 
+                        sticky top-0 z-50 backdrop-blur-lg bg-opacity-100 shadow-md`}
+        >
             <Toaster />
             <div className="navbar-start">
                 <div className="dropdown">
@@ -51,10 +48,6 @@ const Navbar = () => {
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                     >
                         <li><Link className="text-black" to="/">Home</Link></li>
-                        <li><Link className="text-black" to="/available-foods">Available Food</Link></li>
-                        <li><Link className="text-black" to="/add-food">Add Food</Link></li>
-                        <li><Link className="text-black" to='/manage-foods'>Manage My Foods</Link></li>
-                        <li><Link className="text-black" to='/my-food-request'>My Food Request</Link></li>
                         {
                             user ?
                                 <></>
@@ -71,26 +64,24 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className="navbar-end w-full">
-                <Link to="/available-foods">
-                    <button className="hidden lg:flex btn btn-ghost ml-5 w-full">Available Foods</button>
+                <Link to="/e-book">
+                    <button className="hidden lg:flex btn btn-ghost ml-5 w-full">E-Book</button>
                 </Link>
-                <Link to="/add-food">
-                    <button className="hidden lg:flex btn btn-ghost ml-5 w-full">Add Food</button>
+                <Link to="/">
+                    <button className="hidden lg:flex btn btn-ghost ml-5 w-full">AI ChatBot</button>
                 </Link>
-                <Link to={`/manage-foods`}>
-                    <button className="hidden lg:flex btn btn-ghost ml-5 w-full">Manage My Foods</button>
+                <Link to={`/`}>
+                    <button className="hidden lg:flex btn btn-ghost ml-5 w-full">SelfDev Resources</button>
                 </Link>
-                <Link to={`/my-food-request`}>
-                    <button className="mr-5 hidden lg:flex btn btn-ghost ml-5">My Food Request</button>
+                <Link to={`/`}>
+                    <button className="mr-5 hidden lg:flex btn btn-ghost ml-5">Meditation</button>
                 </Link>
 
                 {user ? (
                     <>
-                        <div className="">
-
+                        <div>
                             <Link to='/profile'>
                                 <img
-                                    // onClick={handleProfileClick}
                                     src={user.photoURL || ""}
                                     className="h-12 w-12 rounded-full mr-8 cursor-pointer"
                                     alt="User Profile"
@@ -104,14 +95,13 @@ const Navbar = () => {
                             Logout
                         </button>
                     </>
-
                 ) : (
                     <div className='space-x-4'>
                         <Link to={'/login'}>
-                            <a className="btn border-2 btn-outline  hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl px-7 text-lg">Login</a>
+                            <a className="btn border-2 btn-outline hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl px-7 text-lg">Login</a>
                         </Link>
                         <Link to={'/register'}>
-                            <a className="btn border-2 btn-outline  bg-yellow-300 text-gray-700 border-yellow-300 hover:text-yellow-300 hover:bg-transparent hover:border-yellow-300 rounded-3xl px-7 text-lg">Register</a>
+                            <a className="btn border-2 btn-outline bg-yellow-300 text-gray-700 border-yellow-300 hover:text-yellow-300 hover:bg-transparent hover:border-yellow-300 rounded-3xl px-7 text-lg">Register</a>
                         </Link>
                     </div>
                 )}

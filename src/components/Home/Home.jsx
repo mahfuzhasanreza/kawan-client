@@ -50,7 +50,7 @@ const Home = () => {
             </Helmet>
 
             {/* Banner Section */}
-            <div data-aos="fade-down">
+            {/* <div data-aos="fade-down">
                 <Banner />
             </div>
 
@@ -69,7 +69,7 @@ const Home = () => {
 
             <div data-aos="fade-down">
                 <UpcomingEvents></UpcomingEvents>
-            </div>
+            </div> */}
 
             <div data-aos="fade-up">
                 <FAQSection></FAQSection>

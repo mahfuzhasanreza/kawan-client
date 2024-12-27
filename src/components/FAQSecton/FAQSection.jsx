@@ -4,60 +4,60 @@ import { AuthContext } from '../../providers/AuthProvider';
 const FAQSection = () => {
   // State to handle the visibility of answers
   const [activeIndex, setActiveIndex] = useState(null);
-  const {theme}=useContext(AuthContext);
+  const { theme } = useContext(AuthContext);
 
 
 
   const faqs = [
     {
-      question: "What is Food Donation Portal?",
-      answer: "Food Donation Portal is an online platform that connects donors with individuals in need by facilitating food donations and requests seamlessly.",
+      question: "What is Kawan?",
+      answer: "Kawan is a mental health and self-development platform designed to provide resources, tools, and support for individuals to enhance their well-being and achieve personal growth.",
     },
     {
-      question: "How can I donate food?",
-      answer: "To donate food, log in to your account, click on the 'Add Food' button, and provide details like food name, quantity, pickup location, expiration date, and a photo. Your donation will then be listed on the portal.",
+      question: "How can I access self-development resources on Kawan?",
+      answer: "Simply log in to your account, navigate to the 'Resources' section, and explore a wide range of articles, e-books, videos, and tools focused on mental health and self-improvement.",
     },
     {
-      question: "How can I request food?",
-      answer: "To request food, browse the available donations, and click on the 'Request Food' button for your preferred item. You’ll need to confirm the request, and the donor will be notified.",
+      question: "Can I track my progress on Kawan?",
+      answer: "Yes, Kawan allows you to track your progress through personalized dashboards. You can set goals, monitor milestones, and receive insights on your journey to self-development.",
     },
     {
-      question: "Is there a limit to how many food items I can request?",
-      answer: "No, there’s no limit to the number of requests you can make. However, please request responsibly to ensure fairness and availability for others.",
+      question: "Is there a limit to how many resources I can access?",
+      answer: "No, there’s no limit to accessing resources. You are free to explore and use as many tools and materials as you need for your personal growth.",
     },
     {
-      question: "Can I track my food requests?",
-      answer: "Yes, you can track all your requests in the 'My Food Requests' section. You’ll find details about the donor, pickup location, and request status.",
+      question: "Can I get professional help through Kawan?",
+      answer: "Yes, Kawan connects you with licensed mental health professionals for consultations and therapy sessions. You can book appointments directly through the platform.",
     },
     {
-      question: "What should I do if I have issues with a donation or request?",
-      answer: "If you encounter any issues, you can reach out to our support team via the 'Contact Us' page, and we’ll assist you promptly.",
+      question: "What should I do if I encounter issues on Kawan?",
+      answer: "If you experience any issues, you can contact our support team through the 'Help & Support' section, and we’ll address your concerns promptly.",
     },
     {
-      question: "Is it free to use the Food Donation Portal?",
-      answer: "Yes, the Food Donation Portal is completely free to use. Our goal is to help reduce food waste and assist those in need without any cost.",
+      question: "Is Kawan free to use?",
+      answer: "Kawan offers a range of free resources to support mental health and self-development. Premium features, such as advanced tools or professional consultations, may involve a fee.",
     },
   ];
-  
+
 
   // Toggle answer visibility
   const toggleAnswer = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
-// console.log(theme);
+  // console.log(theme);
   return (
 
-    <div className={`${(theme==='dark') ? 'faq-section py-16': 'faq-section py-16 bg-gray-100'}`}>
-      <h2 className="text-4xl text-center  text-fuchsia-700 mb-8">Frequently Asked Questions</h2>
-      
+    <div className={`${(theme === 'dark') ? 'faq-section py-16' : 'faq-section py-16 bg-gray-100'}`}>
+      <h2 className="text-4xl text-center  text-fuchsia-700 mb-10 font-semibold">Frequently Asked Questions</h2>
+
       <div className="mx-4 faq-container max-w-4xl lg:mx-auto space-y-4">
         {faqs.map((faq, index) => (
-          <div key={index} className={theme === "light"? " faq-item bg-white p-6 rounded-lg shadow-md":'faq-item  p-6 rounded-lg shadow-md bg-gray-700'}>
-            <div 
+          <div key={index} className={theme === "light" ? " faq-item bg-white p-6 rounded-lg shadow-md" : 'faq-item  p-6 rounded-lg shadow-md bg-gray-700'}>
+            <div
               className="faq-question flex justify-between items-center cursor-pointer"
               onClick={() => toggleAnswer(index)}
             >
-              <h3 className={theme === "light"? 'text-xl font-semibold text-gray-800' : 'text-gray-400 text-xl font-semibold '}>{faq.question}</h3>
+              <h3 className={theme === "light" ? 'text-xl font-semibold text-gray-800' : 'text-gray-400 text-xl font-semibold '}>{faq.question}</h3>
               <span className="text-gray-500">{activeIndex === index ? '-' : '+'}</span>
             </div>
 
