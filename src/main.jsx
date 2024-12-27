@@ -24,6 +24,11 @@ import UpdateFood from './components/UpdateFood/UpdateFood';
 import MyFoodRequest from './components/MyFoodRequest/MyFoodRequest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';
+import Books from './components/EBook/Books/Books';
+import BookDetail from './components/EBook/BookDetail/BookDetail';
+import ListedBooks from './components/EBook/ListedBooks/ListedBooks';
+
+
 
 const queryClient = new QueryClient();
 
@@ -48,7 +53,18 @@ const router = createBrowserRouter([
       },
       {
         path: 'e-book',
-        element: <Register></Register>
+        element: <Books></Books>
+      },
+      {
+        path: 'books/:bookId',
+        element: <BookDetail></BookDetail>,
+        loader: () => fetch('/booksData.json') // do not load all the books for one book.
+      },
+      {
+        path: 'listedBooks',
+        element: <ListedBooks></ListedBooks>,
+        // worst way to load some data.
+        loader: () => fetch('/booksData.json') // do not load all data for some
       },
       {
         path: 'profile',

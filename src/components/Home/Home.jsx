@@ -5,10 +5,11 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
 import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
 import FAQSection from "../FAQSecton/FAQSection";
-import { Blocks } from "react-loader-spinner"; // Ensure this package is installed
+import { Blocks, ColorRing, RotatingLines } from "react-loader-spinner"; // Ensure this package is installed
 import FeaturedFoods from "../FeaturedFood/FeaturedFood";
 import FoodNewsAndBlogs from "../FoodNewsAndBlogs/FoodNewsAndBlogs";
 import CommunityStories from "../CommunityStories/CommunityStories";
+import { PuffLoader } from 'react-spinners';
 
 const Home = () => {
     const [loading, setLoading] = useState(true);
@@ -29,15 +30,26 @@ const Home = () => {
 
     if (loading) {
         return (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <Blocks
-                    height="100"
-                    width="100"
-                    color="#4fa94d"
-                    ariaLabel="blocks-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="blocks-wrapper"
+            // <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            //     <Blocks
+            //         height="100"
+            //         width="100"
+            //         color="#4fa94d"
+            //         ariaLabel="blocks-loading"
+            //         wrapperStyle={{}}
+            //         wrapperClass="blocks-wrapper"
+            //         visible={true}
+            //     />
+            // </div>
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50  z-50">
+                <ColorRing
                     visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
                 />
             </div>
         );

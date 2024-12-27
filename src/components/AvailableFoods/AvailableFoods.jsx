@@ -4,7 +4,7 @@
 
 import { useLoaderData } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Blocks } from "react-loader-spinner";
+import { Blocks, ColorRing } from "react-loader-spinner";
 import Food from "../Food/Food";
 import { useEffect, useState } from "react";
 
@@ -62,15 +62,15 @@ const AvailableFoods = () => {
             {/* Show Spinner if Loading */}
             {loading ? (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <Blocks
-                        height="100"
-                        width="100"
-                        color="#4fa94d"
-                        ariaLabel="blocks-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="blocks-wrapper"
-                        visible={true}
-                    />
+                    <ColorRing
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="color-ring-loading"
+  wrapperStyle={{}}
+  wrapperClass="color-ring-wrapper"
+  colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+  />
                 </div>
             ) : (
                 <>

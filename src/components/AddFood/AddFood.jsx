@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
-import { Blocks } from 'react-loader-spinner';
+import { Blocks, ColorRing } from 'react-loader-spinner';
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 
@@ -113,13 +113,15 @@ const AddFood = () => {
             </Helmet>
             {isLoading && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <Blocks
-                        height="100"
-                        width="100"
-                        color="#4fa94d"
-                        ariaLabel="blocks-loading"
-                        visible={true}
-                    />
+                    <ColorRing
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="color-ring-loading"
+  wrapperStyle={{}}
+  wrapperClass="color-ring-wrapper"
+  colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+  />
                 </div>
             )}
             <h1 className="text-5xl text-fuchsia-700 ">Add Food</h1>
