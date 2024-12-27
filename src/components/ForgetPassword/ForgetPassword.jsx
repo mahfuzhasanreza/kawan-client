@@ -28,7 +28,7 @@ const ForgetPassword = () => {
                 <title>Reset Password | Eco-Adventure</title>
             </Helmet>
             <ToastContainer />
-            <h1 className="text-3xl font-bold mb-5">Reset Your Password</h1>
+            <h1 className="text-3xl  mb-5">Reset Your Password</h1>
             <form className="card bg-white shadow-xl w-96 p-5 space-y-5">
                 <div className="form-control">
                     <label className="label">
@@ -44,7 +44,7 @@ const ForgetPassword = () => {
                     />
 
                 </div>
-                <button type="submit" className="btn btn-primary bg-orange-700 hover:bg-orange-500 text-white w-full">
+                <button type="submit" className="btn btn-primary bg-fuchsia-700 hover:bg-fuchsia-500 text-white w-full">
                     Reset Password
                 </button>
             </form>

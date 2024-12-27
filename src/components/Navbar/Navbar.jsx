@@ -26,7 +26,7 @@ const Navbar = () => {
     }, [theme]);
 
     return (
-        <div className={`navbar bg-orange-600 text-white lg:px-10 mx-auto max-w-[5000px]`}>
+        <div className={`navbar bg-fuchsia-600 text-white lg:px-10 mx-auto max-w-[5000px]`}>
             <Toaster />
             <div className="navbar-start">
                 <div className="dropdown">
@@ -108,10 +108,10 @@ const Navbar = () => {
                 ) : (
                     <div className='space-x-4'>
                         <Link to={'/login'}>
-                            <a className="btn border-2 btn-outline font-extrabold hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl px-7 text-lg">Login</a>
+                            <a className="btn border-2 btn-outline  hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl px-7 text-lg">Login</a>
                         </Link>
                         <Link to={'/register'}>
-                            <a className="btn border-2 btn-outline font-extrabold bg-yellow-300 text-gray-700 border-yellow-300 hover:text-yellow-300 hover:bg-transparent hover:border-yellow-300 rounded-3xl px-7 text-lg">Try for free</a>
+                            <a className="btn border-2 btn-outline  bg-yellow-300 text-gray-700 border-yellow-300 hover:text-yellow-300 hover:bg-transparent hover:border-yellow-300 rounded-3xl px-7 text-lg">Register</a>
                         </Link>
                     </div>
                 )}

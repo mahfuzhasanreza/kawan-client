@@ -48,7 +48,7 @@ const FAQSection = () => {
   return (
 
     <div className={`${(theme==='dark') ? 'faq-section py-16': 'faq-section py-16 bg-gray-100'}`}>
-      <h2 className="text-4xl text-center font-bold text-orange-700 mb-8">Frequently Asked Questions</h2>
+      <h2 className="text-4xl text-center  text-fuchsia-700 mb-8">Frequently Asked Questions</h2>
       
       <div className="mx-4 faq-container max-w-4xl lg:mx-auto space-y-4">
         {faqs.map((faq, index) => (

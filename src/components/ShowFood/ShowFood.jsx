@@ -69,7 +69,7 @@ const ShowFood = ({ food, setUserFoods }) => {
             ) : (
                 <button
                     onClick={() => setIsEditing(true)}
-                    className="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    className="px-3 py-2 bg-fuchsia-600 text-white rounded-md hover:bg-fuchsia-700"
                 >
                     Update
                 </button>

@@ -122,26 +122,26 @@ const FoodDetails = () => {
 
                     {/* Details Section */}
                     <div className="flex-1">
-                        <h1 className="text-4xl font-bold text-gray-800 mb-4">Food Name: {foodName}</h1>
+                        <h1 className="text-4xl  text-gray-800 mb-4">Food Name: {foodName}</h1>
                         <p className="mb-2">
-                            <span className="font-bold">Quantity:</span> {foodQuantity}
+                            <span className="">Quantity:</span> {foodQuantity}
                         </p>
                         <p className="mb-2">
-                            <span className="font-bold">Pickup Location:</span> {pickupLocation}
+                            <span className="">Pickup Location:</span> {pickupLocation}
                         </p>
                         <p className="mb-2">
-                            <span className="font-bold">Expire Date:</span> {new Date(expiredDateTime).toLocaleString()}
+                            <span className="">Expire Date:</span> {new Date(expiredDateTime).toLocaleString()}
                         </p>
                         <p className="mb-4">
-                            <span className="font-bold">Additional Notes:</span> {additionalNotes}
+                            <span className="">Additional Notes:</span> {additionalNotes}
                         </p>
                         <p className="mb-4">
-                            <span className="font-bold">Donator:</span> {donatorName} ({donatorEmail})
+                            <span className="">Donator:</span> {donatorName} ({donatorEmail})
                         </p>
 
                         <button
                             onClick={() => setModalOpen(true)}
-                            className="px-5 py-3 bg-orange-600 w-full lg:w-1/2 hover:bg-gray-500 text-white font-semibold rounded-lg"
+                            className="px-5 py-3 bg-fuchsia-600 w-full lg:w-1/2 hover:bg-gray-500 text-white font-semibold rounded-lg"
                         >
                             Request Food
                         </button>
@@ -153,7 +153,7 @@ const FoodDetails = () => {
             {modalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white p-8 rounded-lg shadow-lg w-11/12 lg:w-1/3 max-h-screen overflow-y-auto">
-                        <h2 className="text-2xl font-bold mb-4">Request Food</h2>
+                        <h2 className="text-2xl  mb-4">Request Food</h2>
                         <form onSubmit={handleRequest}>
                             <div className="mb-4">
                                 <label className="block text-gray-700">Food Name:</label>

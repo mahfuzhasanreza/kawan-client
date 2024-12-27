@@ -141,7 +141,7 @@ const UpdateFood = () => {
                     />
                 </div>
             )}
-            <h1 className="text-5xl text-orange-700 font-bold">Update Food</h1>
+            <h1 className="text-5xl text-fuchsia-700 ">Update Food</h1>
             <form onSubmit={handleSubmit} className="mx-auto text-2xl space-y-4 mt-10">
                 <div className="flex flex-col gap-3">
                     <label>Food Name</label>
@@ -207,7 +207,7 @@ const UpdateFood = () => {
                         onChange={handleInputChange}
                     ></textarea>
                 </div>
-                <button className="btn w-full btn-outline text-white bg-orange-700" type="submit">
+                <button className="btn w-full btn-outline text-white bg-fuchsia-700" type="submit">
                     Update Food
                 </button>
             </form>

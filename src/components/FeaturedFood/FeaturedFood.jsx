@@ -17,7 +17,7 @@ const FeaturedFoods = () => {
 
     return (
         <div className="mx-5 mt-4 md:mt-10 lg:mt-36 mb-10 lg:mb-36">
-            <h2 className="mt-10 lg:mt-0 text-4xl md:text-5xl lg:text-6xl text-center font-bold mb-10 lg:mb-20 text-orange-700">
+            <h2 className="mt-10 lg:mt-0 text-4xl md:text-5xl lg:text-6xl text-center  mb-10 lg:mb-20 text-fuchsia-700">
                 Featured Foods
             </h2>
 
@@ -40,7 +40,7 @@ const FeaturedFoods = () => {
             {/* Show All Button */}
             <div className="text-center mt-8">
                 <Link to="/available-foods">
-                    <button className="btn bg-orange-700 text-white border-orange-700 rounded-full px-8 py-2">
+                    <button className="btn bg-fuchsia-700 text-white border-fuchsia-700 rounded-full px-8 py-2">
                         Show All
                     </button>
                 </Link>

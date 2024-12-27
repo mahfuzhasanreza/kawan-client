@@ -44,12 +44,12 @@ const MyFoodRequest = () => {
                 </div>
             )}
 
-            <h1 className="text-5xl text-orange-700 font-bold mb-8">My Food Requests</h1>
+            <h1 className="text-5xl text-fuchsia-700  mb-8">My Food Requests</h1>
 
             {foodRequests.length > 0 ? (
                 <div className="overflow-x-auto shadow-lg rounded-lg">
                     <table className="min-w-full bg-white border-separate border border-gray-200 rounded-lg">
-                        <thead className="bg-orange-500 text-white">
+                        <thead className="bg-fuchsia-500 text-white">
                             <tr>
                                 <th className="px-6 py-3 text-left">Food Name</th>
                                 <th className="px-6 py-3 text-left">Donator Name</th>

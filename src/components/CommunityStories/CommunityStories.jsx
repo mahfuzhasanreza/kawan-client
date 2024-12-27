@@ -22,7 +22,7 @@ const CommunityStories = () => {
   return (
     <section className="mx-5 rounded-lg py-16 bg-gray-50" id="community-stories">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-6 text-orange-700">Heartwarming Stories</h2>
+        <h2 className="text-4xl  mb-6 text-fuchsia-700">Heartwarming Stories</h2>
         <p className="text-lg text-gray-600 mb-10">
           Hear from our amazing community members who are making a difference!
         </p>

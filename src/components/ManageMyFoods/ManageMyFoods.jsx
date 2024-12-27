@@ -75,12 +75,12 @@ const ManageMyFoods = () => {
         </div>
       ) : (
         <>
-          <h2 className="text-3xl lg:text-6xl text-center font-bold mb-10 lg:mb-20 text-orange-700">
+          <h2 className="text-3xl lg:text-6xl text-center  mb-10 lg:mb-20 text-fuchsia-700">
             Manage My Foods
           </h2>
 
           {userFoods.length === 0 ? (
-            <h3 className="text-orange-400 font-bold text-2xl lg:text-4xl my-20 lg:my-32 text-center">
+            <h3 className="text-fuchsia-400  text-2xl lg:text-4xl my-20 lg:my-32 text-center">
               No Foods Added
             </h3>
           ) : (

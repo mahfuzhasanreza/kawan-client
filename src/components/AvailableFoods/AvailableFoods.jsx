@@ -74,7 +74,7 @@ const AvailableFoods = () => {
                 </div>
             ) : (
                 <>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl text-center font-bold mb-10 lg:mb-20 text-orange-700">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl text-center  mb-10 lg:mb-20 text-fuchsia-700">
                         Available Food
                     </h2>
 
@@ -85,19 +85,19 @@ const AvailableFoods = () => {
                             value={searchQuery}
                             onChange={handleSearch}
                             placeholder="Search by food name..."
-                            className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                            className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-fuchsia-500"
                         />
                         <select
                             value={sortOption}
                             onChange={handleSort}
-                            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-fuchsia-500"
                         >
                             <option value="">Sort By</option>
                             <option value="expireDate">Expire Date</option>
                         </select>
                         <button
                             onClick={toggleLayout}
-                            className="px-4 py-2 bg-orange-700 text-white rounded-lg focus:outline-none hover:bg-orange-600"
+                            className="px-4 py-2 bg-fuchsia-700 text-white rounded-lg focus:outline-none hover:bg-fuchsia-600"
                         >
                             Change Layout
                         </button>

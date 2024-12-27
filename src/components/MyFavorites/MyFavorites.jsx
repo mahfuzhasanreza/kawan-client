@@ -45,13 +45,13 @@ const MyFavorite = () => {
             {/* Content */}
             {!isLoading && (
                 <>
-                    <h2 className="text-5xl lg:text-6xl text-center font-bold mb-10 lg:mb-20 text-orange-700">
+                    <h2 className="text-5xl lg:text-6xl text-center  mb-10 lg:mb-20 text-fuchsia-700">
                         My Favorite Movies
                     </h2>
 
                     {loadedMovies.length === 0 ? (
                         <div>
-                            <h3 className="text-orange-400 font-bold text-4xl my-32 text-center">
+                            <h3 className="text-fuchsia-400  text-4xl my-32 text-center">
                                 No Favorite Movie Added
                             </h3>
                         </div>

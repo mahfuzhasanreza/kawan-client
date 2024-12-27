@@ -17,7 +17,7 @@ const Profile = () => {
                 <title>Profile | Kawan</title>
             </Helmet>
 
-            <h1 className="text-3xl font-bold lg:mt-0 mt-10">Welcome, {user.displayName || 'User'}!</h1>
+            <h1 className="text-3xl  lg:mt-0 mt-10">Welcome, {user.displayName || 'User'}!</h1>
 
             <div className="card bg-white shadow-xl w-96 mt-10 p-5">
                 <div className="flex justify-center mb-5">

@@ -28,7 +28,7 @@ const Food = ({ food = {} }) => {
                 <img src={foodImage} className="h-[200px]" alt={foodName} />
             </figure>
             <div className="card-body">
-                <h2 className="text-orange-700 font-bold text-xl">{foodName}</h2>
+                <h2 className="text-fuchsia-700  text-xl">{foodName}</h2>
 
                 <div className="text-lg text-gray-500">
                     <p>Quantity: {foodQuantity}</p>
@@ -38,7 +38,7 @@ const Food = ({ food = {} }) => {
                 </div>
 
                 <Link to={`/food/${_id}`}>
-                    <button className="btn text-orange-700 border-orange-700 rounded-full">
+                    <button className="btn text-fuchsia-700 border-fuchsia-700 rounded-full">
                         See Details
                     </button>
                 </Link>

@@ -15,13 +15,13 @@ const ErrorPage = () => {
             </Helmet>
             <div className="hero-content text-center">
                 <div className="max-w-md">
-                    <h1 className="text-7xl font-bold">404</h1>
+                    <h1 className="text-7xl ">404</h1>
                     <p className="py-6">
                         Oops! This page was not found.
                     </p>
                     <button
                         onClick={goHome}
-                        className="btn btn-primary bg-orange-500 border-none hover:bg-orange-200 mt-4"
+                        className="btn btn-primary bg-fuchsia-500 border-none hover:bg-fuchsia-200 mt-4"
                     >
                         Go Back to Home
                     </button>
