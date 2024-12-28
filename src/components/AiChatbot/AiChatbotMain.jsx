@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import ChatbotIcon from "./ChatbotIcon";
 import ChatForm from "./ChatForm";
 import ChatMessage from "./ChatMessage";
-import { companyInfo } from "../../companyInfo";
+import { kawanInfo } from "../../kawanInfo";
 import './AiChatbotMain.css';
+import AiChatbotSection from "./AiChatbotSection";
 
 const AiChatbotMain = () => {
   const chatBodyRef = useRef();
@@ -12,7 +13,7 @@ const AiChatbotMain = () => {
     {
       hideInChat: true,
       role: "model",
-      text: companyInfo,
+      text: kawanInfo,
     },
   ]);
 
@@ -52,6 +53,10 @@ const AiChatbotMain = () => {
   }, [chatHistory]);
 
   return (
+    <>
+      <AiChatbotSection></AiChatbotSection>
+    
+
     <div className={`container ${showChatbot ? "show-chatbot" : ""}`}>
       <button onClick={() => setShowChatbot((prev) => !prev)} id="chatbot-toggler">
         <span className="material-symbols-rounded">mode_comment</span>
@@ -91,6 +96,7 @@ const AiChatbotMain = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

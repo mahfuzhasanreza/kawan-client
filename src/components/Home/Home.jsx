@@ -10,6 +10,9 @@ import FeaturedFoods from "../FeaturedFood/FeaturedFood";
 import FoodNewsAndBlogs from "../FoodNewsAndBlogs/FoodNewsAndBlogs";
 import CommunityStories from "../CommunityStories/CommunityStories";
 import { PuffLoader } from 'react-spinners';
+import Meditation from "../Meditation/Meditation";
+import EbookAudioBook from "../Audio/EbookAudioBook";
+import BookRead from "../EBook/BookRead/BookRead";
 
 const Home = () => {
     const [loading, setLoading] = useState(true);
@@ -86,6 +89,19 @@ const Home = () => {
             <div data-aos="fade-up">
                 <FAQSection></FAQSection>
             </div>
+
+            <div>
+                <Meditation></Meditation>
+            </div>
+
+            <div>
+                <EbookAudioBook></EbookAudioBook>
+            </div>
+
+            <div>
+                <BookRead></BookRead>
+            </div>
+
         </div>
     );
 };

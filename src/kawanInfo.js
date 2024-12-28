@@ -1,5 +1,5 @@
-// Dummy company information for chabot
-export const companyInfo = `
+// kawan info for chabot
+export const kawanInfo = `
 Introduction:
 I'm your friendly Aroma Beans Coffee chatbot, here to assist you with anything you need related to our coffee shop! Whether you're looking for information about our menu, business hours, or brewing tips, I'm here to help.
 
