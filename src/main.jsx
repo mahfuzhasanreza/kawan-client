@@ -27,6 +27,7 @@ import Books from './components/EBook/Books/Books';
 import BookDetail from './components/EBook/BookDetail/BookDetail';
 import ListedBooks from './components/EBook/ListedBooks/ListedBooks';
 import AiChatbotMain from './components/AiChatbot/AiChatbotMain';
+import AiChatbotSection from './components/AiChatbot/AiChatbotSection';
 
 
 
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'ai-chatbot',
-        element: <AiChatbotMain></AiChatbotMain>
+        element: <AiChatbotSection></AiChatbotSection>
       },
       {
         path: 'books/:bookId',

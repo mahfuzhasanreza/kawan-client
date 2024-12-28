@@ -29,7 +29,7 @@ const AiChatbotSection = () => {
                         <span>Receive recommendations for professional resources when additional help is needed.</span>
                     </li>
                 </ul>
-                <button className="mt-10 px-8 py-3 text-white bg-fuchsia-600 rounded-lg hover:bg-fuchsia-700 transition duration-300">
+                <button className="mb-28 mt-10 px-8 py-3 text-white bg-fuchsia-600 rounded-lg hover:bg-fuchsia-700 transition duration-300">
                     Try the Chatbot Now
                 </button>
             </div>

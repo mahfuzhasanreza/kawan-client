@@ -54,9 +54,6 @@ const AiChatbotMain = () => {
 
   return (
     <>
-      <AiChatbotSection></AiChatbotSection>
-    
-
     <div className={`container ${showChatbot ? "show-chatbot" : ""}`}>
       <button onClick={() => setShowChatbot((prev) => !prev)} id="chatbot-toggler">
         <span className="material-symbols-rounded">mode_comment</span>

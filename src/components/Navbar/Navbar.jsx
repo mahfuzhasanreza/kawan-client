@@ -59,11 +59,11 @@ const Navbar = () => {
                     <img className="hidden md:flex w-16" src={logo} alt="" />
                 </Link>
                 <Link to="/" className="btn btn-ghost text-sm md:text-xl ml-0 lg:ml-5">Kawan</Link>
+            </div>
+            <div className="navbar-end w-full">
                 <Link to="/">
                     <button className="hidden lg:flex btn btn-ghost ml-5">Home</button>
                 </Link>
-            </div>
-            <div className="navbar-end w-full">
                 <Link to="/e-book">
                     <button className="hidden lg:flex btn btn-ghost ml-5 w-full">E-Book</button>
                 </Link>
