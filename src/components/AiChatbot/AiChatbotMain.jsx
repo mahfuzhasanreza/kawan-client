@@ -54,45 +54,55 @@ const AiChatbotMain = () => {
 
   return (
     <>
-    <div className={`container ${showChatbot ? "show-chatbot" : ""}`}>
-      <button onClick={() => setShowChatbot((prev) => !prev)} id="chatbot-toggler">
-        <span className="material-symbols-rounded">mode_comment</span>
-        <span className="material-symbols-rounded">close</span>
-      </button>
+      <div className={`container ${showChatbot ? "show-chatbot" : ""}`}>
+        <button onClick={() => setShowChatbot((prev) => !prev)} id="chatbot-toggler">
+          <span className="material-symbols-rounded">mode_comment</span>
+          <span className="material-symbols-rounded">close</span>
+        </button>
 
-      <div className="chatbot-popup">
-        {/* Chatbot Header */}
-        <div className="chat-header">
-          <div className="header-info">
-            <ChatbotIcon />
-            <h2 className="logo-text">Chatbot</h2>
-          </div>
-          <button onClick={() => setShowChatbot((prev) => !prev)} className="material-symbols-rounded">
-            keyboard_arrow_down
-          </button>
-        </div>
-
-        {/* Chatbot Body */}
-        <div ref={chatBodyRef} className="chat-body">
-          <div className="message bot-message">
-            <ChatbotIcon />
-            <p className="message-text">
-              Hey there  <br /> How can I help you today?
-            </p>
+        <div className="chatbot-popup">
+          {/* Chatbot Header */}
+          <div className="chat-header">
+            <div className="header-info">
+              <ChatbotIcon />
+              <h2 className="logo-text">Chatbot</h2>
+            </div>
+            <button onClick={() => setShowChatbot((prev) => !prev)} className="material-symbols-rounded">
+              keyboard_arrow_down
+            </button>
           </div>
 
-          {/* Render the chat history dynamically */}
-          {chatHistory.map((chat, index) => (
-            <ChatMessage key={index} chat={chat} />
-          ))}
-        </div>
+          {/* Chatbot Body */}
+          <div ref={chatBodyRef} className="chat-body">
+            <div className="message bot-message">
+              <ChatbotIcon />
+              <p className="message-text">
+                Hey there  <br /> How can I help you today?
+              </p>
+            </div>
 
-        {/* Chatbot Footer */}
-        <div className="chat-footer">
-          <ChatForm chatHistory={chatHistory} setChatHistory={setChatHistory} generateBotResponse={generateBotResponse} />
+            {/* Render the chat history dynamically */}
+            {chatHistory.map((chat, index) => (
+              <ChatMessage key={index} chat={chat} />
+            ))}
+          </div>
+
+          {/* Chatbot Footer */}
+          <div className="chat-footer flex">
+            {/* Camera Button */}
+            <div className="mr-2 text-3xl hover:text-[#f762f7] content-center items-center text-[#cc31cc] justify-center">
+              <button
+                className="camera-btn material-symbols-rounded"
+                onClick={() => window.open('http://localhost:8080', '_blank', 'width=800,height=600')}>
+                photo_camera
+              </button>
+            </div>
+            <div className="w-full">
+              <ChatForm chatHistory={chatHistory} setChatHistory={setChatHistory} generateBotResponse={generateBotResponse} />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
