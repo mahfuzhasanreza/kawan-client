@@ -14,7 +14,7 @@
     "aos": "^2.3.4",
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
-    "firebase": "^11.0.2",
+    "firebase": "^11.1.0",
     "jsonwebtoken": "^9.0.2",
     "localforage": "^1.10.0",
     "lottie-react": "^2.4.0",
