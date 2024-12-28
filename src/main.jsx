@@ -23,10 +23,10 @@ import ManageMyFoods from './components/ManageMyFoods/ManageMyFoods';
 import UpdateFood from './components/UpdateFood/UpdateFood';
 import MyFoodRequest from './components/MyFoodRequest/MyFoodRequest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import axios from 'axios';
 import Books from './components/EBook/Books/Books';
 import BookDetail from './components/EBook/BookDetail/BookDetail';
 import ListedBooks from './components/EBook/ListedBooks/ListedBooks';
+import AiChatbotMain from './components/AiChatbot/AiChatbotMain';
 
 
 
@@ -54,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: 'e-book',
         element: <Books></Books>
+      },
+      {
+        path: 'ai-chatbot',
+        element: <AiChatbotMain></AiChatbotMain>
       },
       {
         path: 'books/:bookId',

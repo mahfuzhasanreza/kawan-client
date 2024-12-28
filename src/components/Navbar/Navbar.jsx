@@ -67,7 +67,7 @@ const Navbar = () => {
                 <Link to="/e-book">
                     <button className="hidden lg:flex btn btn-ghost ml-5 w-full">E-Book</button>
                 </Link>
-                <Link to="/">
+                <Link to="/ai-chatbot">
                     <button className="hidden lg:flex btn btn-ghost ml-5 w-full">AI ChatBot</button>
                 </Link>
                 <Link to={`/`}>
