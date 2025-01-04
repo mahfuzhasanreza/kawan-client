@@ -1,4 +1,3 @@
-
 import {
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
@@ -10,7 +9,6 @@ import {
 } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import { auth } from '../firebase.init';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 
 export const AuthContext = createContext(null);
@@ -21,7 +19,6 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [theme, setTheme] = useState('light');
-
 
     const createUser = async (email, password, displayName = '', photoURL = '') => {
         setLoading(true);
@@ -87,7 +84,6 @@ const AuthProvider = ({ children }) => {
                 throw error;
             });
     };
-    
 
     const signOutUser = () => {
         setLoading(true);
@@ -99,27 +95,8 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-            // console.log('Current User:', currentUser);
             setUser(currentUser);
-
-            if (currentUser?.email) {
-                const user = { email: currentUser.email };
-
-                axios.post('https://a10-server-seven.vercel.app/jwt', user, { withCredentials: true })
-                    .then(res => {
-                   //     console.log("Login", res.data);
-                        setLoading(false);
-                    })
-            }
-            else {
-                axios.post('https://a10-server-seven.vercel.app/logout', {}, {
-                    withCredentials: true
-                })
-                    .then(res => {
-                   //     console.log('Logout', res.data);
-                        setLoading(false);
-                    })
-            }
+            setLoading(false);
         });
 
         return () => {

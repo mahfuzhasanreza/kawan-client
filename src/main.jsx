@@ -37,7 +37,6 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
-        loader: () => fetch('https://a10-server-seven.vercel.app/available-foods'),
       },
       {
         path: 'login',
@@ -69,21 +68,21 @@ const router = createBrowserRouter([
       },
       {
         path: 'books/:id',
-        element: <BookDetail></BookDetail>,
+        element: <PrivateRoute><BookDetail></BookDetail></PrivateRoute>,
         loader: () => fetch(`https://kawan.onrender.com/api/v1/ebook`)
       },
       {
         path: 'book-read-listen/:id',
-        element: <ReadListen></ReadListen>,
+        element: <PrivateRoute><ReadListen></ReadListen></PrivateRoute>,
         loader: () => fetch(`https://kawan.onrender.com/api/v1/ebook`)
       },
       {
         path: 'b1',
-        element: <B1></B1>
+        element: <PrivateRoute><B1></B1></PrivateRoute>
       },
       {
         path: 'b2',
-        element: <B2></B2>
+        element: <PrivateRoute><B2></B2></PrivateRoute>
       }
     ]
   },
