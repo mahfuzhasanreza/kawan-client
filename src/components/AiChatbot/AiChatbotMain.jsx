@@ -5,6 +5,7 @@ import ChatMessage from "./ChatMessage";
 import { kawanInfo } from "../../kawanInfo";
 import './AiChatbotMain.css';
 import AiChatbotSection from "./AiChatbotSection";
+import { Helmet } from "react-helmet-async";
 
 const AiChatbotMain = () => {
   const chatBodyRef = useRef();
@@ -54,6 +55,9 @@ const AiChatbotMain = () => {
 
   return (
     <>
+      <Helmet>
+        <title>AI ChatBot | Kawan</title>
+      </Helmet>
       <div className={`container ${showChatbot ? "show-chatbot" : ""}`}>
         <button onClick={() => setShowChatbot((prev) => !prev)} id="chatbot-toggler">
           <span className="material-symbols-rounded">mode_comment</span>

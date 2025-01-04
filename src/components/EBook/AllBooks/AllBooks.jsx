@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Book from '../Book/Book';
+import { Helmet } from 'react-helmet-async';
 
 const AllBooks = () => {
     const [books, setBooks] = useState([]);
@@ -21,6 +22,9 @@ const AllBooks = () => {
 
     return (
         <div className='w-3/4 mx-auto mt-10'>
+            <Helmet>
+                <title>All e-Book | Kawan</title>
+            </Helmet>
             <h2 className="text-4xl font-bold text-center text-purple-400">All Books</h2>
 
             {/* Search input */}
