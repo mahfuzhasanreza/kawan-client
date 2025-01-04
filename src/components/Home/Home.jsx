@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
-import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
+import UpcomingEvents from "../HowKawanWorks/HowKawanWorks";
 import FAQSection from "../FAQSecton/FAQSection";
 import { ColorRing } from "react-loader-spinner"; // Ensure this package is installed
 import FoodNewsAndBlogs from "../FoodNewsAndBlogs/FoodNewsAndBlogs";
@@ -47,14 +47,6 @@ const Home = () => {
             <Helmet>
                 <title>Home | Kawan</title>
             </Helmet>
-
-            <div data-aos="fade-down">
-                <BookRead></BookRead>
-            </div>
-
-            <div data-aos="fade-up">
-                <UpcomingEvents></UpcomingEvents>
-            </div>
 
             <div data-aos="fade-down">
                 <CommunityStories></CommunityStories>
