@@ -1,15 +1,12 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
 import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
 import FAQSection from "../FAQSecton/FAQSection";
-import {  ColorRing } from "react-loader-spinner"; // Ensure this package is installed
+import { ColorRing } from "react-loader-spinner"; // Ensure this package is installed
 import FoodNewsAndBlogs from "../FoodNewsAndBlogs/FoodNewsAndBlogs";
 import CommunityStories from "../CommunityStories/CommunityStories";
-
-import Meditation from "../Meditation/Meditation";
-import EbookAudioBook from "../Audio/EbookAudioBook";
 import BookRead from "../EBook/BookRead/BookRead";
 
 const Home = () => {
@@ -51,58 +48,27 @@ const Home = () => {
                 <title>Home | Kawan</title>
             </Helmet>
 
-            {/* Banner Section */}
-            {/* <div data-aos="fade-down">
-                <Banner />
-            </div>
-
-            <div data-aos="fade-up">
-                <FeaturedFoods></FeaturedFoods>
-            </div>
-
-            <div data-aos="fade-up">
-                <FoodNewsAndBlogs></FoodNewsAndBlogs>
-            </div>
-
-
-            <div data-aos="fade-up">
-                <CommunityStories></CommunityStories>
-            </div>
-
             <div data-aos="fade-down">
-                <UpcomingEvents></UpcomingEvents>
-            </div> */}
-
-            <div data-aos="fade-up">
-                <FAQSection></FAQSection>
-            </div>
-
-            <div>
-                <Meditation></Meditation>
-            </div>
-
-            <div>
-                <EbookAudioBook></EbookAudioBook>
-            </div>
-
-            <div>
                 <BookRead></BookRead>
             </div>
 
-            <div>
+            <div data-aos="fade-up">
                 <UpcomingEvents></UpcomingEvents>
             </div>
 
-            <div>
+            <div data-aos="fade-down">
                 <CommunityStories></CommunityStories>
             </div>
 
-            <div>
+            <div data-aos="fade-up">
                 <UpcomingEvents></UpcomingEvents>
             </div>
 
-            <div>
+            <div data-aos="fade-down">
                 <FoodNewsAndBlogs></FoodNewsAndBlogs>
+            </div>
+            <div data-aos="fade-up">
+                <FAQSection></FAQSection>
             </div>
 
         </div>
