@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 import banner1 from '../../../assets/book-carousels/banner-1.jpg';
+import banner2 from '../../../assets/book-carousels/banner-2.jpeg';
 import { Link } from "react-router-dom";
 
 function Carousel({ slides }) {
@@ -91,7 +92,7 @@ function Carousel({ slides }) {
 
 const slides = [
     banner1,
-    banner1,
+    banner2,
     banner1,
     banner1,
 ];
