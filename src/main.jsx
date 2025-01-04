@@ -15,16 +15,9 @@ import Register from './components/Register/Register';
 import AuthProvider from './providers/AuthProvider';
 import PrivateRoute from './routes/PrivateRoute';
 import Profile from './components/Profile/Profile';
-import AddFood from './components/AddFood/AddFood';
-import AvailableFoods from './components/AvailableFoods/AvailableFoods';
-import FoodDetails from './components/FoodDetails/FoodDetails';
 import ForgetPassword from './components/ForgetPassword/ForgetPassword';
-import ManageMyFoods from './components/ManageMyFoods/ManageMyFoods';
-import UpdateFood from './components/UpdateFood/UpdateFood';
-import MyFoodRequest from './components/MyFoodRequest/MyFoodRequest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import BookDetail from './components/EBook/BookDetail/BookDetail';
-import ListedBooks from './components/EBook/ListedBooks/ListedBooks';
 import AiChatbotSection from './components/AiChatbot/AiChatbotSection';
 import BookDashboard from './components/EBook/BookDashboard/BookDashboard';
 import AllBooks from './components/EBook/AllBooks/AllBooks';
@@ -63,46 +56,12 @@ const router = createBrowserRouter([
         element: <AiChatbotSection></AiChatbotSection>
       },
       {
-        path: 'listedBooks',
-        element: <ListedBooks></ListedBooks>,
-        // worst way to load some data.
-        loader: () => fetch('/booksData.json') // do not load all data for some
-      },
-      {
         path: 'profile',
         element: <PrivateRoute><Profile></Profile></PrivateRoute>
       },
       {
-        path: 'add-food',
-        element: <PrivateRoute><AddFood></AddFood></PrivateRoute>
-      },
-      {
-        path: 'available-foods',
-        element: <AvailableFoods></AvailableFoods>,
-        loader: () => fetch('https://a10-server-seven.vercel.app/available-foods')
-      },
-      {
-        path: 'food/:id',
-        element: <PrivateRoute><FoodDetails></FoodDetails></PrivateRoute>,
-        loader: ({ params }) => fetch(`https://a10-server-seven.vercel.app/food/${params.id}`), 
-      },
-      {
-        path: 'update-food/:id',
-        element: <PrivateRoute><UpdateFood></UpdateFood></PrivateRoute>,
-        loader: ({ params }) => fetch(`https://a10-server-seven.vercel.app/update-food/${params.id}`)
-      },
-      {
         path: 'forget-password',
         element: <ForgetPassword></ForgetPassword>,
-      },
-      {
-        path: 'manage-foods',
-        element: <PrivateRoute><ManageMyFoods></ManageMyFoods></PrivateRoute>,
-        loader: () => fetch(`https://a10-server-seven.vercel.app/food`)
-      },
-      {
-        path: 'my-food-request',
-        element: <PrivateRoute><MyFoodRequest></MyFoodRequest></PrivateRoute>,
       },
       {
         path: 'books',

@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import Banner from "../Banner/Banner";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
 import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
 import FAQSection from "../FAQSecton/FAQSection";
-import { Blocks, ColorRing, RotatingLines } from "react-loader-spinner"; // Ensure this package is installed
-import FeaturedFoods from "../FeaturedFood/FeaturedFood";
+import {  ColorRing } from "react-loader-spinner"; // Ensure this package is installed
 import FoodNewsAndBlogs from "../FoodNewsAndBlogs/FoodNewsAndBlogs";
 import CommunityStories from "../CommunityStories/CommunityStories";
-import { PuffLoader } from 'react-spinners';
+
 import Meditation from "../Meditation/Meditation";
 import EbookAudioBook from "../Audio/EbookAudioBook";
 import BookRead from "../EBook/BookRead/BookRead";
@@ -33,17 +31,6 @@ const Home = () => {
 
     if (loading) {
         return (
-            // <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            //     <Blocks
-            //         height="100"
-            //         width="100"
-            //         color="#4fa94d"
-            //         ariaLabel="blocks-loading"
-            //         wrapperStyle={{}}
-            //         wrapperClass="blocks-wrapper"
-            //         visible={true}
-            //     />
-            // </div>
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50  z-50">
                 <ColorRing
                     visible={true}
@@ -100,6 +87,22 @@ const Home = () => {
 
             <div>
                 <BookRead></BookRead>
+            </div>
+
+            <div>
+                <UpcomingEvents></UpcomingEvents>
+            </div>
+
+            <div>
+                <CommunityStories></CommunityStories>
+            </div>
+
+            <div>
+                <UpcomingEvents></UpcomingEvents>
+            </div>
+
+            <div>
+                <FoodNewsAndBlogs></FoodNewsAndBlogs>
             </div>
 
         </div>

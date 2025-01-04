@@ -1,23 +1,24 @@
 import React from 'react';
+import female from '../../assets/community-stories/female.jpg'
 
 const CommunityStories = () => {
   const stories = [
     {
-      name: "John Doe",
-      story: "I donated surplus food from my bakery, helping 50 families in need. FoodLink made it so easy to give back to the community.",
-      image: "      https://i.ibb.co.com/CPCDvg3/three.jpg",
+      name: "Amina Rahman",
+      story: "KAWAN helped me find emotional support during a challenging period in my life. The personalized advice and resources helped me feel heard and understood.",
+      image: female,
     },
     {
-      name: "Sarah Smith",
-      story: "During a tough time, I was able to find meals for my family through FoodLink. The kindness and support are unmatched.",
-      image: "https://i.ibb.co.com/5c63RGr/two.jpg", 
+      name: "Zahid Hasan",
+      story: "Using KAWAN, I discovered valuable self-help tools that allowed me to improve my mental well-being. It's a supportive and empowering platform.",
+      image: "https://i.ibb.co/kawan-image2.jpg",
     },
     {
-      name: "Michael Johnson",
-      story: "FoodLink connected me with a local community of food donors, allowing me to share extra food with families struggling to make ends meet.",
-      image: "https://i.ibb.co.com/CbGHyxv/one.jpg", 
+      name: "Raisa Begum",
+      story: "KAWAN was my companion when I needed guidance. The mental health tips and community support gave me the confidence to overcome personal struggles.",
+      image: "https://i.ibb.co/kawan-image3.jpg",
     },
-  ];
+  ];  
 
   return (
     <section className="mx-5 rounded-lg py-16 bg-gray-50" id="community-stories">
