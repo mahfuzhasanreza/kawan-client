@@ -23,10 +23,11 @@ import ManageMyFoods from './components/ManageMyFoods/ManageMyFoods';
 import UpdateFood from './components/UpdateFood/UpdateFood';
 import MyFoodRequest from './components/MyFoodRequest/MyFoodRequest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Books from './components/EBook/AllBooks/AllBooks';
 import BookDetail from './components/EBook/BookDetail/BookDetail';
 import ListedBooks from './components/EBook/ListedBooks/ListedBooks';
 import AiChatbotSection from './components/AiChatbot/AiChatbotSection';
+import BookDashboard from './components/EBook/BookDashboard/BookDashboard';
+import AllBooks from './components/EBook/AllBooks/AllBooks';
 
 
 const queryClient = new QueryClient();
@@ -52,16 +53,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'e-book',
-        element: <Books></Books>
+        element: <BookDashboard></BookDashboard>
       },
       {
         path: 'ai-chatbot',
         element: <AiChatbotSection></AiChatbotSection>
-      },
-      {
-        path: 'books/:bookId',
-        element: <BookDetail></BookDetail>,
-        loader: () => fetch('/booksData.json') // do not load all the books for one book.
       },
       {
         path: 'listedBooks',
@@ -104,6 +100,15 @@ const router = createBrowserRouter([
       {
         path: 'my-food-request',
         element: <PrivateRoute><MyFoodRequest></MyFoodRequest></PrivateRoute>,
+      },
+      {
+        path: 'books',
+        element: <AllBooks></AllBooks>
+      },
+      {
+        path: 'books/:id',
+        element: <BookDetail></BookDetail>,
+        loader: () => fetch(`https://kawan.onrender.com/api/v1/ebook`)
       }
     ]
   },

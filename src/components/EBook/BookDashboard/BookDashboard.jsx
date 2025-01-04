@@ -1,10 +1,12 @@
-import React from 'react';
+import Carousels from "./Carousels";
 
 const BookDashboard = () => {
     return (
-        <div>
-            <h2>Books</h2>
-        </div>
+        <>
+            <header>
+                <Carousels></Carousels>
+            </header>
+        </>
     );
 };
 
