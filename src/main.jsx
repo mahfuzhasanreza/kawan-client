@@ -28,6 +28,9 @@ import ListedBooks from './components/EBook/ListedBooks/ListedBooks';
 import AiChatbotSection from './components/AiChatbot/AiChatbotSection';
 import BookDashboard from './components/EBook/BookDashboard/BookDashboard';
 import AllBooks from './components/EBook/AllBooks/AllBooks';
+import ReadListen from './components/EBook/ReadListen/ReadListen';
+import B1 from './components/EBook/Chapter/B1';
+import B2 from './components/EBook/Chapter/B2';
 
 
 const queryClient = new QueryClient();
@@ -109,6 +112,19 @@ const router = createBrowserRouter([
         path: 'books/:id',
         element: <BookDetail></BookDetail>,
         loader: () => fetch(`https://kawan.onrender.com/api/v1/ebook`)
+      },
+      {
+        path: 'book-read-listen/:id',
+        element: <ReadListen></ReadListen>,
+        loader: () => fetch(`https://kawan.onrender.com/api/v1/ebook`)
+      },
+      {
+        path: 'b1',
+        element: <B1></B1>
+      },
+      {
+        path: 'b2',
+        element: <B2></B2>
       }
     ]
   },
