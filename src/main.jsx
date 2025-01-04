@@ -23,12 +23,10 @@ import ManageMyFoods from './components/ManageMyFoods/ManageMyFoods';
 import UpdateFood from './components/UpdateFood/UpdateFood';
 import MyFoodRequest from './components/MyFoodRequest/MyFoodRequest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Books from './components/EBook/Books/Books';
+import Books from './components/EBook/AllBooks/AllBooks';
 import BookDetail from './components/EBook/BookDetail/BookDetail';
 import ListedBooks from './components/EBook/ListedBooks/ListedBooks';
-import AiChatbotMain from './components/AiChatbot/AiChatbotMain';
 import AiChatbotSection from './components/AiChatbot/AiChatbotSection';
-
 
 
 const queryClient = new QueryClient();
