@@ -5,7 +5,7 @@ import "aos/dist/aos.css"; // Import AOS styles
 import UpcomingEvents from "../HowKawanWorks/HowKawanWorks";
 import FAQSection from "../FAQSecton/FAQSection";
 import { ColorRing } from "react-loader-spinner"; // Ensure this package is installed
-import FoodNewsAndBlogs from "../FoodNewsAndBlogs/FoodNewsAndBlogs";
+import FoodNewsAndBlogs from "../KawanNewsAndUpdates/KawanNewsAndUpdates";
 import CommunityStories from "../CommunityStories/CommunityStories";
 import BookRead from "../EBook/BookRead/BookRead";
 
