@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
-import UpcomingEvents from "../HowKawanWorks/HowKawanWorks";
+import HowKawanWorks from "../HowKawanWorks/HowKawanWorks";
 import FAQSection from "../FAQSecton/FAQSection";
 import { ColorRing } from "react-loader-spinner"; // Ensure this package is installed
-import FoodNewsAndBlogs from "../KawanNewsAndUpdates/KawanNewsAndUpdates";
+import KawanNewsAndUpdates from "../KawanNewsAndUpdates/KawanNewsAndUpdates";
 import CommunityStories from "../CommunityStories/CommunityStories";
-import BookRead from "../EBook/BookRead/BookRead";
 
 const Home = () => {
     const [loading, setLoading] = useState(true);
@@ -49,16 +48,20 @@ const Home = () => {
             </Helmet>
 
             <div data-aos="fade-down">
+                <KawanNewsAndUpdates></KawanNewsAndUpdates>
+            </div>
+
+
+            <div data-aos="fade-down">
                 <CommunityStories></CommunityStories>
             </div>
 
             <div data-aos="fade-up">
-                <UpcomingEvents></UpcomingEvents>
+                <HowKawanWorks></HowKawanWorks>
             </div>
 
-            <div data-aos="fade-down">
-                <FoodNewsAndBlogs></FoodNewsAndBlogs>
-            </div>
+
+        
             <div data-aos="fade-up">
                 <FAQSection></FAQSection>
             </div>
