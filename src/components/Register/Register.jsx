@@ -18,11 +18,11 @@ const Register = () => {
     const { signInUser, createUser, signInWithGoogle } = useContext(AuthContext);
 
 
-    const [firstNameValue, setFirstNameValue] = useState('');
-    const [lastNameValue, setLastNameValue] = useState('');
+    const [fullNameValue, setFullNameValue] = useState('');
     const [emailValue, setEmailValue] = useState('');
     const [newPasswordValue, setNewPasswordValue] = useState('');
     const [confirmPasswordValue, setConfirmPasswordValue] = useState('');
+
     const [showPassword, setShowPassword] = useState(false);
 
 
@@ -32,8 +32,9 @@ const Register = () => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
+        const confirmPassword = event.target.confirmPassword.value;
         const name = event.target.name.value;
-        const photo = event.target.photo.value;
+        // const photo = event.target.photo.value;
 
 
         // console.log(email, password, name, photo);
@@ -44,6 +45,12 @@ const Register = () => {
 
         if (password.length < 6) {
             setErrorMessage('Password should be 6 character or longer');
+            toast.error(errorMessage);
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setErrorMessage('Password does not match');
             toast.error(errorMessage);
             return;
         }
@@ -67,7 +74,7 @@ const Register = () => {
 
                 const profile = {
                     displayName: name,
-                    photoURL: photo
+                    // photoURL: photo
                 }
                 updateProfile(auth.currentUser, profile)
                     .then(() => {
@@ -79,7 +86,6 @@ const Register = () => {
                 // event.target.reset();
                 // navigate('/');
                 logInUser(email, password);
-
 
             })
             .catch(error => {
@@ -127,62 +133,34 @@ const Register = () => {
                 <div className="bg-white shadow-lg p-5 rounded-2xl mt-10 mb-10 card w-1/2 max-w-xl shrink-0 content-center mx-auto">
                     <h2 className='text-4xl  mb-5 mx-auto text-black'>Create a new account !</h2>
                     <form onSubmit={handleRegister} className="card-body">
-                        <div className='grid lg:grid-cols-2 gap-3 mb-5'>
-                            {/* First Name  */}
-                            <div className="relative">
-                                <input
-                                    type="text"
-                                    id="first-name"
-                                    placeholder=" "
-                                    name='name'
-                                    value={firstNameValue}
-                                    onChange={(e) => setFirstNameValue(e.target.value)}
-                                    className={`peer input input-bordered w-full h-12 px-3 pt-6 text-gray-700 bg-transparent border rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500 pb-2 ${firstNameValue
-                                        ? 'border-fuchsia-400'
-                                        : ''
-                                        }`}
-                                    required
-                                />
-                                <label
-                                    htmlFor="text"
-                                    className={`absolute left-3 transition-all duration-200 ease-in-out ${firstNameValue
-                                        ? 'top-1 text-xs text-fuchsia-500'
-                                        : 'top-3 text-base text-gray-400'
-                                        } peer-focus:top-1 peer-focus:text-xs peer-focus:text-fuchsia-500`}
-                                >
-                                    First Name
-                                </label>
-                            </div>
 
-                            {/* Last Name */}
-                            <div className="relative">
-                                <input
-                                    type="text"
-                                    id="last-name"
-                                    name='lastName'
-                                    placeholder=" "
-                                    value={lastNameValue}
-                                    onChange={(e) => setLastNameValue(e.target.value)}
-                                    className={`peer input input-bordered w-full h-12 px-3 pt-6 text-gray-700 bg-transparent border rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500 pb-2 ${lastNameValue
-                                        ? 'border-fuchsia-400'
-                                        : ''
-                                        }`}
-                                    required
-                                />
-                                <label
-                                    htmlFor="text"
-                                    className={`absolute left-3 transition-all duration-200 ease-in-out ${lastNameValue
-                                        ? 'top-1 text-xs text-fuchsia-500'
-                                        : 'top-3 text-base text-gray-400'
-                                        } peer-focus:top-1 peer-focus:text-xs peer-focus:text-fuchsia-500`}
-                                >
-                                    Last Name
-                                </label>
-                            </div>
+                        <div className="relative">
+                            <input
+                                type="text"
+                                id="full-name"
+                                placeholder=" "
+                                name='name'
+                                value={fullNameValue}
+                                onChange={(e) => setFullNameValue(e.target.value)}
+                                className={`peer input input-bordered w-full h-12 px-3 pt-6 text-gray-700 bg-transparent border rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500 pb-2 ${fullNameValue
+                                    ? 'border-fuchsia-400'
+                                    : ''
+                                    }`}
+                                required
+                            />
+                            <label
+                                htmlFor="text"
+                                className={`absolute left-3 transition-all duration-200 ease-in-out ${fullNameValue
+                                    ? 'top-1 text-xs text-fuchsia-500'
+                                    : 'top-3 text-base text-gray-400'
+                                    } peer-focus:top-1 peer-focus:text-xs peer-focus:text-fuchsia-500`}
+                            >
+                                First Name
+                            </label>
                         </div>
 
                         {/* Email  */}
-                        <div className="relative">
+                        <div className="relative mt-6">
 
                             <input
                                 type="email"
@@ -248,6 +226,7 @@ const Register = () => {
                                 type={showPassword ? 'text' : 'password'}
                                 id="confirm-password"
                                 placeholder=" "
+                                name='confirmPassword'
                                 value={confirmPasswordValue}
                                 onChange={(e) => setConfirmPasswordValue(e.target.value)}
                                 className={`peer input input-bordered w-full h-12 px-3 pt-6 text-gray-700 bg-transparent border rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500 pb-2 ${confirmPasswordValue ? 'border-fuchsia-400' : ''

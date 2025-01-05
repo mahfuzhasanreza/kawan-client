@@ -67,7 +67,7 @@ function Carousel({ slides }) {
 
 
             <Link className="h-full w-full text-white" to="/books">
-                <button className="absolute top-2/3 left-72 font-semibold bg-fuchsia-600 border-none hover:bg-fuchsia-800 text-white btn">Explore</button>
+                <button className="px-10 text-lg absolute top-2/3 left-60 font-semibold bg-fuchsia-600 border-none hover:bg-fuchsia-800 text-white btn">Explore Now</button>
             </Link>
 
 

@@ -8,7 +8,6 @@ const ErrorPage = () => {
     };
 
     return (
-
         <div className="hero bg-base-200 min-h-screen">
             <Helmet>
                 <title>Error | Kawan</title>
@@ -21,9 +20,9 @@ const ErrorPage = () => {
                     </p>
                     <button
                         onClick={goHome}
-                        className="btn btn-primary bg-fuchsia-500 border-none hover:bg-fuchsia-200 mt-4"
+                        className="font-bold btn btn-primary bg-fuchsia-600 border-none hover:bg-fuchsia-500 mt-4"
                     >
-                        Go Back to Home
+                        Go Back to Kawan
                     </button>
                 </div>
             </div>

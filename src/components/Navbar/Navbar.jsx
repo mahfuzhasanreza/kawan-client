@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -6,6 +6,7 @@ import logo from '../../assets/kawanLogoMsg.png';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { user, signOutUser, theme, setTheme } = useContext(AuthContext);
 
     const userName = user?.displayName;
@@ -62,19 +63,19 @@ const Navbar = () => {
             </div>
             <div className="navbar-end w-full">
                 <Link to="/">
-                    <button className="hidden lg:flex btn btn-ghost ml-5">Home</button>
+                    <button className={`hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/' ? 'text-yellow-300' : ''}`}>Home</button>
                 </Link>
                 <Link to="/e-book">
-                    <button className="hidden lg:flex btn btn-ghost ml-5 w-full">E-Book</button>
+                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/e-book' ? 'text-yellow-300' : ''}`}>E-Book</button>
                 </Link>
                 <Link to="/ai-chatbot">
-                    <button className="hidden lg:flex btn btn-ghost ml-5 w-full">AI ChatBot</button>
+                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/ai-chatbot' ? 'text-yellow-300' : ''}`}>AI ChatBot</button>
                 </Link>
                 <Link to={`/`}>
-                    <button className="hidden lg:flex btn btn-ghost ml-5 w-full">SelfDev Resources</button>
+                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/s' ? 'text-yellow-300' : ''}`}>SelfDev Resources</button>
                 </Link>
-                <Link to={`/`}>
-                    <button className="mr-5 hidden lg:flex btn btn-ghost ml-5">Meditation</button>
+                <Link to={`/m`}>
+                    <button className={`mr-5 hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/m' ? 'text-yellow-300' : ''}`}>Meditation</button>
                 </Link>
 
                 {user ? (

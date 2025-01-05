@@ -25,22 +25,22 @@ const AuthProvider = ({ children }) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const createdUser = userCredential.user;
-    
+
             // Update the profile with display name and photo URL
             if (displayName || photoURL) {
                 await updateProfile(createdUser, { displayName, photoURL });
             }
-    
+
             // Manually set the user to ensure immediate state update
             setUser({
                 ...createdUser,
                 displayName,
                 photoURL,
             });
-    
+
             // Show toast alert for successful registration
             toast.success('Registration successful! Welcome to Kawan.');
-    
+
             setLoading(false);
             return createdUser;
         } catch (error) {
@@ -48,16 +48,16 @@ const AuthProvider = ({ children }) => {
             throw error;
         }
     };
-    
+
     const signInUser = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setUser(userCredential.user); // Ensure user state is updated immediately
-    
+
                 // Show toast alert for successful login
                 toast.success('Login successful! Welcome back to Kawan.');
-    
+
                 setLoading(false);
                 return userCredential.user;
             })
@@ -66,16 +66,16 @@ const AuthProvider = ({ children }) => {
                 throw error;
             });
     };
-    
+
     const signInWithGoogle = () => {
         setLoading(true);
         return signInWithPopup(auth, googleProvider)
             .then((result) => {
                 setUser(result.user); // Update user state for Google login
-    
+
                 // Show toast alert for successful Google login
                 toast.success('Google login successful! Welcome to Kawan.');
-    
+
                 setLoading(false);
                 return result.user;
             })

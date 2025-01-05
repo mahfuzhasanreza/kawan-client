@@ -23,14 +23,14 @@ const AllBooks = () => {
     );
 
     return (
-        <div className='w-3/4 mx-auto mt-10'>
+        <div className='w-3/4 mx-auto mt-20'>
             <Helmet>
                 <title>All e-Book | Kawan</title>
             </Helmet>
-            <h2 className="text-4xl font-bold text-center text-purple-400">All Books</h2>
+            <h2 className="text-5xl font-bold text-center text-purple-800">All Books</h2>
 
             {/* Search input */}
-            <div className="my-4 text-center">
+            <div className="mb-16 my-4 text-center">
                 <input
                     type="text"
                     placeholder="Search by title..."
@@ -54,8 +54,8 @@ const AllBooks = () => {
                     />
                 </div>
             ) : (
-                // Display filtered books once data is loaded
-                <div className='mt-10 mb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+
+                <div className={`mb-20 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10`}>
                     {
                         filteredBooks.map(book => <Book books={book} key={book._id}></Book>)
                     }

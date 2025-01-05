@@ -5,17 +5,17 @@ const Book = ({ books }) => {
     const { _id, title, cover, author, rating, category, quickSummery, aboutAuthor, publishDate, language, audio, book, __v } = books;
 
     return (
-        <Link to={`/books/${_id}`}>
-            <div className="card bg-base-100 w-96 shadow-xl p-6">
-                <figure className='bg-blue-200 py-8 rounded-2xl'>
+        <>
+            <div className="card card-compact bg-base-100 w-full p-5 shadow-xl">
+                <figure className='bg-blue-200 rounded-2xl'>
                     <img
                         src={cover}
-                        className='h-[166px]'
+                        className='h-[200px] object-fill w-full'
                         alt={title} />
                 </figure>
                 <div className="card-body">
                     <div>
-                          <button className="btn btn-xs bg-green-200 text-green-500">{category}</button>
+                        <button className="btn btn-xs bg-green-200 text-green-500">{category}</button>
                     </div>
                     <h2 className="card-title">
                         {title}
@@ -35,9 +35,13 @@ const Book = ({ books }) => {
                             <input type="radio" name="rating-4" className="mask mask-star-2 bg-green-100" />
                         </div>
                     </div>
+
+                    <Link to={`/books/${_id}`}>
+                        <button className="btn text-purple-700 w-full mt-5 ml-0 border-purple-700 rounded-xl ">Explore Now</button>
+                    </Link>
                 </div>
             </div>
-        </Link>
+        </>
     );
 };
 
