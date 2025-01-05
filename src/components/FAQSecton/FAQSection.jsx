@@ -47,7 +47,7 @@ const FAQSection = () => {
   // console.log(theme);
   return (
 
-    <div className={`${(theme === 'dark') ? 'faq-section py-16' : 'faq-section py-16 bg-gray-100'}`}>
+    <div className={`${(theme === 'dark') ? 'faq-section py-16' : 'faq-section pb-16'}`}>
       <h2 className="text-4xl text-center  text-fuchsia-700 mb-10 font-bold">Frequently Asked Questions</h2>
 
       <div className="mx-4 faq-container max-w-4xl lg:mx-auto space-y-4">

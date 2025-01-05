@@ -22,12 +22,17 @@ const CommunityStories = () => {
   ];  
 
   return (
-    <section className="mx-5 rounded-lg py-16 bg-gray-50" id="community-stories">
+    <section className="rounded-bl-[100px] rounded-tr-[100px] mx-5 p-0 pb-16 bg-gray-50" id="community-stories">
+      <div className="mb-16 rounded-tr-[100px] flex flex-col items-center py-5 lg:py-10 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 text-white">
+        <h3 className="text-4xl lg:text-5xl font-bold my-3 lg:my-5">Heartwarming Stories</h3> 
+        <p className="w-4/5 sm:w-2/3 md:w-1/2 text-center"> Hear from our amazing community members who are making a difference!</p>
+      </div>
+
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-6 text-fuchsia-700">Heartwarming Stories</h2>
+        {/* <h2 className="text-4xl font-bold mb-6 text-fuchsia-700">Heartwarming Stories</h2>
         <p className="text-lg text-gray-600 mb-10">
           Hear from our amazing community members who are making a difference!
-        </p>
+        </p> */}
 
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {stories.map((story, index) => (

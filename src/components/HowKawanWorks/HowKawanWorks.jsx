@@ -40,21 +40,25 @@ const HowKawanWorks = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto mt-20 px-4">
-      <h2 className="text-4xl font-bold text-center text-fuchsia-700">How Kawan Works</h2>
-      <div className="space-y-5 my-16">
-        {steps.length > 0 ? (
-          steps.map((step) => (
-            <div key={step.id} className={theme === "light" ? 'bg-white p-6 rounded-lg shadow-md' : 'p-6 rounded-lg shadow-md bg-gray-700'}>
-              <h3 className="text-2xl font-semibold">{step.title}</h3>
-              <p className="text-lg text-gray-700">{step.description}</p>
-            </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">No steps available at the moment.</p>
-        )}
+    <>
+      
+
+      <div className="mt-20 max-w-4xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center text-fuchsia-700">How Kawan Works</h2>
+        <div className="space-y-5 my-16">
+          {steps.length > 0 ? (
+            steps.map((step) => (
+              <div key={step.id} className={theme === "light" ? 'bg-white p-6 rounded-lg shadow-md' : 'p-6 rounded-lg shadow-md bg-gray-700'}>
+                <h3 className="text-2xl font-semibold">{step.title}</h3>
+                <p className="text-lg text-gray-700">{step.description}</p>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No steps available at the moment.</p>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
