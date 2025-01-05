@@ -39,7 +39,7 @@ const Login = () => {
             e.target.reset();
             navigate(location?.state ? location.state : '/');
         } catch (error) {
-            toast.error('Email and Password does not match'); // Trigger toast notification
+            // toast.error('Email and Password does not match'); // Trigger toast notification
         }
     };
 

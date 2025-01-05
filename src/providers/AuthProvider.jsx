@@ -2,6 +2,7 @@ import {
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
     onAuthStateChanged,
+    sendEmailVerification,
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
@@ -25,6 +26,12 @@ const AuthProvider = ({ children }) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const createdUser = userCredential.user;
+
+            // send verification email
+            sendEmailVerification(auth.currentUser)
+                .then(() => {
+                    toast.success('Verification email sent.')
+                })
 
             // Update the profile with display name and photo URL
             if (displayName || photoURL) {
@@ -53,19 +60,34 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                setUser(userCredential.user); // Ensure user state is updated immediately
+                const loggedInUser = userCredential.user;
 
-                // Show toast alert for successful login
-                toast.success('Login successful! Welcome back to Kawan.');
-
+                if (loggedInUser.emailVerified) {
+                    setUser(loggedInUser); // Update user state
+                    toast.success('Login successful! Welcome back to Kawan.');
+                } else {
+                    signOutUser();
+                    throw new Error('Please verify your email before logging in.');
+                }
                 setLoading(false);
-                return userCredential.user;
+                return loggedInUser;
             })
             .catch((error) => {
                 setLoading(false);
+                // console.log(error.code);
+                if (error.message === 'Please verify your email before logging in.') {
+                    toast.error(error.message);
+                    sendEmailVerification(auth.currentUser)
+                        .then(() => {
+                        })
+                }
+                else {
+                    toast.error('Email and Password does not match.'); // Display generic error message
+                }
                 throw error;
             });
     };
+
 
     const signInWithGoogle = () => {
         setLoading(true);
