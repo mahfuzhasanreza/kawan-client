@@ -8,6 +8,7 @@ import { ColorRing } from "react-loader-spinner"; // Ensure this package is inst
 import KawanNewsAndUpdates from "../KawanNewsAndUpdates/KawanNewsAndUpdates";
 import CommunityStories from "../CommunityStories/CommunityStories";
 import WhyChooseKawan from "../WhyChooseKawan/WhyChooseKawan";
+import Banner from "../Banner/Banner";
 
 const Home = () => {
     const [loading, setLoading] = useState(true);
@@ -47,6 +48,10 @@ const Home = () => {
             <Helmet>
                 <title>Home | Kawan</title>
             </Helmet>
+
+            <div>
+                <Banner></Banner>
+            </div>
 
             <div data-aos="fade-down">
                 <KawanNewsAndUpdates></KawanNewsAndUpdates>
