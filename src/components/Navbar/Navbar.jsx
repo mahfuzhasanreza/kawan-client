@@ -79,21 +79,33 @@ const Navbar = () => {
 
                 {user ? (
                     <>
-                        <div>
-                            <Link to='/profile'>
+                        <>
+                            <div className="relative group">
                                 <img
+                                    // onClick={handleProfileClick}
                                     src={user.photoURL || ""}
                                     className="h-12 w-12 rounded-full mr-8 cursor-pointer"
                                     alt="User Profile"
                                 />
-                            </Link>
-                        </div>
-                        <button
-                            onClick={handleSignOutUser}
-                            className="ml-2 btn text-white btn-outline"
-                        >
-                            Logout
-                        </button>
+                                {/* Hover effect to show displayName */}
+                                <span className="w-48 z-20 absolute bottom-[-9rem] transform -translate-x-1/2 text-white text-sm bg-black lg:px-2 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-y-2">
+                                    <Link to='/profile'>
+                                        <p className="justify-start w-full hover:bg-gray-600 btn lg:btn-md btn-outline border-none text-white">
+                                            {user.displayName || "Anonymous User"}
+                                        </p>
+                                    </Link>
+                                    <hr className="w-5/6 border-gray-400 mx-auto"/>
+                                    <button
+                                        onClick={handleSignOutUser}
+                                        className="justify-start w-full btn text-white btn-outline border-none hover:bg-gray-600"
+                                    >
+                                        Logout
+                                    </button>
+                                </span>
+
+                            </div>
+
+                        </>
                     </>
                 ) : (
                     <div className='space-x-4'>
