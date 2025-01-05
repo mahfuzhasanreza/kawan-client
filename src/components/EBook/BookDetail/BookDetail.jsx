@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLoaderData, useParams } from 'react-router-dom';
-import { addToStoredReadList, addToStoredWishList } from '../../../utility/addToDb';
 import { Helmet } from 'react-helmet-async';
+import { ColorRing } from 'react-loader-spinner'; // Import the ColorRing component
 
 const BookDetail = () => {
-
     const { id } = useParams();
-    // console.log(id);
     const loaderData = useLoaderData();
     const data = loaderData.data;
-    // console.log(data);
+    const [loading, setLoading] = useState(true); // Set the initial loading state to true
 
-    console.log(typeof id, typeof data[0]._id);
+    useEffect(() => {
+        // Simulate a delay (you can remove this if your data is loading from an API)
+        setTimeout(() => {
+            setLoading(false); // Set loading to false once the data is fetched or processed
+        }, 2000); // Simulate a 2-second delay for loading data
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <ColorRing
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                />
+            </div>
+        );
+    }
 
     const bookDetails = data.find(book => book._id === id);
-    // console.log(book);
-
     const { _id, title, cover, author, rating, category, quickSummery, aboutAuthor, publishDate, language, audio, book, __v } = bookDetails;
 
     return (
@@ -26,7 +43,6 @@ const BookDetail = () => {
             <div className='ml-40 grid grid-cols-2'>
                 <div className='space-y-4'>
                     <img className='w-2/5' src={cover} alt="" />
-
                     <h2 className="card-title">
                         {title}
                         <div className="badge badge-secondary">NEW</div>
@@ -50,8 +66,6 @@ const BookDetail = () => {
                         </p>
                         <p className='text-gray-600'>Author Details: {aboutAuthor}</p>
                     </div>
-
-                    {/* chapter details */}
                     <div className='space-y-5 gap-5'>
                         <Link to={`/b1`}>
                             <button className='mb-5 btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-black'>Chapter 1</button>
@@ -64,7 +78,6 @@ const BookDetail = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };
