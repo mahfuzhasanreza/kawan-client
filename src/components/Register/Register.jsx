@@ -9,6 +9,8 @@ import { Helmet } from 'react-helmet-async';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FcGoogle } from 'react-icons/fc';
+import Lottie from "lottie-react";
+import registerLottieData from '../../assets/lottie/register.json';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -115,20 +117,14 @@ const Register = () => {
             <ToastContainer />
 
 
-            <div className="w-10/12 lg:flex bg-white shadow-2xl p-5 rounded-2xl mx-auto mt-20">
-                {/* <div style={{ backgroundImage: `url(${``})` }} className='rounded-xl w-1/2 bg-cover bg-center content-center'>
-                    <div className='bg-gray-950 bg-opacity-20 w-full h-full content-center rounded-2xl'>
-                        <div className="text-center space-y-5">
-                            <h2 className='text-white text-opacity-90  text-6xl'>Start Your Journey</h2>
-                            <p className='text-gray-400 text-4xl'>Move Towards Light</p>
-                        </div>
-                    </div>
-                </div> */}
+            <div className="w-10/12 lg:flex mx-auto mt-20">
 
-                
+                <div className="mx-auto w-2/5">
+                    <Lottie animationData={registerLottieData}></Lottie>
+                </div>
 
 
-                <div className="mt-10 mb-10 card w-1/2 max-w-xl shrink-0 content-center mx-auto">
+                <div className="bg-white shadow-lg p-5 rounded-2xl mt-10 mb-10 card w-1/2 max-w-xl shrink-0 content-center mx-auto">
                     <h2 className='text-4xl  mb-5 mx-auto text-black'>Create a new account !</h2>
                     <form onSubmit={handleRegister} className="card-body">
                         <div className='grid lg:grid-cols-2 gap-3 mb-5'>
@@ -187,7 +183,7 @@ const Register = () => {
 
                         {/* Email  */}
                         <div className="relative">
-                    
+
                             <input
                                 type="email"
                                 id="email"
@@ -293,7 +289,7 @@ const Register = () => {
                         Sign up with Google
                     </button>
                     <div className='mx-auto mt-8 font-medium'>
-                        <p>Don't haven an account? <span><Link to={'/signin'} className='hover:underline text-fuchsia-700 font-medium'>Login here</Link></span> </p>
+                        <p>Don't haven an account? <span><Link to={'/login'} className='hover:underline text-fuchsia-700 font-medium'>Login here</Link></span> </p>
                     </div>
                 </div>
             </div>
