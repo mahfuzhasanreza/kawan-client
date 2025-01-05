@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Carousels from "./Carousels";
+import AllBooks from "../AllBooks/AllBooks";
 
 const BookDashboard = () => {
     return (
@@ -10,6 +11,9 @@ const BookDashboard = () => {
             <header>
                 <Carousels></Carousels>
             </header>
+            <main>
+                <AllBooks></AllBooks>
+            </main>
         </>
     );
 };
