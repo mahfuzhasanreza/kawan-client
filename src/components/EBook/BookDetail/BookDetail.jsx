@@ -68,13 +68,13 @@ const BookDetail = () => {
                     </div>
                     <div className='space-y-5 gap-5'>
                         <Link to={`/b1`}>
-                            <button className='mb-5 btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-black'>Chapter 1</button>
+                            <button className='mb-5 btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-white'>Chapter 1</button>
                         </Link>
                         <Link to={`/b2`}>
-                            <button className='btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-black'>Chapter 2</button>
+                            <button className='btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-white'>Chapter 2</button>
                         </Link>
-                        <button className='btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-black'>Chapter 3</button>
-                        <button className='btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-black'>Chapter 4</button>
+                        <button className='btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-white'>Chapter 3</button>
+                        <button className='btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-white'>Chapter 4</button>
                     </div>
                 </div>
             </div>

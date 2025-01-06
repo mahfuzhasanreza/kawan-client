@@ -1,5 +1,6 @@
 import Lottie from 'lottie-react';
 import bannerLottieData from '../../assets/lottie/banner.json';
+import { TypeAnimation } from 'react-type-animation';
 
 const Banner = () => {
     return (
@@ -12,20 +13,36 @@ const Banner = () => {
                 position: 'relative',
             }}
         >
-            <div className='content-center mx-auto z-10'>
-                <p className='text-gray-400 text-md mb-3'>Mental Health Support</p>
-                <h2 className='text-6xl font-bold text-white'>
-                    Revitalize Your Mental Health <br />
-                    <div className='mt-5'>
+            <div className='content-center mt-20 mx-auto z-10'>
+                <p className='text-gray-300 font-mono text-md mb-5'>MENTAL HEALTH & SELF-DEVELOPMENT SUPPORT</p>
+                <div className='flex'>
+                    <h2 className='text-6xl font-bold text-white'>
+                        Revitalize Your
+                    </h2>
+                    <h2 className='ml-3 text-6xl font-bold text-white'>
+                        <TypeAnimation
+                            sequence={[
+                                'Mental Health',
+                                2000,
+                                'Personal Growth',
+                                2000,
+                            ]}
+                            repeat={Infinity}
+                        />
+                    </h2>
+                </div>
+                <div className='content-center mx-auto z-10'>
+                    <h2 className='mt-5 text-6xl font-bold text-white'>
                         with
-                        <span className='ml-2 text-purple-900 bg-yellow-500 rounded-tr-full rounded-bl-full px-10'>KAWAN</span>
-                    </div>
-                </h2>
-                <p className='text-gray-400 text-lg mt-7 mb-24'>
-                Kawan is your trusted companion for mental health and self-development, designed 
-        
-                to empower individuals on their
-                <br /> journey to emotional well-being.
+                        <span className='border-b-4 border-fuchsia-600 ml-2 text-fuchsia-900 bg-yellow-500 rounded-tr-full rounded-bl-full px-10'>KAWAN</span>
+                    </h2>
+                </div>
+
+                <p className='text-gray-300 text-lg mt-10 mb-24'>
+                    Kawan is your trusted companion for mental health and self-development, designed
+
+                    to empower individuals on their
+                    <br /> journey to emotional well-being.
                 </p>
             </div>
             <div className='w-1/3 z-10'>

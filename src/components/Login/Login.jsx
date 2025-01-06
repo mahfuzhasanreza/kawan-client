@@ -155,7 +155,7 @@ const Login = () => {
                         <button onClick={handleGoogleLogin}
                             className='btn btn-outline mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-fuchsia-200 hover:border-fuchsia-200 hover:text-black'>
                             <FcGoogle className='text-4xl'></FcGoogle>
-                            Sign up with Google</button>
+                            Sign In with Google</button>
                         <div className='mx-auto mt-8 font-medium'>
                             <p>Don't haven an account? <span><Link to={'/register'} className='hover:underline text-fuchsia-700 font-medium'>Register here</Link></span> </p>
                         </div>
