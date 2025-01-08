@@ -11,37 +11,37 @@ import WhyChooseKawan from "../WhyChooseKawan/WhyChooseKawan";
 import Banner from "../Banner/Banner";
 
 const Home = () => {
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        AOS.init({
-            duration: 1000,
-            once: true,
-        });
+    // useEffect(() => {
+    //     AOS.init({
+    //         duration: 1000,
+    //         once: true,
+    //     });
 
 
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 2000);
+    //     const timer = setTimeout(() => {
+    //         setLoading(false);
+    //     }, 2000);
 
-        return () => clearTimeout(timer);
-    }, []);
+    //     return () => clearTimeout(timer);
+    // }, []);
 
-    if (loading) {
-        return (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50  z-50">
-                <ColorRing
-                    visible={true}
-                    height="80"
-                    width="80"
-                    ariaLabel="color-ring-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="color-ring-wrapper"
-                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-                />
-            </div>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50  z-50">
+    //             <ColorRing
+    //                 visible={true}
+    //                 height="80"
+    //                 width="80"
+    //                 ariaLabel="color-ring-loading"
+    //                 wrapperStyle={{}}
+    //                 wrapperClass="color-ring-wrapper"
+    //                 colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+    //             />
+    //         </div>
+    //     );
+    // }
 
     return (
         <div>

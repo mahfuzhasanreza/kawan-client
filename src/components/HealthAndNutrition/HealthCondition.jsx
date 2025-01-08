@@ -5,7 +5,7 @@ import Lottie from "lottie-react";
 const HealthCondition = () => {
     const [meal, setMeal] = useState({
         havingMeal: "",
-        havingFood: ["", ""],
+        havingFood: "",
         mealDate: "",
     });
     const [isFoodDropdownOpen, setIsFoodDropdownOpen] = useState(false);
@@ -34,7 +34,7 @@ const HealthCondition = () => {
     const handleFoodChange = (value) => {
         setMeal((prevMeal) => ({
             ...prevMeal,
-            havingFood: [prevMeal.havingFood[0], value],
+            havingFood: value,
         }));
         setIsFoodDropdownOpen(false);
     };
@@ -47,15 +47,52 @@ const HealthCondition = () => {
         setIsMealDropdownOpen(false); // Close the dropdown after selection
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(meal);
+        console.log("meal", meal);
+        try {
+            const response = await fetch("http://localhost:5000/api/v1/create-user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // user: "674b622cb9a1d46cd1ba0a5d",
+                    // fitnessLevel: "gain-weight", 
+                    // BMI: "24.32",                
+                    // height: "1.85",              
+                    // weight: "90",                
+                    // Meal: [
+                    //     {
+                    //         havingMeal: meal.havingMeal,
+                    //         havingFood: meal.havingFood,
+                    //         mealDate: meal.mealDate,
+                    //     },
+                    // ],
+                    name: "John Doe",
+                    email: "mhr1@gmail.com"
+                }),
+            });
+            console.log("HIIIIIIIIIIIIIIIIIIIIIIII", response);
+            const result = await response.json();
+            if (response.ok) {
+                alert("Data submitted successfully!");
+                console.log(result);
+            } else {
+                alert("Failed to submit data!");
+                console.error(result);
+            }
+        } catch (error) {
+            console.error("Error submitting data:", error);
+            alert("An error occurred while submitting data.");
+        }
     };
+    
 
     return (
         <div className="mt-20">
             <h1 className="text-4xl font-bold text-fuchsia-700 text-center mb-6">Track Your Meal</h1>
-            <div className="m-8 p-6 max-w-full bg-gradient-to-br from-fuchsia-300 to-fuchsia-50 shadow-lg rounded-lg flex justify-between m-8">
+            <div className="p-6 max-w-full bg-gradient-to-br from-fuchsia-200 to-fuchsia-50 rounded-lg flex justify-between m-8">
                 <div className="w-2/3">
                     <form
                         onSubmit={handleSubmit}

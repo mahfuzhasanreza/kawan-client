@@ -5,6 +5,8 @@ import BMIForm from "./BMIForm";
 import HealthCondition from "./HealthCondition";
 import InputForm from "./InputForm";
 import DietPlan from "./DietPlan";
+import UserDataInputModal from "./UserDataInputModal";
+
 
 const HealthAndNutrition = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,10 +20,11 @@ const HealthAndNutrition = () => {
         switch (activeContent) {
             case "dashboard":
                 return <div>
+                    <UserDataInputModal></UserDataInputModal>
                     <DietPlan></DietPlan>
                     <InputForm />
                 </div>;
-            case "bmi":
+            case "goal":
                 return <div>
                     <BMIForm />
                 </div>;
@@ -57,22 +60,14 @@ const HealthAndNutrition = () => {
                             Dashboard
                         </button>
                     </li>
-                    <li>
-                        <button
-                            onClick={() => setActiveContent("bmi")}
-                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "bmi" ? "bg-fuchsia-500 text-white" : ""
-                                }`}
-                        >
-                            Know your BMI
-                        </button>
-                    </li>
+
                     <li>
                         <button
                             onClick={() => setActiveContent("cal-burn")}
                             className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "cal-burn" ? "bg-fuchsia-500 text-white" : ""
                                 }`}
                         >
-                            Cal Burn
+                            What did I Eat Today?
                         </button>
                     </li>
                     <li>
@@ -81,7 +76,16 @@ const HealthAndNutrition = () => {
                             className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "overall-health" ? "bg-fuchsia-500 text-white" : ""
                                 }`}
                         >
-                            Your Overall Health
+                            What Is My Progress
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            onClick={() => setActiveContent("goal")}
+                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "blog" ? "bg-fuchsia-500 text-white" : ""
+                                }`}
+                        >
+                            Set Your Goal
                         </button>
                     </li>
                     <li>

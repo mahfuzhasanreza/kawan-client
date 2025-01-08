@@ -70,12 +70,12 @@ const router = createBrowserRouter([
       {
         path: 'books/:id',
         element: <PrivateRoute><BookDetail></BookDetail></PrivateRoute>,
-        loader: () => fetch(`https://kawan.onrender.com/api/v1/ebook`)
+        loader: () => fetch(`http://localhost:5000/api/v1/ebook`)
       },
       {
         path: 'book-read-listen/:id',
         element: <PrivateRoute><ReadListen></ReadListen></PrivateRoute>,
-        loader: () => fetch(`https://kawan.onrender.com/api/v1/ebook`)
+        loader: () => fetch(`http://localhost:5000/api/v1/ebook`)
       },
       {
         path: 'b1',
