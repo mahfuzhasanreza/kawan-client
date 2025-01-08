@@ -15,7 +15,7 @@ const BMIForm = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex justify-center items-center min-h-screen">
             <div className="card w-96 bg-white shadow-xl p-6">
                 <h2 className="text-2xl font-bold mb-4 text-center">Calculate Your BMI</h2>
                 <form onSubmit={calculateBMI}>
