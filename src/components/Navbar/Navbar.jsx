@@ -73,8 +73,8 @@ const Navbar = () => {
                 <Link to="/ai-chatbot">
                     <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/ai-chatbot' ? 'text-yellow-300' : ''}`}>AI ChatBot</button>
                 </Link>
-                <Link to={`/`}>
-                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/s' ? 'text-yellow-300' : ''}`}>SelfDev Resources</button>
+                <Link to={`/health-and-nutrition`}>
+                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/health-and-nutrition' ? 'text-yellow-300' : ''}`}>Health & Nutrition</button>
                 </Link>
                 <Link to={`/m`}>
                     <button className={`mr-5 hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/m' ? 'text-yellow-300' : ''}`}>Meditation</button>
