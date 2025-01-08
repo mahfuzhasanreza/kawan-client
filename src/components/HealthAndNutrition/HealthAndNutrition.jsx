@@ -4,6 +4,7 @@ import Banner from "./Banner";
 import BMIForm from "./BMIForm";
 import HealthCondition from "./HealthCondition";
 import InputForm from "./InputForm";
+import DietPlan from "./DietPlan";
 
 const HealthAndNutrition = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,6 +18,7 @@ const HealthAndNutrition = () => {
         switch (activeContent) {
             case "dashboard":
                 return <div>
+                    <DietPlan></DietPlan>
                     <InputForm />
                 </div>;
             case "bmi":
@@ -41,7 +43,7 @@ const HealthAndNutrition = () => {
             {/* Sidebar */}
             <div
                 className={`fixed left-0 h-full bg-gray-50 shadow-md transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-                    } transition-transform duration-300 ease-in-out z-50 w-64`}
+                    } transition-transform duration-300 ease-in-out w-64`}
             >
                 <div className="flex justify-end items-center p-4 mt-5 pb-12">
                 </div>
