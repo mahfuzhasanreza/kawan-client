@@ -21,8 +21,10 @@ const HealthAndNutrition = () => {
             case "dashboard":
                 return <div>
                     <UserDataInputModal></UserDataInputModal>
-                    <DietPlan></DietPlan>
-                    <InputForm />
+                    <div className="blur-sm">
+                        <DietPlan></DietPlan>
+                        <InputForm />
+                    </div>
                 </div>;
             case "goal":
                 return <div>

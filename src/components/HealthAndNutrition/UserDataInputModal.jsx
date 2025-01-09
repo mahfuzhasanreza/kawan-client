@@ -103,7 +103,7 @@ const UserDataInputModal = () => {
                     {/* Close Button */}
                     <button
                         onClick={closeModal}
-                        className="absolute hover:bg-red-400 top-4 right-6 btn btn-sm btn-circle btn-outline"
+                        className="text-red-500 absolute border-red-500 hover:bg-red-300 top-4 right-6 btn btn-sm btn-circle"
                     >
                         ✕
                     </button>
@@ -127,7 +127,7 @@ const UserDataInputModal = () => {
                             Previous
                         </button>
                         {step < 4 ? (
-                            <button className="btn btn-accent" onClick={handleNext}>
+                            <button className="btn btn-accent bg-fuchsia-500 hover:bg-fuchsia-400 border-none" onClick={handleNext}>
                                 Next
                             </button>
                         ) : (
@@ -147,16 +147,23 @@ const UserDataInputModal = () => {
         Open Modal
       </label> */}
 
-            <div>
-                {/* Trigger Button */}
-                <label htmlFor="multi-step-modal" className="btn btn-warning">
-                    You didn't fill the necessary input for your dashboard. Fill it now!
-                </label>
-
-                {/* Tooltip */}
-                <div className="tooltip tooltip-open tooltip-bottom mt-2">
-                    <span className="text-sm">Click the button to provide the required details.</span>
+            <div role="alert" className=" alert mb-10 bg-yellow-300 border-none px-5 rounded-none shadow-lg">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-red-500 h-9 w-9 shrink-0 stroke-current"
+                    fill="none"
+                    viewBox="0 0 24 24">
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <div>
+                    <h3 className="font-bold">Dashboard not show!</h3>
+                    <div className="text-xs">You have to fill some information.</div>
                 </div>
+                <label  htmlFor="multi-step-modal" className="btn btn-sm">See</label>
             </div>
 
         </div>
