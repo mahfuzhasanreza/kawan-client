@@ -61,21 +61,21 @@ const HealthCondition = () => {
             foodQuantity: quantityInGrams,
             foodUnit: "grams",
         };
-
         console.log("meal", updatedMeal);
 
         try {
-            const response = await fetch("http://localhost:5000/api/v1/create-user", {
+            const response = await fetch("https://kawan.onrender.com/api/v1/health/create-health", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    name: "John Doe",
-                    email: "mhr1@gmail.com"
+                    user: "678009b7f73164004ed0785c",
+                    hight: "5.5",
+                    weight: "55",
                 }),
             });
-            console.log("HIIIIIIIIIIIIIIIIIIIIIIII", response);
+            console.log("Hii", response);
             const result = await response.json();
             if (response.ok) {
                 alert("Data submitted successfully!");

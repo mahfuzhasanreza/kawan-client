@@ -9,6 +9,7 @@ import KawanNewsAndUpdates from "../KawanNewsAndUpdates/KawanNewsAndUpdates";
 import CommunityStories from "../CommunityStories/CommunityStories";
 import WhyChooseKawan from "../WhyChooseKawan/WhyChooseKawan";
 import Banner from "../Banner/Banner";
+import StarTesting from '../StarTesting/StarTesting'
 
 const Home = () => {
     // const [loading, setLoading] = useState(true);
@@ -72,6 +73,12 @@ const Home = () => {
         
             <div data-aos="fade-down">
                 <FAQSection></FAQSection>
+            </div>
+
+            <div>
+                <h1>Star Will Develop In Many Section</h1>
+
+                <StarTesting></StarTesting>
             </div>
 
         </div>

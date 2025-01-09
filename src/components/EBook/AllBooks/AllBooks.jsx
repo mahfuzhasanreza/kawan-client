@@ -9,7 +9,7 @@ const AllBooks = () => {
     const [loading, setLoading] = useState(true); // Loading state
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/v1/ebook')
+        fetch('https://kawan.onrender.com/api/v1/ebook')
             .then(res => res.json())
             .then(data => {
                 setBooks(data.data);
