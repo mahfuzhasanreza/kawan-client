@@ -4,7 +4,7 @@ import HealthCondition from "./HealthCondition";
 import CalorieBurnedCalculator from "./CalorieBurnedCalculator";
 import { set } from "react-hook-form";
 
-const MealInput = ({setActiveContent}) => {
+const MealInput = () => {
     const [calorieGoal, setCalorieGoal] = useState(2000); // Default calorie goal
     const [caloriesConsumed, setCaloriesConsumed] = useState(0); // Total consumed calories
     const [mealCalories, setMealCalories] = useState(""); // Input for meal calories
@@ -109,12 +109,6 @@ const MealInput = ({setActiveContent}) => {
                     )}
                 </div>
             </div>
-
-                
-            <div>
-                <MealInputForm setActiveContent={setActiveContent}></MealInputForm>
-            </div>
-
 
             <div className="w-1/2 mx-auto mt-10">
                 <h2 className="text-xl font-bold mb-4">Calorie Tracker</h2>
