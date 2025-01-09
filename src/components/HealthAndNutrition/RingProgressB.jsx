@@ -27,7 +27,7 @@ const App= () => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <RingProgress label="Proteins" percentage={75} color="green" />
       <RingProgress label="Carbons" percentage={50} color="blue" />
-      <RingProgress label="Fats" percentage={60} color="red" />
+      <RingProgress label="Fats" percentage={80} color="red" />
     </div>
   );
 };

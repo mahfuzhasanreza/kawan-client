@@ -91,16 +91,16 @@ const HealthCondition = () => {
     };
 
     return (
-        <div className="mt-20">
+        <div className="mt-20 mb-20">
 
             {/* ring progress */}
             <div>
                 <RingProgressB></RingProgressB>
             </div>
 
-            <h1 className="text-4xl font-bold text-fuchsia-700 text-center mb-6">Track Your Meal</h1>
+            <h1 className="mt-10 text-5xl font-bold text-fuchsia-700 text-center mb-6">Add Your Meal</h1>
             <div className="p-6 max-w-full bg-gradient-to-br from-fuchsia-200 to-fuchsia-50 rounded-lg flex justify-between m-8">
-                <div className="w-2/3">
+                <div className="w-full">
                     <form
                         onSubmit={handleSubmit}
                         className="pl-10 pt-3"
@@ -181,14 +181,11 @@ const HealthCondition = () => {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="mt-5 w-full bg-blue-600 text-white p-3 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="mt-5 w-full bg-green-600 text-white p-3 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         >
                             Submit
                         </button>
                     </form>
-                </div>
-                <div className="w-96 content-center mx-auto">
-                    <Lottie animationData={foodLottieData} />
                 </div>
             </div>
         </div>

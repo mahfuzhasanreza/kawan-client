@@ -7,6 +7,7 @@ import InputForm from "./InputForm";
 import DietPlan from "./DietPlan";
 import UserDataInputModal from "./UserDataInputModal";
 import MealInput from "./MealInput";
+import CalorieBurnedCalculator from "./CalorieBurnedCalculator";
 
 
 const HealthAndNutrition = () => {
@@ -33,12 +34,24 @@ const HealthAndNutrition = () => {
                 </div>;
             case "meal-input":
                 return <div>
-                    <MealInput></MealInput>
+                    <MealInput setActiveContent={setActiveContent}></MealInput>
                 </div>;
-            case "overall-health":
-                return <div><h1>Your Overall Health</h1><p>Content about Overall Health...</p></div>;
-            case "blog":
-                return <div><h1>Blog</h1><p>Content about Blog...</p></div>;
+            case "breakfast":
+                return <div>
+                    <HealthCondition></HealthCondition>
+                </div>
+            case "lunch":
+                return <div>
+                    <HealthCondition></HealthCondition>
+                </div>
+            case "dinner":
+                return <div>
+                    <HealthCondition></HealthCondition>
+                </div>
+            case "snacks":
+                return <div>
+                    <HealthCondition></HealthCondition>
+                </div>
             default:
                 return <div><h1>Welcome</h1><p>Select an option from the sidebar.</p></div>;
         }
@@ -67,7 +80,7 @@ const HealthAndNutrition = () => {
                     <li>
                         <button
                             onClick={() => setActiveContent("meal-input")}
-                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "cal-burn" ? "bg-fuchsia-500 text-white" : ""
+                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "meal-input" ? "bg-fuchsia-500 text-white" : ""
                                 }`}
                         >
                             What did I Eat Today?

@@ -6,7 +6,7 @@ const Footer = () => {
     const { theme } = useContext(AuthContext);
 
     return (
-        <footer className={`${(theme === "dark") ? 'max-w-[5000px] mx-auto bg-black z-50' : 'z-50 max-w-[5000px] mx-auto bg-fuchsia-100'}`}>
+        <footer className={`${(theme === "dark") ? 'max-w-[5000px] mx-auto bg-black z-50' : 'max-w-[5000px] mx-auto bg-fuchsia-100'}`}>
             {/* Footer Links Section */}
             <div className="pb-12 footer text-base-content p-10 pt-16 justify-evenly">
                 {/* Explore Links */}

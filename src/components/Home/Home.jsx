@@ -4,7 +4,7 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
 import HowKawanWorks from "../HowKawanWorks/HowKawanWorks";
 import FAQSection from "../FAQSecton/FAQSection";
-import { ColorRing } from "react-loader-spinner"; // Ensure this package is installed
+// import { ColorRing } from "react-loader-spinner"; // Ensure this package is installed
 import KawanNewsAndUpdates from "../KawanNewsAndUpdates/KawanNewsAndUpdates";
 import CommunityStories from "../CommunityStories/CommunityStories";
 import WhyChooseKawan from "../WhyChooseKawan/WhyChooseKawan";
@@ -13,19 +13,19 @@ import Banner from "../Banner/Banner";
 const Home = () => {
     // const [loading, setLoading] = useState(true);
 
-    // useEffect(() => {
-    //     AOS.init({
-    //         duration: 1000,
-    //         once: true,
-    //     });
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
 
 
-    //     const timer = setTimeout(() => {
+        const timer = setTimeout(() => {
     //         setLoading(false);
-    //     }, 2000);
+         }, 2000);
 
-    //     return () => clearTimeout(timer);
-    // }, []);
+       return () => clearTimeout(timer);
+     }, []);
 
     // if (loading) {
     //     return (

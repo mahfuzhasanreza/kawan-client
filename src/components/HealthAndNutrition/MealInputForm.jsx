@@ -1,102 +1,73 @@
 import React, { useState } from "react";
 
-const MealInputForm = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedMeal, setSelectedMeal] = useState("");
-  const [mealCalories, setMealCalories] = useState("");
-  const [meals, setMeals] = useState({
-    breakfast: [],
-    lunch: [],
-    dinner: [],
+const MealInputForm = ({ setActiveContent }) => {
+  const [expandedMeal, setExpandedMeal] = useState(null);
+
+  const meals = {
+    breakfast: ["Pancakes", "Eggs"],
+    lunch: ["Salad", "Sandwich"],
+    dinner: ["Steak", "Soup"],
     snacks: [],
-  });
-
-  const openModal = (mealType) => {
-    setSelectedMeal(mealType);
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setSelectedMeal("");
-    setMealCalories("");
-    setModalVisible(false);
-  };
-
-  const handleAddMeal = () => {
-    if (mealCalories && selectedMeal) {
-      const updatedMeals = { ...meals };
-      updatedMeals[selectedMeal].push(parseInt(mealCalories, 10));
-      setMeals(updatedMeals);
-      closeModal();
-    }
   };
 
   const calculateCalories = (mealType) =>
-    meals[mealType].reduce((total, calories) => total + calories, 0);
+    meals[mealType].reduce((total, item) => total + 100, 0); // Placeholder calorie calculation
+
+  const toggleCollapse = (mealType) => {
+    setExpandedMeal((prev) => (prev === mealType ? null : mealType));
+  };
 
   return (
-    <div className="p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Calorie Tracker</h2>
-
-      {["breakfast", "lunch", "dinner", "snacks"].map((meal) => (
-        <div
-          key={meal}
-          className="flex justify-between items-center py-3 border-b"
-        >
-          <div>
-            <h3 className="text-lg font-medium capitalize">{meal}</h3>
-            <p className="text-sm text-gray-500">
-              Total:{" "}
-              <span className="font-bold text-blue-600">
-                {calculateCalories(meal)} kcal
-              </span>
-            </p>
-          </div>
-          <button
-            className="btn btn-sm btn-primary"
-            onClick={() => openModal(meal)}
+    <div className="m-16">
+      <h1 className="text-5xl w-fit mx-auto mt-16 mb-10 font-bold text-fuchsia-700">
+        Title
+      </h1>
+      <div className="p-6 w-full mx-auto bg-white rounded-lg shadow-md">
+        {Object.keys(meals).map((meal, index) => (
+          <div
+            key={meal}
+            className={`py-3 ${index !== Object.keys(meals).length - 1 ? "border-b" : ""}`}
           >
-            +
-          </button>
-        </div>
-      ))}
+            <div
+              className="flex justify-between items-center cursor-pointer"
+              onClick={() => toggleCollapse(meal)}
+            >
+              <div>
+                <h3 className="text-lg font-medium capitalize">{meal}</h3>
+                <p className="text-sm text-gray-500">
+                  Total: {" "}
+                  <span className="font-bold text-yellow-600">
+                    {calculateCalories(meal)} kcal
+                  </span>
+                </p>
+              </div>
+              <button
+                className="hover:bg-fuchsia-900 btn btn-sm bg-fuchsia-600 border-none text-2xl text-white rounded-full w-8 h-8 flex items-center justify-center"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent toggle when clicking the button
+                  setActiveContent(meal);
+                }}
+              >
+                +
+              </button>
+            </div>
 
-      {/* Modal */}
-      {modalVisible && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg capitalize">
-              Add Food to {selectedMeal}
-            </h3>
-            <div className="mt-4">
-              <label className="block text-sm font-medium mb-2">
-                Enter Calories
-              </label>
-              <input
-                type="number"
-                value={mealCalories}
-                onChange={(e) => setMealCalories(e.target.value)}
-                className="input input-bordered w-full"
-                placeholder="Enter calories"
-              />
-            </div>
-            <div className="modal-action">
-              <button
-                className="btn btn-outline"
-                onClick={closeModal}
-              >
-                Cancel
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={handleAddMeal}
-              >
-                Add
-              </button>
-            </div>
+            {expandedMeal === meal && (
+              <div className="mt-4 pl-4">
+                <ul className="list-disc list-inside text-gray-700">
+                  {meals[meal].length > 0 ? (
+                    meals[meal].map((food, index) => (
+                      <li key={index}>{food}</li>
+                    ))
+                  ) : (
+                    <li>No items added</li>
+                  )}
+                </ul>
+              </div>
+            )}
           </div>
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 };

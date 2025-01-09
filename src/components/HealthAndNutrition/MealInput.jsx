@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import MealInputForm from "./MealInputForm";
 import HealthCondition from "./HealthCondition";
+import CalorieBurnedCalculator from "./CalorieBurnedCalculator";
+import { set } from "react-hook-form";
 
-const MealInput = () => {
+const MealInput = ({setActiveContent}) => {
     const [calorieGoal, setCalorieGoal] = useState(2000); // Default calorie goal
     const [caloriesConsumed, setCaloriesConsumed] = useState(0); // Total consumed calories
     const [mealCalories, setMealCalories] = useState(""); // Input for meal calories
@@ -27,45 +29,57 @@ const MealInput = () => {
 
     return (
         <div>
-            <div className="w-1/2 mx-auto mt-10">
-                <h2 className="text-xl font-bold mb-4">Calorie Tracker</h2>
-
-                {/* Calorie Goal Input */}
+            <h1 className="mb-4 text-6xl font-bold w-fit mx-auto mt-20 text-fuchsia-700">Calorie Tracker</h1>
+            {/* overall calorie progress */}
+            <div className="w-full px-16 p-10 mx-auto">
+                {/* Progress Bar */}
                 <div className="mb-4">
-                    <label className="block font-medium mb-2">Set Daily Calorie Goal</label>
-                    <input
-                        type="number"
-                        value={calorieGoal}
-                        onChange={handleGoalChange}
-                        className="input input-bordered w-full"
-                        placeholder="Enter calorie goal"
-                    />
-                </div>
-                {/* Meal Calories Input */}
-                <div className="mb-4">
-                    <label className="block font-medium mb-2">Add Calories for Meal</label>
-                    <div className="flex items-center gap-2">
-                        <input
-                            type="number"
-                            value={mealCalories}
-                            onChange={(e) => setMealCalories(e.target.value)}
-                            className="input input-bordered flex-grow"
-                            placeholder="Enter meal calories"
-                        />
-                        <button onClick={handleAddCalories} className="btn btn-primary">
-                            Add
-                        </button>
+                    <label className="block font-medium mb-2">Overall Calorie Progress</label>
+                    <div className="relative w-full bg-gray-300 h-4 rounded-full overflow-hidden">
+                        <div
+                            className="bg-yellow-500 h-full"
+                            style={{ width: `${progressPercentage}%` }}
+                        ></div>
                     </div>
+                    <p className="text-sm text-gray-600 mt-2 flex justify-between">
+                        <span>Progress: <span className="font-bold">{progressPercentage}%</span></span>
+                        <span>Calories Left: <span className="font-bold">{caloriesLeft}</span></span>
+                    </p>
+                </div>
+
+                {/* Summary */}
+                <div className="mt-4 p-4 bg-gray-100 rounded-md">
+                    <p className="text-sm">
+                        You have consumed{" "}
+                        <span className="font-bold text-green-600">{caloriesConsumed}</span>{" "}
+                        calories overall.
+                    </p>
+                    {caloriesLeft > 0 ? (
+                        <p className="text-sm">
+                            You still have{" "}
+                            <span className="font-bold text-blue-600">{caloriesLeft}</span>{" "}
+                            calories left for the remaining days. Keep going!
+                        </p>
+                    ) : (
+                        <p className="text-sm text-red-600">
+                            You've reached or exceeded your daily calorie goal. Great job!
+                        </p>
+                    )}
                 </div>
             </div>
 
-            <div className="w-full px-16 p-10 mx-auto bg-white shadow-md">
+            {/* <div className="border-2 border-dashed bg-fuchsia-400 ml-16 mr-16">
+
+            </div> */}
+
+            {/* today's calorie progress */}
+            <div className="w-full px-16 p-10 mx-auto">
                 {/* Progress Bar */}
                 <div className="mb-4">
-                    <label className="block font-medium mb-2">Calorie Progress</label>
-                    <div className="relative w-full bg-gray-200 h-4 rounded-full overflow-hidden">
+                    <label className="block font-medium mb-2">Today's Calorie Target</label>
+                    <div className="relative w-full bg-gray-300 h-4 rounded-full overflow-hidden">
                         <div
-                            className="bg-green-500 h-full"
+                            className="bg-blue-500 h-full"
                             style={{ width: `${progressPercentage}%` }}
                         ></div>
                     </div>
@@ -96,13 +110,42 @@ const MealInput = () => {
                 </div>
             </div>
 
+                
             <div>
-                <h1>Ekhane today's calorie progress dekhabo</h1>
+                <MealInputForm setActiveContent={setActiveContent}></MealInputForm>
             </div>
-            
-            <div>
-                <MealInputForm></MealInputForm>
-                <HealthCondition></HealthCondition>
+
+
+            <div className="w-1/2 mx-auto mt-10">
+                <h2 className="text-xl font-bold mb-4">Calorie Tracker</h2>
+
+                {/* Calorie Goal Input */}
+                <div className="mb-4">
+                    <label className="block font-medium mb-2">Set Daily Calorie Goal</label>
+                    <input
+                        type="number"
+                        value={calorieGoal}
+                        onChange={handleGoalChange}
+                        className="input input-bordered w-full"
+                        placeholder="Enter calorie goal"
+                    />
+                </div>
+                {/* Meal Calories Input */}
+                <div className="mb-4">
+                    <label className="block font-medium mb-2">Add Calories for Meal</label>
+                    <div className="flex items-center gap-2">
+                        <input
+                            type="number"
+                            value={mealCalories}
+                            onChange={(e) => setMealCalories(e.target.value)}
+                            className="input input-bordered flex-grow"
+                            placeholder="Enter meal calories"
+                        />
+                        <button onClick={handleAddCalories} className="btn btn-primary">
+                            Add
+                        </button>
+                    </div>
+                </div>
             </div>
 
         </div>
