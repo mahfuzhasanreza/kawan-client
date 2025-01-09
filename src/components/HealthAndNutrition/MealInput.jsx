@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import MealInputForm from "./MealInputForm";
+import HealthCondition from "./HealthCondition";
 
 const MealInput = () => {
     const [calorieGoal, setCalorieGoal] = useState(2000); // Default calorie goal
@@ -57,7 +59,7 @@ const MealInput = () => {
                 </div>
             </div>
 
-            <div className="w-11/12 p-6 mx-auto bg-white rounded-lg shadow-md">
+            <div className="w-full px-16 p-10 mx-auto bg-white shadow-md">
                 {/* Progress Bar */}
                 <div className="mb-4">
                     <label className="block font-medium mb-2">Calorie Progress</label>
@@ -94,7 +96,15 @@ const MealInput = () => {
                 </div>
             </div>
 
+            <div>
+                <h1>Ekhane today's calorie progress dekhabo</h1>
+            </div>
             
+            <div>
+                <MealInputForm></MealInputForm>
+                <HealthCondition></HealthCondition>
+            </div>
+
         </div>
     );
 };

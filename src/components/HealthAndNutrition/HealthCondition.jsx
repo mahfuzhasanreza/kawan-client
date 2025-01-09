@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import foodLottieData from '../../assets/lottie/health-and-nutrition/banner.json';
 import Lottie from "lottie-react";
+import RingProgressB from "./RingProgressB";
 
 const HealthCondition = () => {
+
     const [meal, setMeal] = useState({
         havingMeal: "",
         havingFood: "",
-        mealDate: "",
+        mealDate: new Date().toISOString().split("T")[0],
+        foodQuantity: "",
+        foodUnit: "grams",
     });
     const [isFoodDropdownOpen, setIsFoodDropdownOpen] = useState(false);
-    const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false); // State for Meal Type dropdown
     const [foodSearch, setFoodSearch] = useState("");
     const allFoodOptions = [
         "Pancakes", "Eggs", "Cereal", "Smoothie", "Toast", "Sandwich", "Salad",
@@ -22,6 +25,14 @@ const HealthCondition = () => {
     const filteredFoodOptions = allFoodOptions.filter((food) =>
         food.toLowerCase().includes(foodSearch.toLowerCase())
     );
+
+    const unitToGrams = {
+        grams: 1,
+        kilograms: 1000,
+        milligrams: 0.001,
+        pounds: 453.592,
+        ounces: 28.3495,
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,17 +50,20 @@ const HealthCondition = () => {
         setIsFoodDropdownOpen(false);
     };
 
-    const handleMealChange = (value) => { // Function to handle Meal Type change
-        setMeal((prevMeal) => ({
-            ...prevMeal,
-            havingMeal: value,
-        }));
-        setIsMealDropdownOpen(false); // Close the dropdown after selection
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("meal", meal);
+
+        // Convert food quantity to grams before saving
+        const quantityInGrams = parseFloat(meal.foodQuantity) * unitToGrams[meal.foodUnit];
+
+        const updatedMeal = {
+            ...meal,
+            foodQuantity: quantityInGrams,
+            foodUnit: "grams",
+        };
+
+        console.log("meal", updatedMeal);
+
         try {
             const response = await fetch("http://localhost:5000/api/v1/create-user", {
                 method: "POST",
@@ -57,18 +71,6 @@ const HealthCondition = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    // user: "674b622cb9a1d46cd1ba0a5d",
-                    // fitnessLevel: "gain-weight", 
-                    // BMI: "24.32",                
-                    // height: "1.85",              
-                    // weight: "90",                
-                    // Meal: [
-                    //     {
-                    //         havingMeal: meal.havingMeal,
-                    //         havingFood: meal.havingFood,
-                    //         mealDate: meal.mealDate,
-                    //     },
-                    // ],
                     name: "John Doe",
                     email: "mhr1@gmail.com"
                 }),
@@ -87,10 +89,15 @@ const HealthCondition = () => {
             alert("An error occurred while submitting data.");
         }
     };
-    
 
     return (
         <div className="mt-20">
+
+            {/* ring progress */}
+            <div>
+                <RingProgressB></RingProgressB>
+            </div>
+
             <h1 className="text-4xl font-bold text-fuchsia-700 text-center mb-6">Track Your Meal</h1>
             <div className="p-6 max-w-full bg-gradient-to-br from-fuchsia-200 to-fuchsia-50 rounded-lg flex justify-between m-8">
                 <div className="w-2/3">
@@ -98,49 +105,6 @@ const HealthCondition = () => {
                         onSubmit={handleSubmit}
                         className="pl-10 pt-3"
                     >
-
-                        {/* Meal Type */}
-                        <div className="mb-4 relative">
-                            <label className="block text-gray-700 font-medium">Meal Type</label>
-                            <div
-                                className="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                onClick={() => setIsMealDropdownOpen(!isMealDropdownOpen)} // Toggle dropdown
-                            >
-                                {meal.havingMeal || "Select Meal Type"}
-                            </div>
-
-                            {isMealDropdownOpen && (
-                                <div className="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
-                                    <ul>
-                                        <li
-                                            className="p-3 hover:bg-blue-50 cursor-pointer"
-                                            onClick={() => handleMealChange("Breakfast")}
-                                        >
-                                            Breakfast
-                                        </li>
-                                        <li
-                                            className="p-3 hover:bg-blue-50 cursor-pointer"
-                                            onClick={() => handleMealChange("Lunch")}
-                                        >
-                                            Lunch
-                                        </li>
-                                        <li
-                                            className="p-3 hover:bg-blue-50 cursor-pointer"
-                                            onClick={() => handleMealChange("Dinner")}
-                                        >
-                                            Dinner
-                                        </li>
-                                        <li
-                                            className="p-3 hover:bg-blue-50 cursor-pointer"
-                                            onClick={() => handleMealChange("Snacks")}
-                                        >
-                                            Snacks
-                                        </li>
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
-
                         {/* Food Type */}
                         <div className="mb-4 relative">
                             <label className="block text-gray-700 font-medium">Food Type</label>
@@ -148,7 +112,7 @@ const HealthCondition = () => {
                                 className="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 onClick={() => setIsFoodDropdownOpen(!isFoodDropdownOpen)}
                             >
-                                {meal.havingFood[1] || "Select Food Type"}
+                                {meal.havingFood || "Select Food Type"}
                             </div>
 
                             {isFoodDropdownOpen && (
@@ -173,6 +137,33 @@ const HealthCondition = () => {
                                     </ul>
                                 </div>
                             )}
+                        </div>
+
+                        {/* Quantity */}
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-medium">Food Quantity</label>
+                            <div className="flex">
+                                <input
+                                    type="number"
+                                    name="foodQuantity"
+                                    value={meal.foodQuantity}
+                                    onChange={handleChange}
+                                    placeholder="Enter quantity"
+                                    className="w-full p-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                                />
+                                <select
+                                    name="foodUnit"
+                                    value={meal.foodUnit}
+                                    onChange={handleChange}
+                                    className="border border-gray-300 rounded-r-md p-3 bg-gray-100 text-gray-700 focus:outline-none"
+                                >
+                                    <option value="grams">Grams</option>
+                                    <option value="kilograms">Kilograms</option>
+                                    <option value="milligrams">Milligrams</option>
+                                    <option value="pounds">Pounds</option>
+                                    <option value="ounces">Ounces</option>
+                                </select>
+                            </div>
                         </div>
 
                         {/* Date */}
