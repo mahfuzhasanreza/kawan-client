@@ -6,6 +6,7 @@ import HealthCondition from "./HealthCondition";
 import InputForm from "./InputForm";
 import DietPlan from "./DietPlan";
 import UserDataInputModal from "./UserDataInputModal";
+import MealInput from "./MealInput";
 
 
 const HealthAndNutrition = () => {
@@ -30,9 +31,9 @@ const HealthAndNutrition = () => {
                 return <div>
                     <BMIForm />
                 </div>;
-            case "cal-burn":
+            case "meal-input":
                 return <div>
-                    <HealthCondition />
+                    <MealInput></MealInput>
                 </div>;
             case "overall-health":
                 return <div><h1>Your Overall Health</h1><p>Content about Overall Health...</p></div>;
@@ -65,7 +66,7 @@ const HealthAndNutrition = () => {
 
                     <li>
                         <button
-                            onClick={() => setActiveContent("cal-burn")}
+                            onClick={() => setActiveContent("meal-input")}
                             className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "cal-burn" ? "bg-fuchsia-500 text-white" : ""
                                 }`}
                         >
