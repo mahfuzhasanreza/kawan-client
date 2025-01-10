@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [theme, setTheme] = useState('light');
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const createUser = async (email, password, displayName = '', photoURL = '') => {
         setLoading(true);
@@ -155,6 +156,8 @@ const AuthProvider = ({ children }) => {
         signOutUser,
         theme,
         setTheme,
+        isSidebarOpen,
+        setIsSidebarOpen,
     };
 
     return (

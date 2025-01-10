@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import Banner from "./Banner";
 import BMIForm from "./BMIForm";
@@ -10,11 +10,13 @@ import MealInput from "./CalorieProgressBar";
 import CalorieBurnedCalculator from "./CalorieBurnedCalculator";
 import MealInputForm from "./MealInputForm";
 import SetTheGoal from "./SetTheGoal";
+import { AuthContext } from "../../providers/AuthProvider";
 
 
 const HealthAndNutrition = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [activeContent, setActiveContent] = useState("dashboard"); // State to manage active content
+    // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const { isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
+    const [activeContent, setActiveContent] = useState("dashboard");
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -69,7 +71,7 @@ const HealthAndNutrition = () => {
         <div className="flex min-h-screen">
             {/* Sidebar */}
             <div
-                className={`fixed left-0 h-full bg-gray-50 shadow-md transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                className={`${isSidebarOpen ? "fixed h-full bg-gray-50 shadow-md transform  translate-x-0" : "fixed left-0 h-full bg-gray-50 shadow-md transform -translate-x-full"
                     } transition-transform duration-300 ease-in-out w-64`}
             >
                 <div className="flex justify-end items-center p-4 mt-5 pb-12">

@@ -3,10 +3,11 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Footer = () => {
-    const { theme } = useContext(AuthContext);
+    // const { theme } = useContext(AuthContext);
+    const { isSidebarOpen } = useContext(AuthContext);
 
     return (
-        <footer className={`${(theme === "dark") ? 'max-w-[5000px] mx-auto bg-black z-50' : 'max-w-[5000px] mx-auto bg-fuchsia-100'}`}>
+        <footer className={`${(isSidebarOpen) ? "mx-auto bg-fuchsia-100 flex-1 transition-all duration-300 ease-in-out ml-64" : "mx-auto bg-fuchsia-100 flex-1 ml-0 transition-all duration-300 ease-in-out"}`}>
             {/* Footer Links Section */}
             <div className="pb-12 footer text-base-content p-10 pt-16 justify-evenly">
                 {/* Explore Links */}
