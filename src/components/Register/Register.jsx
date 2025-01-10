@@ -66,7 +66,25 @@ const Register = () => {
 
         createUser(email, password)
             .then(result => {
-                // console.log(result.user);
+                // console.log("RESULT", result);
+
+                // send user data to db
+                try {
+                    fetch("https://kawan.onrender.com/api/v1/user/create-user", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            password: password,
+                        }),
+                    });
+                } catch (error) {
+                    console.error("Error submitting data:", error);
+                    // alert("An error occurred while submitting data.");
+                }
 
                 event.target.reset();
                 navigate('/');
