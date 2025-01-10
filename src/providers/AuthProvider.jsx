@@ -99,6 +99,26 @@ const AuthProvider = ({ children }) => {
                 toast.success('Google login successful! Welcome to Kawan.');
 
                 setLoading(false);
+
+                // console.log(typeof result.user.displayName, typeof result.user.email, "USERRRRRR");
+                // send user data to db
+                try {
+                    fetch("https://kawan.onrender.com/api/v1/user/create-user", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            name: result.user.displayName,
+                            email: result.user.email,
+                            password: "GOOGLE-LOGIN",
+                        }),
+                    });
+                } catch (error) {
+                    console.error("Error submitting data:", error);
+                    // alert("An error occurred while submitting data.");
+                }
+
                 return result.user;
             })
             .catch((error) => {
