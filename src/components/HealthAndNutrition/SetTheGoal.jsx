@@ -22,7 +22,7 @@ const SetTheGoal = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="calorieGoal" className="block text-lg font-medium text-gray-600 mb-2">
-              Calorie Goal (kcal):
+              Targeted Weight:
             </label>
             <input
               type="number"
@@ -30,7 +30,7 @@ const SetTheGoal = () => {
               value={calorieGoal}
               onChange={(e) => setCalorieGoal(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your calorie goal"
+              placeholder="Enter your weight goal"
             />
           </div>
           <div className="mb-6">

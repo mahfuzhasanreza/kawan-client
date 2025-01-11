@@ -7,7 +7,7 @@ import { AuthContext } from '../../../providers/AuthProvider';
 const AllBooks = () => {
     const [books, setBooks] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [loading, setLoading] = useContext(AuthContext);
+    const {loading, setLoading} = useContext(AuthContext);
 
     useEffect(() => {
         fetch('https://kawan.onrender.com/api/v1/ebook')

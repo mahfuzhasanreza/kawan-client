@@ -18,10 +18,11 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [userId, setUserId] = useState(null);
+    const [userDb, setUserDb] = useState(null);
     const [loading, setLoading] = useState(true);
     const [theme, setTheme] = useState('light');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isHealthData, setIsHealthData] = useState(false);
 
     const createUser = async (email, password, displayName = '', photoURL = '') => {
         setLoading(true);
@@ -58,116 +59,201 @@ const AuthProvider = ({ children }) => {
         }
     };
 
-    const signInUser = (email, password) => {
+    // const signInUser = (email, password) => {
+    //     setLoading(true);
+    //     return signInWithEmailAndPassword(auth, email, password)
+    //         .then((userCredential) => {
+    //             const loggedInUser = userCredential.user;
+
+    //             if (loggedInUser.emailVerified) {
+    //                 setUser(loggedInUser);
+
+    //                 // for get user id in db
+    //                 try {
+    //                     fetch("https://kawan.onrender.com/api/v1/user", {
+    //                         method: "GET",
+    //                     })
+    //                         .then(response => response.json())
+    //                         .then(data => {
+    //                             setUserDb(data.find(userData => userData.email === email));
+    //                         })
+    //                         .catch(error => {
+    //                             console.error("Error: ", error);
+    //                         });
+    //                 } catch (error) {
+    //                     console.error("Error: ", error);
+    //                 }
+
+    //                 toast.success('Login successful! Welcome back to Kawan.');
+    //             } else {
+    //                 signOutUser();
+    //                 throw new Error('Please verify your email before logging in.');
+    //             }
+    //             setLoading(false);
+    //             return loggedInUser;
+    //         })
+    //         .catch((error) => {
+    //             setLoading(false);
+    //             if (error.message === 'Please verify your email before logging in.') {
+    //                 toast.error(error.message);
+    //                 sendEmailVerification(auth.currentUser)
+    //                     .then(() => {
+    //                     })
+    //             }
+    //             else {
+    //                 toast.error('Email and Password does not match.');
+    //             }
+    //             throw error;
+    //         });
+    // };
+
+    const signInUser = async (email, password) => {
         setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const loggedInUser = userCredential.user;
-
-                if (loggedInUser.emailVerified) {
-                    setUser(loggedInUser);
-
-                    // for get user id in db
-                    try {
-                        fetch("https://kawan.onrender.com/api/v1/user", {
-                            method: "GET",
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                setUserId(data.find(userData => userData.email === email)._id);
-                            })
-                            .catch(error => {
-                                console.error("Error: ", error);
-                            });
-                    } catch (error) {
-                        console.error("Error: ", error);
-                    }
-
-                    toast.success('Login successful! Welcome back to Kawan.');
-                } else {
-                    signOutUser();
-                    throw new Error('Please verify your email before logging in.');
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const loggedInUser = userCredential.user;
+    
+            if (loggedInUser.emailVerified) {
+                setUser(loggedInUser);
+    
+                // Fetch user data from the server
+                try {
+                    const response = await fetch("https://kawan.onrender.com/api/v1/user", {
+                        method: "GET",
+                    });
+                    const data = await response.json();
+                    const foundUser = data.find(userData => userData.email === email);
+                    setUserDb(foundUser);
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
                 }
-                setLoading(false);
-                return loggedInUser;
-            })
-            .catch((error) => {
-                setLoading(false);
-                if (error.message === 'Please verify your email before logging in.') {
-                    toast.error(error.message);
-                    sendEmailVerification(auth.currentUser)
-                        .then(() => {
-                        })
-                }
-                else {
-                    toast.error('Email and Password does not match.');
-                }
-                throw error;
-            });
+    
+                toast.success('Login successful! Welcome back to Kawan.');
+            } else {
+                await signOutUser();
+                throw new Error('Please verify your email before logging in.');
+            }
+            setLoading(false);
+            return loggedInUser;
+        } catch (error) {
+            setLoading(false);
+            if (error.message === 'Please verify your email before logging in.') {
+                toast.error(error.message);
+                await sendEmailVerification(auth.currentUser);
+            } else {
+                toast.error('Email and Password does not match.');
+            }
+            throw error;
+        }
     };
 
+    // const signInWithGoogle = () => {
+    //     setLoading(true);
+    //     return signInWithPopup(auth, googleProvider)
+    //         .then((result) => {
+    //             setUser(result.user);
+    //             // console.log("SETUSER", user);
 
-    const signInWithGoogle = () => {
+    //             // Show toast alert for successful Google login
+    //             toast.success('Google login successful! Welcome to Kawan.');
+
+    //             setLoading(false);
+
+    //             // send user data to db
+    //             try {
+    //                 fetch("https://kawan.onrender.com/api/v1/user/create-user", {
+    //                     method: "POST",
+    //                     headers: {
+    //                         "Content-Type": "application/json",
+    //                     },
+    //                     body: JSON.stringify({
+    //                         name: result.user.displayName,
+    //                         email: result.user.email,
+    //                         password: "GOOGLE-LOGIN",
+    //                     }),
+    //                 });
+    //             } catch (error) {
+    //                 console.error("Error submitting data:", error);
+    //             }
+
+
+    //             // for get user id in db
+    //             try {
+    //                 fetch("https://kawan.onrender.com/api/v1/user", {
+    //                     method: "GET",
+    //                 })
+    //                     .then(response => response.json())
+    //                     .then(data => {
+    //                         // console.log("EIJEEEEE",data);
+    //                         const findUser = data.find(userData => userData.email === result.user.email);
+    //                         setUserDb(findUser);
+    //                     })
+    //                     .catch(error => {
+    //                         console.error("Error: ", error);
+    //                     });
+    //             } catch (error) {
+    //                 console.error("Error: ", error);
+    //             }
+
+    //             return result.user;
+    //         })
+    //         .catch((error) => {
+    //             setLoading(false);
+    //             throw error;
+    //         });
+    // };
+
+    const signInWithGoogle = async () => {
         setLoading(true);
-        return signInWithPopup(auth, googleProvider)
-            .then((result) => {
-                setUser(result.user);
-                console.log("SETUSER", result.user);
-
-                // Show toast alert for successful Google login
-                toast.success('Google login successful! Welcome to Kawan.');
-
-                setLoading(false);
-
-                // send user data to db
-                try {
-                    fetch("https://kawan.onrender.com/api/v1/user/create-user", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            name: result.user.displayName,
-                            email: result.user.email,
-                            password: "GOOGLE-LOGIN",
-                        }),
-                    });
-                } catch (error) {
-                    console.error("Error submitting data:", error);
-                }
-
-
-                // for get user id in db
-                try {
-                    fetch("https://kawan.onrender.com/api/v1/user", {
-                        method: "GET",
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            // console.log("EIJEEEEE",data);
-                            setUserId(data.find(userData => userData.email === result.user.email)._id);
-                        })
-                        .catch(error => {
-                            console.error("Error: ", error);
-                        });
-                } catch (error) {
-                    console.error("Error: ", error);
-                }
-
-                return result.user;
-            })
-            .catch((error) => {
-                setLoading(false);
-                throw error;
-            });
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            setUser(result.user);
+    
+            // Send user data to the server
+            try {
+                await fetch("https://kawan.onrender.com/api/v1/user/create-user", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: result.user.displayName,
+                        email: result.user.email,
+                        password: "GOOGLE-LOGIN",
+                    }),
+                });
+            } catch (error) {
+                console.error("Error submitting user data:", error);
+            }
+    
+            // Fetch user data from the server
+            try {
+                const response = await fetch("https://kawan.onrender.com/api/v1/user", {
+                    method: "GET",
+                });
+                const data = await response.json();
+                const foundUser = data.find(userData => userData.email === result.user.email);
+                setUserDb(foundUser);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+    
+            toast.success('Google login successful! Welcome to Kawan.');
+            setLoading(false);
+            return result.user;
+        } catch (error) {
+            setLoading(false);
+            throw error;
+        }
     };
 
     const signOutUser = () => {
         setLoading(true);
         return signOut(auth).then(() => {
             setUser(null);
-            setUserId(null);
+            setUserDb(null);
             setLoading(false);
+            setIsHealthData(false);
         });
     };
 
@@ -193,7 +279,9 @@ const AuthProvider = ({ children }) => {
         setTheme,
         isSidebarOpen,
         setIsSidebarOpen,
-        userId,
+        userDb,
+        setIsHealthData,
+        isHealthData,
     };
 
     return (

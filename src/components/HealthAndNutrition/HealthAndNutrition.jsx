@@ -16,10 +16,10 @@ import { useLoaderData } from "react-router-dom";
 
 const HealthAndNutrition = () => {
     const userHealth = useLoaderData();
-    const { isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
+    const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
     const [activeContent, setActiveContent] = useState("dashboard");
 
-    console.log(userHealth);
+    // console.log(userDb, "Checkkkkk222");
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -30,7 +30,7 @@ const HealthAndNutrition = () => {
             case "dashboard":
                 return <div>
                     <UserDataInputModal></UserDataInputModal>
-                    <div className="blur-sm">
+                    <div className={`${userDb.name ? 'blur-sm bg-green-500' : 'bg-red-500'}`}>
                         <DietPlan></DietPlan>
                         <InputForm />
                     </div>
@@ -60,11 +60,6 @@ const HealthAndNutrition = () => {
                 return <div>
                     <HealthCondition></HealthCondition>
                 </div>
-            case "calorie-by-activities":
-                return <div>
-                    <MealInput></MealInput>
-                    <CalorieBurnedCalculator />
-                </div>;
             default:
                 return <div><h1>Welcome</h1><p>Select an option from the sidebar.</p></div>;
         }
@@ -96,16 +91,7 @@ const HealthAndNutrition = () => {
                             className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "meal-input" ? "bg-fuchsia-500 text-white" : ""
                                 }`}
                         >
-                            Calorie Burned by Food
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            onClick={() => setActiveContent("calorie-by-activities")}
-                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "calorie-by-activities" ? "bg-fuchsia-500 text-white" : ""
-                                }`}
-                        >
-                            Calorie Burned by Activities
+                            Calorie Calculation
                         </button>
                     </li>
                     <li>
