@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Book from '../Book/Book';
 import { Helmet } from 'react-helmet-async';
 import { ColorRing } from 'react-loader-spinner'; // Import ColorRing
+import { AuthContext } from '../../../providers/AuthProvider';
 
 const AllBooks = () => {
     const [books, setBooks] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [loading, setLoading] = useState(true); // Loading state
+    const [loading, setLoading] = useContext(AuthContext);
 
     useEffect(() => {
         fetch('https://kawan.onrender.com/api/v1/ebook')

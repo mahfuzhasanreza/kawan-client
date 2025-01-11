@@ -87,7 +87,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'health-and-nutrition',
-        element: <HealthAndNutrition></HealthAndNutrition>
+        element: <PrivateRoute><HealthAndNutrition></HealthAndNutrition></PrivateRoute>,
+        loader: () => fetch('https://kawan.onrender.com/api/v1/health')
       }
     ]
   },

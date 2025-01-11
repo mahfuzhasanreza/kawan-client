@@ -18,6 +18,7 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState(null);
     const [loading, setLoading] = useState(true);
     const [theme, setTheme] = useState('light');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -64,7 +65,24 @@ const AuthProvider = ({ children }) => {
                 const loggedInUser = userCredential.user;
 
                 if (loggedInUser.emailVerified) {
-                    setUser(loggedInUser); // Update user state
+                    setUser(loggedInUser);
+
+                    // for get user id in db
+                    try {
+                        fetch("https://kawan.onrender.com/api/v1/user", {
+                            method: "GET",
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                setUserId(data.find(userData => userData.email === email)._id);
+                            })
+                            .catch(error => {
+                                console.error("Error: ", error);
+                            });
+                    } catch (error) {
+                        console.error("Error: ", error);
+                    }
+
                     toast.success('Login successful! Welcome back to Kawan.');
                 } else {
                     signOutUser();
@@ -75,7 +93,6 @@ const AuthProvider = ({ children }) => {
             })
             .catch((error) => {
                 setLoading(false);
-                // console.log(error.code);
                 if (error.message === 'Please verify your email before logging in.') {
                     toast.error(error.message);
                     sendEmailVerification(auth.currentUser)
@@ -83,7 +100,7 @@ const AuthProvider = ({ children }) => {
                         })
                 }
                 else {
-                    toast.error('Email and Password does not match.'); // Display generic error message
+                    toast.error('Email and Password does not match.');
                 }
                 throw error;
             });
@@ -94,14 +111,14 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return signInWithPopup(auth, googleProvider)
             .then((result) => {
-                setUser(result.user); // Update user state for Google login
+                setUser(result.user);
+                console.log("SETUSER", result.user);
 
                 // Show toast alert for successful Google login
                 toast.success('Google login successful! Welcome to Kawan.');
 
                 setLoading(false);
 
-                // console.log(typeof result.user.displayName, typeof result.user.email, "USERRRRRR");
                 // send user data to db
                 try {
                     fetch("https://kawan.onrender.com/api/v1/user/create-user", {
@@ -117,7 +134,24 @@ const AuthProvider = ({ children }) => {
                     });
                 } catch (error) {
                     console.error("Error submitting data:", error);
-                    // alert("An error occurred while submitting data.");
+                }
+
+
+                // for get user id in db
+                try {
+                    fetch("https://kawan.onrender.com/api/v1/user", {
+                        method: "GET",
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // console.log("EIJEEEEE",data);
+                            setUserId(data.find(userData => userData.email === result.user.email)._id);
+                        })
+                        .catch(error => {
+                            console.error("Error: ", error);
+                        });
+                } catch (error) {
+                    console.error("Error: ", error);
                 }
 
                 return result.user;
@@ -132,6 +166,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return signOut(auth).then(() => {
             setUser(null);
+            setUserId(null);
             setLoading(false);
         });
     };
@@ -158,6 +193,7 @@ const AuthProvider = ({ children }) => {
         setTheme,
         isSidebarOpen,
         setIsSidebarOpen,
+        userId,
     };
 
     return (

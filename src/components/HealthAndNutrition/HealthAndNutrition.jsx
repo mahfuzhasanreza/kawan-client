@@ -11,12 +11,15 @@ import CalorieBurnedCalculator from "./CalorieBurnedCalculator";
 import MealInputForm from "./MealInputForm";
 import SetTheGoal from "./SetTheGoal";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useLoaderData } from "react-router-dom";
 
 
 const HealthAndNutrition = () => {
-    // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const userHealth = useLoaderData();
     const { isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
     const [activeContent, setActiveContent] = useState("dashboard");
+
+    console.log(userHealth);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
