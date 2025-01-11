@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const UserDataInputModal = () => {
+    const { userDb } = useContext(AuthContext);
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         age: "",
@@ -27,6 +29,35 @@ const UserDataInputModal = () => {
         setStep(1); // Reset the step on close
     };
 
+    const handleSubmit = () => {
+        fetch(`https://kawan.onrender.com/api/v1/user/${userDb._id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // age: formData.age,
+                gender: formData.gender,
+                hight: formData.height,
+                weight: formData.weight,
+            }),
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((data) => {
+                console.log('Update successful (PATCH):', data);
+            })
+            .catch((err) => {
+                console.error('Error during update (PATCH):', err);
+            });
+
+        closeModal();
+    }
+
     const renderStepContent = () => {
         switch (step) {
             case 1:
@@ -35,6 +66,7 @@ const UserDataInputModal = () => {
                         <label className="block text-sm font-medium">Age</label>
                         <input
                             type="number"
+                            required
                             name="age"
                             value={formData.age}
                             onChange={handleChange}
@@ -49,6 +81,7 @@ const UserDataInputModal = () => {
                         <label className="block text-sm font-medium">Gender</label>
                         <select
                             name="gender"
+                            required
                             value={formData.gender}
                             onChange={handleChange}
                             className="select select-bordered w-full mt-2"
@@ -69,6 +102,7 @@ const UserDataInputModal = () => {
                         <input
                             type="number"
                             name="height"
+                            required
                             value={formData.height}
                             onChange={handleChange}
                             className="input input-bordered w-full mt-2"
@@ -83,6 +117,7 @@ const UserDataInputModal = () => {
                         <input
                             type="number"
                             name="weight"
+                            required
                             value={formData.weight}
                             onChange={handleChange}
                             className="input input-bordered w-full mt-2"
@@ -133,7 +168,7 @@ const UserDataInputModal = () => {
                         ) : (
                             <button
                                 className="btn btn-success"
-                                onClick={() => console.log("Form Data: ", formData)}
+                                onClick={() => handleSubmit()}
                             >
                                 Submit
                             </button>
@@ -163,7 +198,7 @@ const UserDataInputModal = () => {
                     <h3 className="font-bold">Dashboard not show!</h3>
                     <div className="text-xs">You have to fill some information.</div>
                 </div>
-                <label  htmlFor="multi-step-modal" className="btn btn-sm">See</label>
+                <label htmlFor="multi-step-modal" className="btn btn-sm">See</label>
             </div>
 
         </div>

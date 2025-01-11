@@ -19,7 +19,7 @@ const HealthAndNutrition = () => {
     const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
     const [activeContent, setActiveContent] = useState("dashboard");
 
-    // console.log(userDb, "Checkkkkk222");
+    console.log(userDb, "Checkkkkk222");
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -30,7 +30,7 @@ const HealthAndNutrition = () => {
             case "dashboard":
                 return <div>
                     <UserDataInputModal></UserDataInputModal>
-                    <div className={`${userDb.name ? 'blur-sm bg-green-500' : 'bg-red-500'}`}>
+                    <div className={`${(userDb.hight && userDb.weight && userDb.gender) ? 'bg-red-500' : 'blur-sm bg-green-500'}`}>
                         <DietPlan></DietPlan>
                         <InputForm />
                     </div>

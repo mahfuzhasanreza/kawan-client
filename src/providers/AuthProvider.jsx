@@ -59,54 +59,6 @@ const AuthProvider = ({ children }) => {
         }
     };
 
-    // const signInUser = (email, password) => {
-    //     setLoading(true);
-    //     return signInWithEmailAndPassword(auth, email, password)
-    //         .then((userCredential) => {
-    //             const loggedInUser = userCredential.user;
-
-    //             if (loggedInUser.emailVerified) {
-    //                 setUser(loggedInUser);
-
-    //                 // for get user id in db
-    //                 try {
-    //                     fetch("https://kawan.onrender.com/api/v1/user", {
-    //                         method: "GET",
-    //                     })
-    //                         .then(response => response.json())
-    //                         .then(data => {
-    //                             setUserDb(data.find(userData => userData.email === email));
-    //                         })
-    //                         .catch(error => {
-    //                             console.error("Error: ", error);
-    //                         });
-    //                 } catch (error) {
-    //                     console.error("Error: ", error);
-    //                 }
-
-    //                 toast.success('Login successful! Welcome back to Kawan.');
-    //             } else {
-    //                 signOutUser();
-    //                 throw new Error('Please verify your email before logging in.');
-    //             }
-    //             setLoading(false);
-    //             return loggedInUser;
-    //         })
-    //         .catch((error) => {
-    //             setLoading(false);
-    //             if (error.message === 'Please verify your email before logging in.') {
-    //                 toast.error(error.message);
-    //                 sendEmailVerification(auth.currentUser)
-    //                     .then(() => {
-    //                     })
-    //             }
-    //             else {
-    //                 toast.error('Email and Password does not match.');
-    //             }
-    //             throw error;
-    //         });
-    // };
-
     const signInUser = async (email, password) => {
         setLoading(true);
         try {
@@ -117,16 +69,16 @@ const AuthProvider = ({ children }) => {
                 setUser(loggedInUser);
     
                 // Fetch user data from the server
-                try {
-                    const response = await fetch("https://kawan.onrender.com/api/v1/user", {
-                        method: "GET",
-                    });
-                    const data = await response.json();
-                    const foundUser = data.find(userData => userData.email === email);
-                    setUserDb(foundUser);
-                } catch (error) {
-                    console.error("Error fetching user data:", error);
-                }
+                // try {
+                //     const response = await fetch("https://kawan.onrender.com/api/v1/user", {
+                //         method: "GET",
+                //     });
+                //     const data = await response.json();
+                //     const foundUser = data.find(userData => userData.email === email);
+                //     setUserDb(foundUser);
+                // } catch (error) {
+                //     console.error("Error fetching user data:", error);
+                // }
     
                 toast.success('Login successful! Welcome back to Kawan.');
             } else {
@@ -147,61 +99,6 @@ const AuthProvider = ({ children }) => {
         }
     };
 
-    // const signInWithGoogle = () => {
-    //     setLoading(true);
-    //     return signInWithPopup(auth, googleProvider)
-    //         .then((result) => {
-    //             setUser(result.user);
-    //             // console.log("SETUSER", user);
-
-    //             // Show toast alert for successful Google login
-    //             toast.success('Google login successful! Welcome to Kawan.');
-
-    //             setLoading(false);
-
-    //             // send user data to db
-    //             try {
-    //                 fetch("https://kawan.onrender.com/api/v1/user/create-user", {
-    //                     method: "POST",
-    //                     headers: {
-    //                         "Content-Type": "application/json",
-    //                     },
-    //                     body: JSON.stringify({
-    //                         name: result.user.displayName,
-    //                         email: result.user.email,
-    //                         password: "GOOGLE-LOGIN",
-    //                     }),
-    //                 });
-    //             } catch (error) {
-    //                 console.error("Error submitting data:", error);
-    //             }
-
-
-    //             // for get user id in db
-    //             try {
-    //                 fetch("https://kawan.onrender.com/api/v1/user", {
-    //                     method: "GET",
-    //                 })
-    //                     .then(response => response.json())
-    //                     .then(data => {
-    //                         // console.log("EIJEEEEE",data);
-    //                         const findUser = data.find(userData => userData.email === result.user.email);
-    //                         setUserDb(findUser);
-    //                     })
-    //                     .catch(error => {
-    //                         console.error("Error: ", error);
-    //                     });
-    //             } catch (error) {
-    //                 console.error("Error: ", error);
-    //             }
-
-    //             return result.user;
-    //         })
-    //         .catch((error) => {
-    //             setLoading(false);
-    //             throw error;
-    //         });
-    // };
 
     const signInWithGoogle = async () => {
         setLoading(true);
@@ -227,16 +124,16 @@ const AuthProvider = ({ children }) => {
             }
     
             // Fetch user data from the server
-            try {
-                const response = await fetch("https://kawan.onrender.com/api/v1/user", {
-                    method: "GET",
-                });
-                const data = await response.json();
-                const foundUser = data.find(userData => userData.email === result.user.email);
-                setUserDb(foundUser);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
+            // try {
+            //     const response = await fetch("https://kawan.onrender.com/api/v1/user", {
+            //         method: "GET",
+            //     });
+            //     const data = await response.json();
+            //     const foundUser = data.find(userData => userData.email === result.user.email);
+            //     setUserDb(foundUser);
+            // } catch (error) {
+            //     console.error("Error fetching user data:", error);
+            // }
     
             toast.success('Google login successful! Welcome to Kawan.');
             setLoading(false);
@@ -257,16 +154,42 @@ const AuthProvider = ({ children }) => {
         });
     };
 
+    // useEffect(() => {
+    //     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    //         setUser(currentUser);
+    //         setLoading(false);
+    //     });
+
+    //     return () => {
+    //         unSubscribe();
+    //     };
+    // }, []);
+
+
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
+            if (currentUser) {
+                // Fetch userDb based on the logged-in user
+                try {
+                    const response = await fetch("https://kawan.onrender.com/api/v1/user");
+                    const data = await response.json();
+                    const foundUser = data.find(userData => userData.email === currentUser.email);
+                    setUserDb(foundUser); // Update userDb
+                } catch (error) {
+                    console.error("Error fetching userDb:", error);
+                }
+            } else {
+                setUserDb(null); // Reset if no user
+            }
             setLoading(false);
         });
-
+    
         return () => {
             unSubscribe();
         };
     }, []);
+    
 
     const authInfo = {
         user,
