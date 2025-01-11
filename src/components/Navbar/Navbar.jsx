@@ -91,13 +91,21 @@ const Navbar = () => {
                                     alt="User Profile"
                                 />
                                 {/* Hover effect to show displayName */}
-                                <span className="w-48 z-20 absolute bottom-[-9rem] transform -translate-x-1/2 text-white text-sm bg-black lg:px-2 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-y-2">
+                                <span className="w-56 z-20 absolute bottom-[-9rem] transform -translate-x-1/2 text-white text-sm bg-black lg:px-2 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-y-2">
                                     <Link to='/profile'>
-                                        <p className="justify-start w-full hover:bg-gray-600 btn lg:btn-md btn-outline border-none text-white">
-                                            {user.displayName || "Anonymous User"}
-                                        </p>
+                                        <div className="ml-3 flex gap-0 items-center">
+                                            <img
+                                                // onClick={handleProfileClick}
+                                                src={user.photoURL || ""}
+                                                className="h-8 rounded-full cursor-pointer"
+                                                alt="User Profile"
+                                            />
+                                            <p className="justify-start hover:bg-gray-600 btn lg:btn-md btn-outline border-none text-white">
+                                                {user.displayName || "Anonymous User"}
+                                            </p>
+                                        </div>
                                     </Link>
-                                    <hr className="w-5/6 border-gray-400 mx-auto"/>
+                                    <hr className="w-5/6 border-gray-400 mx-auto" />
                                     <button
                                         onClick={handleSignOutUser}
                                         className="justify-start w-full btn text-white btn-outline border-none hover:bg-gray-600"
