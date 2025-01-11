@@ -19,7 +19,7 @@ const HealthAndNutrition = () => {
     const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
     const [activeContent, setActiveContent] = useState("dashboard");
 
-    console.log(userDb, "Checkkkkk222");
+    console.log(userDb, "ChecKKKKKKKKKKKK");
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);

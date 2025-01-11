@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const UserDataInputModal = () => {
-    const { userDb } = useContext(AuthContext);
+    const { userDb, setUserDb } = useContext(AuthContext);
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         age: "",
@@ -29,7 +29,7 @@ const UserDataInputModal = () => {
         setStep(1); // Reset the step on close
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         fetch(`https://kawan.onrender.com/api/v1/user/${userDb._id}`, {
             method: "PATCH",
             headers: {
@@ -55,8 +55,25 @@ const UserDataInputModal = () => {
                 console.error('Error during update (PATCH):', err);
             });
 
+        await updateUserDb();
+
         closeModal();
     }
+
+    const updateUserDb = async () => {
+        try {
+            const response = await fetch(`https://kawan.onrender.com/api/v1/user/${userDb._id}?timestamp=${new Date().getTime()}`, {
+                headers: {
+                    "Cache-Control": "no-cache",
+                },
+            });
+            const data = await response.json();
+            // console.log(data, "DATAAAAAAAAAAAAA");
+        } catch (error) {
+            console.error("Error fetching updated user data:", error);
+        }
+    };
+    
 
     const renderStepContent = () => {
         switch (step) {
