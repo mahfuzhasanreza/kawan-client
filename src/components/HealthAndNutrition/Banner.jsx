@@ -25,9 +25,6 @@ const Banner = () => {
                         Take charge of your health with personalized insights and
                         tools.
                     </p>
-                    <button className="mt-4 px-6 py-2 bg-white text-blue-600 font-semibold rounded-md shadow-md hover:bg-gray-100 hover:shadow-lg transition">
-                        Get Started
-                    </button>
                 </div>
 
                 {/* <div className="">

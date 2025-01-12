@@ -1,17 +1,122 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const MealInputForm = ({ setActiveContent }) => {
   const [expandedMeal, setExpandedMeal] = useState(null);
+  const { userDb } = useContext(AuthContext);
+  const [healthId, setHealthId] = useState(null);
 
-  const meals = {
-    breakfast: ["Pancakes", "Eggs"],
-    lunch: ["Salad", "Sandwich"],
-    dinner: ["Steak", "Soup"],
+  const [meals, setMeals] = useState({
+    breakfast: [],
+    // breakfastQuantity: [],
+    lunch: [],
+    // lunchQuantity: [],
+    dinner: [],
+    // dinnerQuantity: [],
     snacks: [],
-  };
+    // snacksQuantity: [],
+  });
 
-  const calculateCalories = (mealType) =>
-    meals[mealType].reduce((total, item) => total + 100, 0); // Placeholder calorie calculation
+
+  useEffect(() => {
+
+    // meals["breakfast"] = [];
+    // meals["breakfastQuantity"] = [];
+    // meals["lunch"] = [];
+    // meals["lunchQuantity"] = [];
+    // meals["dinner"] = [];
+    // meals["dinnerQuantity"] = [];
+    // meals["snacks"] = [];
+    // meals["snacksQuantity"] = [];
+
+    // get health id
+    const fetchUserHealthId = async () => {
+      try {
+        const response = await fetch(`https://kawan.onrender.com/api/v1/health`, {
+          method: "GET",
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        const userHealthInfo = result.data.find(userHealth => userHealth.user === userDb._id);
+        setHealthId(userHealthInfo._id);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`https://kawan.onrender.com/api/v1/health/${healthId}`, {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const userFoodStatus = data.data.Meal.map((userFood) => {
+          const today = new Date();
+          const havingDate = new Date(userFood.havingTime);
+
+          // console.log(today,"--------------=");
+          // console.log(havingDate);
+
+          if (
+            today.getFullYear() === havingDate.getFullYear() &&
+            today.getMonth() === havingDate.getMonth() &&
+            today.getDate() === havingDate.getDate()
+          ) {
+            if (userFood.havingMeal === "Dinner") {
+              userFood.havingFood.map(food => {
+                setMeals({
+                  ...meals,
+                  dinner: [...meals["dinner"], food.foodType],
+                });
+              })
+            } else if (userFood.havingMeal === "Lunch") {
+              userFood.havingFood.map(food => {
+                setMeals({
+                  ...meals,
+                  lunch: [...meals["lunch"], food.foodType],
+                });
+              })
+            } else if (userFood.havingMeal === "Breakfast") {
+              userFood.havingFood.map(food => {
+                setMeals({
+                  ...meals,
+                  breakfast: [...meals["breakfast"], food.foodType],
+                });
+              })
+            } else if (userFood.havingMeal === "Snacks") {
+              userFood.havingFood.map(food => {
+                setMeals({
+                  ...meals,
+                  snacks: [...meals["snacks"], food.foodType],
+                });
+              })
+            }
+          }
+        });
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserHealthId();
+    console.log(healthId, "lll");
+    if (healthId) {
+      fetchUserData();
+    }
+  }, [healthId]);
+
+  console.log(meals["lunch"], "LAST");
+
+
+  // const calculateCalories = (mealType) =>
+  //   meals[mealType].reduce((total, item) => total + 100, 0); // Placeholder calorie calculation
 
   const toggleCollapse = (mealType) => {
     setExpandedMeal((prev) => (prev === mealType ? null : mealType));
@@ -37,7 +142,9 @@ const MealInputForm = ({ setActiveContent }) => {
                 <p className="text-sm text-gray-500">
                   Total: {" "}
                   <span className="font-bold text-yellow-600">
-                    {calculateCalories(meal)} kcal
+                    {
+                      // calculateCalories(meal)
+                    } kcal
                   </span>
                 </p>
               </div>
@@ -57,7 +164,9 @@ const MealInputForm = ({ setActiveContent }) => {
                 <ul className="list-disc list-inside text-gray-700">
                   {meals[meal].length > 0 ? (
                     meals[meal].map((food, index) => (
-                      <li key={index}>{food}</li>
+                      <div key={index} className="flex justify-between mr-10">
+                        <li key={index}>{food}</li>
+                      </div>
                     ))
                   ) : (
                     <li>No items added</li>

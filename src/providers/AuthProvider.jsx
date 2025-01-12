@@ -154,17 +154,6 @@ const AuthProvider = ({ children }) => {
         });
     };
 
-    // useEffect(() => {
-    //     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-    //         setUser(currentUser);
-    //         setLoading(false);
-    //     });
-
-    //     return () => {
-    //         unSubscribe();
-    //     };
-    // }, []);
-
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -203,6 +192,7 @@ const AuthProvider = ({ children }) => {
         isSidebarOpen,
         setIsSidebarOpen,
         userDb,
+        setUserDb,
         setIsHealthData,
         isHealthData,
     };

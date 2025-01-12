@@ -11,6 +11,7 @@ const UserDataInputModal = () => {
         weight: "",
     });
 
+
     const handleNext = () => {
         if (step < 4) setStep(step + 1);
     };
@@ -55,25 +56,17 @@ const UserDataInputModal = () => {
                 console.error('Error during update (PATCH):', err);
             });
 
-        await updateUserDb();
+        setUserDb({
+            ...userDb,
+            // age: formData.age,
+            gender: formData.gender,
+            hight: formData.height,
+            weight: formData.weight,
+        });
 
         closeModal();
     }
 
-    const updateUserDb = async () => {
-        try {
-            const response = await fetch(`https://kawan.onrender.com/api/v1/user/${userDb._id}?timestamp=${new Date().getTime()}`, {
-                headers: {
-                    "Cache-Control": "no-cache",
-                },
-            });
-            const data = await response.json();
-            // console.log(data, "DATAAAAAAAAAAAAA");
-        } catch (error) {
-            console.error("Error fetching updated user data:", error);
-        }
-    };
-    
 
     const renderStepContent = () => {
         switch (step) {

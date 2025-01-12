@@ -1,6 +1,6 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import logo from '../../assets/kawanLogoMsg.png';
 
@@ -8,6 +8,8 @@ const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { user, signOutUser, theme, setTheme } = useContext(AuthContext);
+    const [isHovered, setIsHovered] = useState(false);
+    const [isProfileShow, setIsProfileShow] = useState(false);
 
     const userName = user?.displayName;
 
@@ -15,6 +17,19 @@ const Navbar = () => {
         signOutUser()
             .then(() => { });
     };
+
+    const profileRef = useRef(null);
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (profileRef.current && !profileRef.current.contains(event.target)) {
+                setIsProfileShow(false);
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
 
     useEffect(() => {
         document.querySelector('html').setAttribute('data-theme', theme);
@@ -83,37 +98,41 @@ const Navbar = () => {
                 {user ? (
                     <>
                         <>
-                            <div className="relative group">
+                            <div className="relative">
                                 <img
-                                    // onClick={handleProfileClick}
                                     src={user.photoURL || ""}
-                                    className="h-12 w-12 rounded-full mr-8 cursor-pointer"
+                                    ref={profileRef}
+                                    className={`${isProfileShow ? 'h-12 w-12 opacity-90 border-2 border-orange-400 rounded-full mr-8 cursor-pointer' : 'h-12 w-12 rounded-full mr-8 cursor-pointer'}`}
                                     alt="User Profile"
+                                    onMouseEnter={() => setIsHovered(true)}
+                                    onMouseLeave={() => setIsHovered(false)}
+                                    onClick={() => setIsProfileShow(true)}
                                 />
-                                {/* Hover effect to show displayName */}
-                                <span className="w-56 z-20 absolute bottom-[-9rem] transform -translate-x-1/2 text-white text-sm bg-black lg:px-2 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-y-2">
-                                    <Link to='/profile'>
-                                        <div className="ml-3 flex gap-0 items-center">
-                                            <img
-                                                // onClick={handleProfileClick}
-                                                src={user.photoURL || ""}
-                                                className="h-8 rounded-full cursor-pointer"
-                                                alt="User Profile"
-                                            />
-                                            <p className="justify-start hover:bg-gray-600 btn lg:btn-md btn-outline border-none text-white">
-                                                {user.displayName || "Anonymous User"}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                    <hr className="w-5/6 border-gray-400 mx-auto" />
-                                    <button
-                                        onClick={handleSignOutUser}
-                                        className="justify-start w-full btn text-white btn-outline border-none hover:bg-gray-600"
-                                    >
-                                        Logout
-                                    </button>
-                                </span>
-
+                                {/* Show the span only if the image is hovered */}
+                                {(isHovered || isProfileShow) && (
+                                    <span
+                                        className="w-56 z-20 absolute bottom-[-9rem] transform -translate-x-1/2 text-white text-sm bg-black lg:px-2 py-2 rounded-xl opacity-100 transition-opacity duration-300 space-y-2">
+                                        <Link to='/profile'>
+                                            <div className="ml-3 flex gap-0 items-center">
+                                                <img
+                                                    src={user.photoURL || ""}
+                                                    className="h-8 rounded-full cursor-pointer"
+                                                    alt="User Profile"
+                                                />
+                                                <p className="justify-start hover:bg-gray-600 btn lg:btn-md btn-outline border-none text-white">
+                                                    {user.displayName || "Anonymous User"}
+                                                </p>
+                                            </div>
+                                        </Link>
+                                        <hr className="w-5/6 border-gray-400 mx-auto" />
+                                        <button
+                                            onClick={handleSignOutUser}
+                                            className="justify-start w-full btn text-white btn-outline border-none hover:bg-gray-600"
+                                        >
+                                            Logout
+                                        </button>
+                                    </span>
+                                )}
                             </div>
 
                         </>

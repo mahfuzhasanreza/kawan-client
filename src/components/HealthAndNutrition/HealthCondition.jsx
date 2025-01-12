@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import foodLottieData from '../../assets/lottie/health-and-nutrition/banner.json';
 import Lottie from "lottie-react";
 import RingProgressB from "./RingProgressB";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const HealthCondition = () => {
+    const {userDb}=useContext(AuthContext);
 
     const [meal, setMeal] = useState({
         havingMeal: "",
         havingFood: "",
-        mealDate: new Date().toISOString().split("T")[0],
+        mealDate: new Date().toISOString(),
         foodQuantity: "",
         foodUnit: "grams",
     });
@@ -64,30 +66,45 @@ const HealthCondition = () => {
         console.log("meal", updatedMeal);
 
         // POST OPERATION
-        // try {
-        //     const response = await fetch("https://kawan.onrender.com/api/v1/health/create-health/675dd81bf033d00792524722", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({
-        //             BMI: "85",
-
-        //         }),
-        //     });
-        //     console.log("Hii", response);
-        //     const result = await response.json();
-        //     if (response.ok) {
-        //         alert("Data submitted successfully!");
-        //         console.log(result);
-        //     } else {
-        //         alert("Failed to submit data!");
-        //         console.error(result);
-        //     }
-        // } catch (error) {
-        //     console.error("Error submitting data:", error);
-        //     alert("An error occurred while submitting data.");
-        // }
+        try {
+            const response = await fetch("https://kawan.onrender.com/api/v1/health/create-health", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    user: userDb._id,
+                    BMI: "22.5",
+                    hight: "170",
+                    weight: "65",
+                    Meal: [
+                        {
+                            havingMeal: "Lunch",
+                            havingFood: [
+                                {
+                                    foodType: "Anaroshh",
+                                    quantity: 50,
+                                }
+                            ],
+                            havingTime: meal["mealDate"],
+                        }
+                    ],
+                    dailyCalCount: []
+                }),
+            });
+            console.log("Hii", response);
+            const result = await response.json();
+            if (response.ok) {
+                alert("Data submitted successfully!");
+                console.log(result);
+            } else {
+                alert("Failed to submit data!");
+                console.error(result);
+            }
+        } catch (error) {
+            console.error("Error submitting data:", error);
+            alert("An error occurred while submitting data.");
+        }
 
         // PUT OPERATION - for update
         // fetch('https://kawan.onrender.com/api/v1/health/675dd81bf033d00792524722', {
@@ -103,36 +120,36 @@ const HealthCondition = () => {
 
 
         // PATCH OPERATION - for update
-        fetch('https://kawan.onrender.com/api/v1/health/675dd81bf033d00792524722', {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                Meal: [{
-                    havingMeal: "Lunch",
-                    havingFood: [
-                        {
-                            foodType: "chicken breast",
-                        }
-                    ],
-                }],
-                hight: '10',
-                weight: '10',
-            }),
-        })
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error(`HTTP error! status: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then((data) => {
-                console.log('Update successful (PATCH):', data);
-            })
-            .catch((err) => {
-                console.error('Error during update (PATCH):', err);
-            });
+        // fetch('https://kawan.onrender.com/api/v1/health/675dd81bf033d00792524722', {
+        //     method: "PATCH",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         Meal: [{
+        //             havingMeal: "Lunch",
+        //             havingFood: [
+        //                 {
+        //                     foodType: "chicken breast",
+        //                 }
+        //             ],
+        //         }],
+        //         hight: '10',
+        //         weight: '10',
+        //     }),
+        // })
+        //     .then((res) => {
+        //         if (!res.ok) {
+        //             throw new Error(`HTTP error! status: ${res.status}`);
+        //         }
+        //         return res.json();
+        //     })
+        //     .then((data) => {
+        //         console.log('Update successful (PATCH):', data);
+        //     })
+        //     .catch((err) => {
+        //         console.error('Error during update (PATCH):', err);
+        //     });
 
 
     };

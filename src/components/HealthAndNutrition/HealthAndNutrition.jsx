@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import Banner from "./Banner";
 import BMIForm from "./BMIForm";
@@ -18,6 +18,7 @@ const HealthAndNutrition = () => {
     const userHealth = useLoaderData();
     const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
     const [activeContent, setActiveContent] = useState("dashboard");
+    const [showWarning, setShowWarning] = useState(true);
 
     console.log(userDb, "ChecKKKKKKKKKKKK");
 
@@ -25,12 +26,26 @@ const HealthAndNutrition = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
+    useEffect(() => {
+        if (!(userDb?.hight && userDb?.weight && userDb?.gender)) {
+            setShowWarning(true);
+        } else {
+            setShowWarning(false);
+        }
+    }, [userDb]);
+
+    console.log(userDb.hight);
+
     const renderContent = () => {
         switch (activeContent) {
             case "dashboard":
                 return <div>
-                    <UserDataInputModal></UserDataInputModal>
-                    <div className={`${(userDb.hight && userDb.weight && userDb.gender) ? 'bg-red-500' : 'blur-sm bg-green-500'}`}>
+                    {
+                        (showWarning) && (
+                            <UserDataInputModal></UserDataInputModal>
+                        )
+                    }
+                    <div className={`${(showWarning) ? 'blur-sm bg-green-500' : 'bg-red-500'}`}>
                         <DietPlan></DietPlan>
                         <InputForm />
                     </div>
