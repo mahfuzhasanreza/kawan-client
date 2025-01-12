@@ -19,6 +19,8 @@ const HealthAndNutrition = () => {
     const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
     const [activeContent, setActiveContent] = useState("dashboard");
     const [showWarning, setShowWarning] = useState(true);
+  const [healthId, setHealthId] = useState(null);
+
 
     console.log(userDb, "ChecKKKKKKKKKKKK");
 
@@ -57,23 +59,23 @@ const HealthAndNutrition = () => {
             case "meal-input":
                 return <div>
                     <MealInput></MealInput>
-                    <MealInputForm setActiveContent={setActiveContent}></MealInputForm>
+                    <MealInputForm healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></MealInputForm>
                 </div>;
             case "breakfast":
                 return <div>
-                    <HealthCondition></HealthCondition>
+                    <HealthCondition healthId={healthId} setHealthId={setHealthId}  setActiveContent={setActiveContent}></HealthCondition>
                 </div>
             case "lunch":
                 return <div>
-                    <HealthCondition></HealthCondition>
+                    <HealthCondition healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
                 </div>
             case "dinner":
                 return <div>
-                    <HealthCondition></HealthCondition>
+                    <HealthCondition healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
                 </div>
             case "snacks":
                 return <div>
-                    <HealthCondition></HealthCondition>
+                    <HealthCondition healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
                 </div>
             default:
                 return <div><h1>Welcome</h1><p>Select an option from the sidebar.</p></div>;

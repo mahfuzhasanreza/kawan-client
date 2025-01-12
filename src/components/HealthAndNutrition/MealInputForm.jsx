@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const MealInputForm = ({ setActiveContent }) => {
+const MealInputForm = ({ healthId, setHealthId, setActiveContent }) => {
   const [expandedMeal, setExpandedMeal] = useState(null);
   const { userDb } = useContext(AuthContext);
-  const [healthId, setHealthId] = useState(null);
 
   const [meals, setMeals] = useState({
     breakfast: [],
@@ -107,6 +106,8 @@ const MealInputForm = ({ setActiveContent }) => {
 
     fetchUserHealthId();
     console.log(healthId, "lll");
+
+    
     if (healthId) {
       fetchUserData();
     }

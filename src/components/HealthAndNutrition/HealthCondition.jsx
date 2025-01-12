@@ -1,22 +1,33 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import foodLottieData from '../../assets/lottie/health-and-nutrition/banner.json';
 import Lottie from "lottie-react";
 import RingProgressB from "./RingProgressB";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
-const HealthCondition = () => {
-    const {userDb}=useContext(AuthContext);
+const HealthCondition = ({ healthId, setHealthId, setActiveContent }) => {
+    const { userDb } = useContext(AuthContext);
 
     const [meal, setMeal] = useState({
         havingMeal: "",
         havingFood: "",
-        mealDate: new Date().toISOString(),
+        mealDate: new Date().toISOString().split("T")[0],
         foodQuantity: "",
         foodUnit: "grams",
     });
+
+    const [foodData, setFoodData] = useState({
+        carbohydrates: 0.0,
+        fats: 0.0,
+        proteins: 0.0,
+        calories: 0.0,
+    })
+
     const [isFoodDropdownOpen, setIsFoodDropdownOpen] = useState(false);
     const [foodSearch, setFoodSearch] = useState("");
     const allFoodOptions = [
+        "apple", "banana", "chicken breast", "whole wheat bread", "almonds", "broccoli", "cooked white rice", "olive oil", "salmon", "egg",
+
         "Pancakes", "Eggs", "Cereal", "Smoothie", "Toast", "Sandwich", "Salad",
         "Pasta", "Burger", "Soup", "Steak", "Roast Chicken", "Pizza", "Seafood",
         "Nuts", "Chips", "Chocolate", "Granola Bar", "Apple", "Banana", "Orange",
@@ -52,6 +63,47 @@ const HealthCondition = () => {
         setIsFoodDropdownOpen(false);
     };
 
+    const foodDataCalculation = (quantity = 0.0, foodD) => {
+        let carbohydrates = foodD["carbohydrates"];
+        let fats = foodD["fats"];
+        let proteins = foodD["proteins"];
+        let calories = foodD["calories"];
+
+        if (foodD) {
+            if (quantity) {
+                carbohydrates = (foodD["carbohydrates"] / 100.0) * quantity;
+                fats = (foodD["fats"] / 100.0) * quantity;
+                proteins = (foodD["proteins"] / 100.0) * quantity;
+                calories = (foodD["calories"] / 100.0) * quantity;
+            }
+            console.log("Carbohydrates:", foodD["carbohydrates"], "+++++", carbohydrates);
+        } else {
+            console.log("Food data is undefined or invalid.");
+        }
+    };
+
+    useEffect(() => {
+        fetch('foodNutritionData.json')
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((data) => {
+                const foodD = data[meal["havingFood"]];
+                console.log(meal["havingFood"], "Food Nutrition Data:", foodD);
+
+                // Pass food data and quantity to the calculation function
+                foodDataCalculation(parseFloat(meal["foodQuantity"]), foodD);
+            })
+            .catch((error) => {
+                console.error("Error fetching food nutrition data:", error);
+            });
+    }, [meal["foodQuantity"], meal["havingFood"]]);
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -65,46 +117,139 @@ const HealthCondition = () => {
         };
         console.log("meal", updatedMeal);
 
-        // POST OPERATION
-        try {
-            const response = await fetch("https://kawan.onrender.com/api/v1/health/create-health", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    user: userDb._id,
-                    BMI: "22.5",
-                    hight: "170",
-                    weight: "65",
-                    Meal: [
+        if (healthId) {
+            // PATCH OPERATION - for update
+            // fetch(`https://kawan.onrender.com/api/v1/health/${healthId}`, {
+            //     method: "PATCH",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({
+            //         Meal: [{
+            //             havingMeal: meal["havingMeal"],
+            //             havingFood: [
+            //                 {
+            //                     foodType: meal["havingFood"],
+            //                     quantity: parseFloat(meal["foodQuantity"]),
+            //                 }
+            //             ],
+            //         }],
+            //     }),
+            // })
+            //     .then((res) => {
+            //         if (!res.ok) {
+            //             throw new Error(`HTTP error! status: ${res.status}`);
+            //         }
+            //         return res.json();
+            //     })
+            //     .then((data) => {
+            //         console.log('Update successful (PATCH):', data);
+            //     })
+            //     .catch((err) => {
+            //         console.error('Error during update (PATCH):', err);
+            //     });
+
+
+
+            // Fetch existing data
+            fetch(`https://kawan.onrender.com/api/v1/health/${healthId}`)
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then((existingData) => {
+                    console.log(existingData);
+                    console.log(typeof existingData);
+
+                    const updatedMeal = [
+                        ...existingData.data.Meal,
                         {
-                            havingMeal: "Lunch",
+                            havingMeal: meal["havingMeal"],
+                            havingTime: meal["mealDate"],
                             havingFood: [
                                 {
-                                    foodType: "Anaroshh",
-                                    quantity: 50,
-                                }
+                                    foodType: meal["havingFood"],
+                                    quantity: parseFloat(meal["foodQuantity"]),
+                                },
                             ],
-                            havingTime: meal["mealDate"],
-                        }
-                    ],
-                    dailyCalCount: []
-                }),
-            });
-            console.log("Hii", response);
-            const result = await response.json();
-            if (response.ok) {
-                alert("Data submitted successfully!");
-                console.log(result);
-            } else {
-                alert("Failed to submit data!");
-                console.error(result);
+                        },
+                    ];
+
+                    return fetch(`https://kawan.onrender.com/api/v1/health/${healthId}`, {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            Meal: updatedMeal,
+                        }),
+                    });
+                })
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then((data) => {
+                    console.log("Update successful with new field:", data);
+                })
+                .catch((err) => {
+                    console.error("Error during update:", err);
+                });
+
+
+            setActiveContent("meal-input");
+        } else {
+            // POST OPERATION
+            try {
+                const response = await fetch("https://kawan.onrender.com/api/v1/health/create-health", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        user: userDb._id,
+                        BMI: "22.5",
+                        hight: "170",
+                        weight: "65",
+                        Meal: [
+                            {
+                                havingMeal: "Lunch",
+                                havingFood: [
+                                    {
+                                        foodType: "apple",
+                                        quantity: 50,
+                                    }
+                                ],
+                                havingTime: meal["mealDate"],
+                            }
+                        ],
+                        dailyCalCount: []
+                    }),
+                });
+                console.log("Hii", response);
+                const result = await response.json();
+                if (response.ok) {
+                    alert("Data submitted successfully!");
+                    console.log(result);
+                } else {
+                    alert("Failed to submit data!");
+                    console.error(result);
+                }
+
+                setActiveContent("meal-input");
+            } catch (error) {
+                console.error("Error submitting data:", error);
+                alert("An error occurred while submitting data.");
             }
-        } catch (error) {
-            console.error("Error submitting data:", error);
-            alert("An error occurred while submitting data.");
+
+
+            setActiveContent("meal-input");
         }
+
 
         // PUT OPERATION - for update
         // fetch('https://kawan.onrender.com/api/v1/health/675dd81bf033d00792524722', {
@@ -119,37 +264,7 @@ const HealthCondition = () => {
         //     .then((data) => { console.log(data); })
 
 
-        // PATCH OPERATION - for update
-        // fetch('https://kawan.onrender.com/api/v1/health/675dd81bf033d00792524722', {
-        //     method: "PATCH",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         Meal: [{
-        //             havingMeal: "Lunch",
-        //             havingFood: [
-        //                 {
-        //                     foodType: "chicken breast",
-        //                 }
-        //             ],
-        //         }],
-        //         hight: '10',
-        //         weight: '10',
-        //     }),
-        // })
-        //     .then((res) => {
-        //         if (!res.ok) {
-        //             throw new Error(`HTTP error! status: ${res.status}`);
-        //         }
-        //         return res.json();
-        //     })
-        //     .then((data) => {
-        //         console.log('Update successful (PATCH):', data);
-        //     })
-        //     .catch((err) => {
-        //         console.error('Error during update (PATCH):', err);
-        //     });
+
 
 
     };
@@ -231,7 +346,7 @@ const HealthCondition = () => {
                         </div>
 
                         {/* Date */}
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <label className="block text-gray-700 font-medium">Date</label>
                             <input
                                 type="date"
@@ -240,7 +355,7 @@ const HealthCondition = () => {
                                 onChange={handleChange}
                                 className="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                             />
-                        </div>
+                        </div> */}
 
                         {/* Submit Button */}
                         <button
