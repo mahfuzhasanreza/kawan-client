@@ -25,6 +25,7 @@ import ReadListen from './components/EBook/ReadListen/ReadListen';
 import B1 from './components/EBook/Chapter/B1';
 import B2 from './components/EBook/Chapter/B2';
 import HealthAndNutrition from './components/HealthAndNutrition/HealthAndNutrition';
+import VideoStreaming from './components/VideoStreaming/VideoStreaming/VideoStreaming';
 
 
 const queryClient = new QueryClient();
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'ai-chatbot',
-        element: <AiChatbotSection></AiChatbotSection>
+        element: <VideoStreaming></VideoStreaming>
       },
       {
         path: 'profile',
