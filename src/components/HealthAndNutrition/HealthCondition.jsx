@@ -5,7 +5,7 @@ import RingProgressB from "./RingProgressB";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-const HealthCondition = ({ healthId, setHealthId, setActiveContent }) => {
+const HealthCondition = ({  activeContent, foodData, setFoodData, healthId, setHealthId, setActiveContent }) => {
     const { userDb } = useContext(AuthContext);
 
     const [meal, setMeal] = useState({
@@ -16,12 +16,7 @@ const HealthCondition = ({ healthId, setHealthId, setActiveContent }) => {
         foodUnit: "grams",
     });
 
-    const [foodData, setFoodData] = useState({
-        carbohydrates: 0.0,
-        fats: 0.0,
-        proteins: 0.0,
-        calories: 0.0,
-    })
+    
 
     const [isFoodDropdownOpen, setIsFoodDropdownOpen] = useState(false);
     const [foodSearch, setFoodSearch] = useState("");
@@ -63,20 +58,33 @@ const HealthCondition = ({ healthId, setHealthId, setActiveContent }) => {
         setIsFoodDropdownOpen(false);
     };
 
-    const foodDataCalculation = (quantity = 0.0, foodD) => {
-        let carbohydrates = foodD["carbohydrates"];
-        let fats = foodD["fats"];
-        let proteins = foodD["proteins"];
-        let calories = foodD["calories"];
+    console.log("objectAAAAAAAAAAAA", activeContent);
+
+
+    const foodDataCalculation = (quantity = 1.0, foodD) => {
+
 
         if (foodD) {
+            let carbohydrates = foodD["carbohydrates"];
+            let fats = foodD["fats"];
+            let proteins = foodD["proteins"];
+            let calories = foodD["calories"];
             if (quantity) {
-                carbohydrates = (foodD["carbohydrates"] / 100.0) * quantity;
-                fats = (foodD["fats"] / 100.0) * quantity;
-                proteins = (foodD["proteins"] / 100.0) * quantity;
-                calories = (foodD["calories"] / 100.0) * quantity;
+                carbohydrates = (foodD["carbohydrates"] / 1.0) * quantity;
+                fats = (foodD["fats"] / 1.0) * quantity;
+                proteins = (foodD["proteins"] / 1.0) * quantity;
+                calories = (foodD["calories"] / 1.0) * quantity;
             }
-            console.log("Carbohydrates:", foodD["carbohydrates"], "+++++", carbohydrates);
+
+            setFoodData({
+                carbohydrates,
+                fats,
+                proteins,
+                calories
+            })
+
+            console.log(meal["havingFood"], "Food Nutrition Data:", foodD, "QQQQQ", quantity);
+            console.log("Carbohydrates:", foodD["carbohydrates"], "+++++", carbohydrates, '+++===', foodData);
         } else {
             console.log("Food data is undefined or invalid.");
         }
@@ -91,9 +99,7 @@ const HealthCondition = ({ healthId, setHealthId, setActiveContent }) => {
                 return res.json();
             })
             .then((data) => {
-                const foodD = data[meal["havingFood"]];
-                console.log(meal["havingFood"], "Food Nutrition Data:", foodD);
-
+                const foodD = data[meal["havingFood"]];                
                 // Pass food data and quantity to the calculation function
                 foodDataCalculation(parseFloat(meal["foodQuantity"]), foodD);
             })
@@ -116,7 +122,7 @@ const HealthCondition = ({ healthId, setHealthId, setActiveContent }) => {
             foodUnit: "grams",
         };
         console.log("meal", updatedMeal);
-
+        
         if (healthId) {
             // PATCH OPERATION - for update
             // fetch(`https://kawan.onrender.com/api/v1/health/${healthId}`, {
@@ -166,7 +172,7 @@ const HealthCondition = ({ healthId, setHealthId, setActiveContent }) => {
                     const updatedMeal = [
                         ...existingData.data.Meal,
                         {
-                            havingMeal: meal["havingMeal"],
+                            havingMeal: activeContent,
                             havingTime: meal["mealDate"],
                             havingFood: [
                                 {
@@ -274,7 +280,7 @@ const HealthCondition = ({ healthId, setHealthId, setActiveContent }) => {
 
             {/* ring progress */}
             <div>
-                <RingProgressB></RingProgressB>
+                <RingProgressB foodData={foodData}></RingProgressB>
             </div>
 
             <h1 className="mt-10 text-5xl font-bold text-fuchsia-700 text-center mb-6">Add Your Meal</h1>

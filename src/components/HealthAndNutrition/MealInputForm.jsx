@@ -7,26 +7,13 @@ const MealInputForm = ({ healthId, setHealthId, setActiveContent }) => {
 
   const [meals, setMeals] = useState({
     breakfast: [],
-    // breakfastQuantity: [],
     lunch: [],
-    // lunchQuantity: [],
     dinner: [],
-    // dinnerQuantity: [],
     snacks: [],
-    // snacksQuantity: [],
   });
 
 
   useEffect(() => {
-
-    // meals["breakfast"] = [];
-    // meals["breakfastQuantity"] = [];
-    // meals["lunch"] = [];
-    // meals["lunchQuantity"] = [];
-    // meals["dinner"] = [];
-    // meals["dinnerQuantity"] = [];
-    // meals["snacks"] = [];
-    // meals["snacksQuantity"] = [];
 
     // get health id
     const fetchUserHealthId = async () => {
@@ -45,6 +32,9 @@ const MealInputForm = ({ healthId, setHealthId, setActiveContent }) => {
       }
     }
 
+
+    
+
     const fetchUserData = async () => {
       try {
         const response = await fetch(`https://kawan.onrender.com/api/v1/health/${healthId}`, {
@@ -60,36 +50,33 @@ const MealInputForm = ({ healthId, setHealthId, setActiveContent }) => {
           const today = new Date();
           const havingDate = new Date(userFood.havingTime);
 
-          // console.log(today,"--------------=");
-          // console.log(havingDate);
-
           if (
             today.getFullYear() === havingDate.getFullYear() &&
             today.getMonth() === havingDate.getMonth() &&
             today.getDate() === havingDate.getDate()
           ) {
-            if (userFood.havingMeal === "Dinner") {
+            if (userFood.havingMeal === "dinner") {
               userFood.havingFood.map(food => {
                 setMeals({
                   ...meals,
                   dinner: [...meals["dinner"], food.foodType],
                 });
               })
-            } else if (userFood.havingMeal === "Lunch") {
+            } else if (userFood.havingMeal === "lunch") {
               userFood.havingFood.map(food => {
                 setMeals({
                   ...meals,
                   lunch: [...meals["lunch"], food.foodType],
                 });
               })
-            } else if (userFood.havingMeal === "Breakfast") {
+            } else if (userFood.havingMeal === "breakfast") {
               userFood.havingFood.map(food => {
                 setMeals({
                   ...meals,
                   breakfast: [...meals["breakfast"], food.foodType],
                 });
               })
-            } else if (userFood.havingMeal === "Snacks") {
+            } else if (userFood.havingMeal === "snacks") {
               userFood.havingFood.map(food => {
                 setMeals({
                   ...meals,

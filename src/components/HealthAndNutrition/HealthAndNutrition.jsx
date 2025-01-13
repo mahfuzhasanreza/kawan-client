@@ -12,6 +12,7 @@ import MealInputForm from "./MealInputForm";
 import SetTheGoal from "./SetTheGoal";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useLoaderData } from "react-router-dom";
+import Dashboard from "./Dashboard";
 
 
 const HealthAndNutrition = () => {
@@ -19,7 +20,13 @@ const HealthAndNutrition = () => {
     const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
     const [activeContent, setActiveContent] = useState("dashboard");
     const [showWarning, setShowWarning] = useState(true);
-  const [healthId, setHealthId] = useState(null);
+    const [healthId, setHealthId] = useState(null);
+    const [foodData, setFoodData] = useState({
+        carbohydrates: 0.0,
+        fats: 0.0,
+        proteins: 0.0,
+        calories: 0.0,
+    });
 
 
     console.log(userDb, "ChecKKKKKKKKKKKK");
@@ -47,9 +54,12 @@ const HealthAndNutrition = () => {
                             <UserDataInputModal></UserDataInputModal>
                         )
                     }
-                    <div className={`${(showWarning) ? 'blur-sm bg-green-500' : 'bg-red-500'}`}>
-                        <DietPlan></DietPlan>
-                        <InputForm />
+                    <div className={`${(showWarning) ? 'blur-sm bg-red-500' : 'w-96 bg-green-500'}`}>
+                        {/* <Dashboard></Dashboard> */}
+                        {/* <DietPlan></DietPlan> */}
+                        {/* <InputForm /> */}
+
+                        <p className="text-center font-bold text-5xl">Dashboard - Chart, Progress etc</p>
                     </div>
                 </div>;
             case "goal":
@@ -63,19 +73,19 @@ const HealthAndNutrition = () => {
                 </div>;
             case "breakfast":
                 return <div>
-                    <HealthCondition healthId={healthId} setHealthId={setHealthId}  setActiveContent={setActiveContent}></HealthCondition>
+                    <HealthCondition activeContent={"breakfast"} foodData={foodData} setFoodData={setFoodData} healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
                 </div>
             case "lunch":
                 return <div>
-                    <HealthCondition healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
+                    <HealthCondition  activeContent={"lunch"}  foodData={foodData} setFoodData={setFoodData} healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
                 </div>
             case "dinner":
                 return <div>
-                    <HealthCondition healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
+                    <HealthCondition activeContent={"dinner"}  foodData={foodData} setFoodData={setFoodData}  healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
                 </div>
             case "snacks":
                 return <div>
-                    <HealthCondition healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
+                    <HealthCondition activeContent={"snacks"}  foodData={foodData} setFoodData={setFoodData}  healthId={healthId} setHealthId={setHealthId} setActiveContent={setActiveContent}></HealthCondition>
                 </div>
             default:
                 return <div><h1>Welcome</h1><p>Select an option from the sidebar.</p></div>;
@@ -114,7 +124,7 @@ const HealthAndNutrition = () => {
                     <li>
                         <button
                             onClick={() => setActiveContent("goal")}
-                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "blog" ? "bg-fuchsia-500 text-white" : ""
+                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "goal" ? "bg-fuchsia-500 text-white" : ""
                                 }`}
                         >
                             Set Your Goal

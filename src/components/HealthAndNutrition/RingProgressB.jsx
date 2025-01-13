@@ -22,12 +22,15 @@ const RingProgress = ({ label, percentage, color }) => {
   );
 };
 
-const App= () => {
+const App= ({foodData}) => {
+
+  // console.log(foodData["proteins"], "PPPPPOOPPP");
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <RingProgress label="Proteins" percentage={75} color="green" />
-      <RingProgress label="Carbons" percentage={50} color="blue" />
-      <RingProgress label="Fats" percentage={80} color="red" />
+      <RingProgress label="Proteins" percentage={`${(foodData["proteins"]*100.0).toFixed(1)}`} color="green" />
+      <RingProgress label="Carbohydrates" percentage={`${(foodData["carbohydrates"]*100.0).toFixed(1)}`} color="blue" />
+      <RingProgress label="Fats" percentage={`${(foodData["fats"]*100.0).toFixed(1)}`} color="red" />
     </div>
   );
 };
