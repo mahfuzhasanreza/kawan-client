@@ -134,13 +134,15 @@ const HealthAndNutrition = () => {
                         </Link>
                     </li>
                     <li>
-                        <button
-                            // onClick={() => setActiveContent("blog")}
-                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "blog" ? "bg-fuchsia-500 text-white" : ""
-                                }`}
-                        >
-                            Blog
-                        </button>
+                        <Link to={`/health-and-nutrition/blogs`}>
+                            <button
+                                // onClick={() => setActiveContent("blog")}
+                                className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "blog" ? "bg-fuchsia-500 text-white" : ""
+                                    }`}
+                            >
+                                Blog
+                            </button>
+                        </Link>
                     </li>
                 </ul>
             </div>

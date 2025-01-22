@@ -29,6 +29,7 @@ import HealthDashboard from './components/HealthAndNutrition/HealthDashboard';
 import HealthCal from './components/HealthAndNutrition/HealthCal';
 import HealthCondition from './components/HealthAndNutrition/HealthCondition';
 import SetTheGoal from './components/HealthAndNutrition/SetTheGoal';
+import Blogs from './components/HealthAndNutrition/Blogs/Blogs/Blogs';
 
 
 const queryClient = new QueryClient();
@@ -104,7 +105,12 @@ const router = createBrowserRouter([
       {
         path: 'health-and-nutrition/goal/:healthId',
         element: <PrivateRoute><SetTheGoal></SetTheGoal></PrivateRoute>,
-      }
+      },
+      {
+        path: 'health-and-nutrition/blogs',
+        element: <PrivateRoute><Blogs></Blogs></PrivateRoute>,
+        loader: () => fetch('/healthBlogData.json')
+      },
     ]
   },
 ]);

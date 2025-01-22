@@ -1,45 +1,30 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Food = ({ food = {} }) => {
-    const {
-        _id,
-        foodImage,
-        foodName,
-        foodQuantity,
-        pickupLocation,
-        expiredDateTime,
-        donatorName,
-        donatorEmail,
-    } = food;
+const BlogCard = ({ blog = {} }) => {
+    const { id, title, author, date, content } = blog;
 
-    if (!food || Object.keys(food).length === 0) {
+    if (!blog || Object.keys(blog).length === 0) {
         return (
             <div className="text-center text-red-500">
-                Food details are not available.
+                Blog details are not available.
             </div>
         );
     }
 
     return (
-        <div className="card bg-slate-200 w-full p-8 m-0 shadow-xl">
-            <figure>
-                <img src={foodImage} className="h-[200px]" alt={foodName} />
-            </figure>
+        <div className="z-0 card bg-slate-200 w-full p-8 m-0 shadow-xl">
             <div className="card-body">
-                <h2 className="text-orange-700 font-bold text-xl">{foodName}</h2>
-
-                <div className="text-lg text-gray-500">
-                    <p>Quantity: {foodQuantity}</p>
-                    <p>Pickup Location: {pickupLocation}</p>
-                    <p>Expire Date: {new Date(expiredDateTime).toLocaleString()}</p>
-                    <p>Donator: {donatorName}</p>
+                <h2 className="text-orange-700 font-bold text-xl">{title}</h2>
+                <div className="text-sm text-gray-500 mb-4">
+                    <p>By: {author}</p>
+                    <p>Date: {new Date(date).toLocaleDateString()}</p>
                 </div>
+                <p className="text-lg text-gray-700 mb-4">{content.slice(0, 200)}...</p>
 
-                <Link to={`/food/${_id}`}>
+                <Link to={`/blog/${id}`}>
                     <button className="btn text-orange-700 border-orange-700 rounded-full">
-                        See Details
+                        Read More
                     </button>
                 </Link>
             </div>
@@ -47,5 +32,4 @@ const Food = ({ food = {} }) => {
     );
 };
 
-
-export default Food;
+export default BlogCard;
