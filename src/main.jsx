@@ -31,6 +31,7 @@ import HealthCondition from './components/HealthAndNutrition/HealthCondition';
 import SetTheGoal from './components/HealthAndNutrition/SetTheGoal';
 import Blogs from './components/HealthAndNutrition/Blogs/Blogs/Blogs';
 import Meditation from './components/Meditation/Meditation';
+import TicTacGame from './components/Games/tic-tac-toe/src/TicTacGame'
 
 
 const queryClient = new QueryClient();
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
       {
         path: 'meditation',
         element: <PrivateRoute><Meditation></Meditation></PrivateRoute>,
+      },
+      {
+        path: 'game/tic-tac',
+        element: <PrivateRoute><TicTacGame></TicTacGame></PrivateRoute>
       }
     ]
   },

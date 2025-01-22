@@ -104,7 +104,10 @@ const Navbar = () => {
                     <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/health-and-nutrition' ? 'text-yellow-300' : ''}`}>Health & Nutrition</button>
                 </Link>
                 <Link to={`/meditation`}>
-                    <button className={`mr-5 hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/meditation' ? 'text-yellow-300' : ''}`}>Meditation</button>
+                    <button className={`hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/meditation' ? 'text-yellow-300' : ''}`}>Meditation</button>
+                </Link>
+                <Link to={`/game/tic-tac`}>
+                    <button className={`mr-7 hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/game/tic-tac' ? 'text-yellow-300' : ''}`}>TicTacToe</button>
                 </Link>
 
                 {user ? (
