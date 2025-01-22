@@ -40,7 +40,7 @@ const HealthAndNutrition = () => {
         }
     }, [userDb]);
 
-    console.log(userDb.hight);
+    console.log(userDb.hight, "ggggggggggggggggggggg");
 
     // const renderContent = () => {
     //     switch (activeContent) {

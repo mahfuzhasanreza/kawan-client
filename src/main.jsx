@@ -31,7 +31,8 @@ import HealthCondition from './components/HealthAndNutrition/HealthCondition';
 import SetTheGoal from './components/HealthAndNutrition/SetTheGoal';
 import Blogs from './components/HealthAndNutrition/Blogs/Blogs/Blogs';
 import Meditation from './components/Meditation/Meditation';
-import TicTacGame from './components/Games/tic-tac-toe/src/TicTacGame'
+import TicTacGame from './components/Games/tic-tac-toe/TicTacGame';
+import FifteenPuzzle from './components/Games/FifteenPuzzle/src/FifteenPuzzle';
 
 
 const queryClient = new QueryClient();
@@ -119,7 +120,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'game/tic-tac',
-        element: <PrivateRoute><TicTacGame></TicTacGame></PrivateRoute>
+        element: <TicTacGame></TicTacGame>,
+      },
+      {
+        path: 'game/fifteen-puzzle',
+        element: <FifteenPuzzle></FifteenPuzzle>,
       }
     ]
   },
