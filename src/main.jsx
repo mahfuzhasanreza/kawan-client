@@ -30,6 +30,7 @@ import HealthCal from './components/HealthAndNutrition/HealthCal';
 import HealthCondition from './components/HealthAndNutrition/HealthCondition';
 import SetTheGoal from './components/HealthAndNutrition/SetTheGoal';
 import Blogs from './components/HealthAndNutrition/Blogs/Blogs/Blogs';
+import Meditation from './components/Meditation/Meditation';
 
 
 const queryClient = new QueryClient();
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
         element: <PrivateRoute><Blogs></Blogs></PrivateRoute>,
         loader: () => fetch('/healthBlogData.json')
       },
+      {
+        path: 'meditation',
+        element: <PrivateRoute><Meditation></Meditation></PrivateRoute>,
+      }
     ]
   },
 ]);

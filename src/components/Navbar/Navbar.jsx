@@ -103,8 +103,8 @@ const Navbar = () => {
                 <Link to={`/health-and-nutrition`}>
                     <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/health-and-nutrition' ? 'text-yellow-300' : ''}`}>Health & Nutrition</button>
                 </Link>
-                <Link to={`/m`}>
-                    <button className={`mr-5 hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/m' ? 'text-yellow-300' : ''}`}>Meditation</button>
+                <Link to={`/meditation`}>
+                    <button className={`mr-5 hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/meditation' ? 'text-yellow-300' : ''}`}>Meditation</button>
                 </Link>
 
                 {user ? (
