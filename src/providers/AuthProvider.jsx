@@ -23,6 +23,43 @@ const AuthProvider = ({ children }) => {
     const [theme, setTheme] = useState('light');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isHealthData, setIsHealthData] = useState(false);
+    const [healthId, setHealthId] = useState(null);
+
+    const fetchUserHealthId = async () => {
+        try {
+            const response = await fetch(`https://kawan.onrender.com/api/v1/health`, {
+                method: "GET",
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            const userHealthInfo = result.data.find((userHealth) => userHealth.user === userDb._id);
+
+            if (userHealthInfo) {
+                setHealthId(userHealthInfo._id);
+            } else {
+                console.warn("No health information found for the user.");
+
+                // Create new health information for the user
+                await fetch(`https://kawan.onrender.com/api/v1/health`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        user: userDb._id,
+                    }),
+                });
+
+                fetchUserHealthId();
+            }
+        } catch (error) {
+            console.error("Error fetching user health ID:", error);
+        }
+    };
 
     const createUser = async (email, password, displayName = '', photoURL = '') => {
         setLoading(true);
@@ -195,6 +232,8 @@ const AuthProvider = ({ children }) => {
         setUserDb,
         setIsHealthData,
         isHealthData,
+        healthId,
+        fetchUserHealthId,
     };
 
     return (

@@ -18,10 +18,9 @@ import HealthDashboard from "./HealthDashboard";
 
 const HealthAndNutrition = () => {
     const userHealth = useLoaderData();
-    const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
+    const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen, healthId } = useContext(AuthContext);
     const [activeContent, setActiveContent] = useState("dashboard");
     const [showWarning, setShowWarning] = useState(true);
-    const [healthId, setHealthId] = useState(null);
     const [foodData, setFoodData] = useState({
         carbohydrates: 0.0,
         fats: 0.0,

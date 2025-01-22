@@ -17,17 +17,14 @@ import Dashboard from "./Dashboard";
 
 const HealthAndNutrition = () => {
     const userHealth = useLoaderData();
-    const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen } = useContext(AuthContext);
+    const { loading, user, userDb, isSidebarOpen, setIsSidebarOpen, healthId, fetchUserHealthId } = useContext(AuthContext);
     const [activeContent, setActiveContent] = useState("dashboard");
     const [showWarning, setShowWarning] = useState(true);
-    const [healthId, setHealthId] = useState(null);
-    const [foodData, setFoodData] = useState({
-        carbohydrates: 0.0,
-        fats: 0.0,
-        proteins: 0.0,
-        calories: 0.0,
-    });
 
+
+    useEffect(() => {
+        fetchUserHealthId();
+    }, []);
 
     console.log(userDb, "ChecKKKKKKKKKKKK");
 
@@ -115,7 +112,7 @@ const HealthAndNutrition = () => {
                     </li>
 
                     <li>
-                        <Link to={'/calorie-calculation'}>
+                        <Link to={`/health-and-nutrition/progress/${healthId}`}>
                             <button
                                 // onClick={() => setActiveContent("meal-input")}
                                 className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "meal-input" ? "bg-fuchsia-500 text-white" : ""
@@ -126,13 +123,15 @@ const HealthAndNutrition = () => {
                         </Link>
                     </li>
                     <li>
-                        <button
-                            // onClick={() => setActiveContent("goal")}
-                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "goal" ? "bg-fuchsia-500 text-white" : ""
-                                }`}
-                        >
-                            Set Your Goal
-                        </button>
+                        <Link to={`/health-and-nutrition/goal/${healthId}`}>
+                            <button
+                                // onClick={() => setActiveContent("goal")}
+                                className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "goal" ? "bg-fuchsia-500 text-white" : ""
+                                    }`}
+                            >
+                                Set Your Goal
+                            </button>
+                        </Link>
                     </li>
                     <li>
                         <button

@@ -27,6 +27,8 @@ import HealthAndNutrition from './components/HealthAndNutrition/HealthAndNutriti
 import LiveMeeting from './components/LiveMeeting/src/LiveMeeting';
 import HealthDashboard from './components/HealthAndNutrition/HealthDashboard';
 import HealthCal from './components/HealthAndNutrition/HealthCal';
+import HealthCondition from './components/HealthAndNutrition/HealthCondition';
+import SetTheGoal from './components/HealthAndNutrition/SetTheGoal';
 
 
 const queryClient = new QueryClient();
@@ -92,8 +94,16 @@ const router = createBrowserRouter([
         element: <PrivateRoute><HealthDashboard></HealthDashboard></PrivateRoute>,
       },
       {
-        path: 'calorie-calculation',
+        path: 'health-and-nutrition/progress/:healthId',
         element: <PrivateRoute><HealthCal></HealthCal></PrivateRoute>,
+      },
+      {
+        path: 'health-and-nutrition/:type/:healthId',
+        element: <PrivateRoute><HealthCondition></HealthCondition></PrivateRoute>,
+      },
+      {
+        path: 'health-and-nutrition/goal/:healthId',
+        element: <PrivateRoute><SetTheGoal></SetTheGoal></PrivateRoute>,
       }
     ]
   },

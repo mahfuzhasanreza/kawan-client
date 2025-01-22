@@ -3,11 +3,25 @@ import foodLottieData from '../../assets/lottie/health-and-nutrition/banner.json
 import Lottie from "lottie-react";
 import RingProgressB from "./RingProgressB";
 import { AuthContext } from "../../providers/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { time } from "motion";
+import HealthSideBar from "./HealthSideBar";
 
-const HealthCondition = ({ activeContent, foodData, setFoodData, healthId, setHealthId, setActiveContent }) => {
+const HealthCondition = () => {
     const { userDb } = useContext(AuthContext);
+    const { type, healthId } = useParams(); // Get 'type' from the dynamic route
+    // const location = useLocation();
+    // const { healthId } = location.state || {}; // Extract 'healthId' from state
+
+    console.log("Health ID:", healthId);
+    console.log(type, "Type");
+
+    const [foodData, setFoodData] = useState({
+        carbohydrates: 0.0,
+        fats: 0.0,
+        proteins: 0.0,
+        calories: 0.0,
+    });
 
     const [meal, setMeal] = useState({
         havingMeal: "",
@@ -59,7 +73,7 @@ const HealthCondition = ({ activeContent, foodData, setFoodData, healthId, setHe
         setIsFoodDropdownOpen(false);
     };
 
-    console.log("objectAAAAAAAAAAAA", activeContent);
+    // console.log("objectAAAAAAAAAAAA", activeContent);
 
 
     const foodDataCalculation = (quantity = 1.0, foodD) => {
@@ -173,7 +187,7 @@ const HealthCondition = ({ activeContent, foodData, setFoodData, healthId, setHe
                     const updatedMeal = [
                         ...existingData.data.Meal,
                         {
-                            havingMeal: activeContent,
+                            havingMeal: type,
                             havingTime: meal["mealDate"],
                             havingFood: [
                                 {
@@ -272,89 +286,90 @@ const HealthCondition = ({ activeContent, foodData, setFoodData, healthId, setHe
 
 
         setTimeout(() => {
-            setActiveContent("meal-input");
+            // setActiveContent("meal-input");
         }, 3000);
 
     };
 
     return (
-        <div className="mt-20 mb-20">
+        <>
+            <HealthSideBar></HealthSideBar>
+            <div className="mt-20 mb-20">
+                {/* ring progress */}
+                <div>
+                    <RingProgressB foodData={foodData}></RingProgressB>
+                </div>
 
-            {/* ring progress */}
-            <div>
-                <RingProgressB foodData={foodData}></RingProgressB>
-            </div>
-
-            <h1 className="mt-10 text-5xl font-bold text-fuchsia-700 text-center mb-6">Add Your Meal</h1>
-            <div className="p-6 max-w-full bg-gradient-to-br from-fuchsia-200 to-fuchsia-50 rounded-lg flex justify-between m-8">
-                <div className="w-full">
-                    <form
-                        onSubmit={handleSubmit}
-                        className="pl-10 pt-3"
-                    >
-                        {/* Food Type */}
-                        <div className="mb-4 relative">
-                            <label className="block text-gray-700 font-medium">Food Type</label>
-                            <div
-                                className="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                onClick={() => setIsFoodDropdownOpen(!isFoodDropdownOpen)}
-                            >
-                                {meal.havingFood || "Select Food Type"}
-                            </div>
-
-                            {isFoodDropdownOpen && (
-                                <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
-                                    <input
-                                        type="text"
-                                        placeholder="Search Food..."
-                                        value={foodSearch}
-                                        onChange={(e) => setFoodSearch(e.target.value)}
-                                        className="w-full p-3 border-b border-gray-300 focus:outline-none"
-                                    />
-                                    <ul className="max-h-60 overflow-y-auto">
-                                        {filteredFoodOptions.map((food) => (
-                                            <li
-                                                key={food}
-                                                className="p-3 hover:bg-blue-50 cursor-pointer"
-                                                onClick={() => handleFoodChange(food)}
-                                            >
-                                                {food}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Quantity */}
-                        <div className="mb-4">
-                            <label className="block text-gray-700 font-medium">Food Quantity</label>
-                            <div className="flex">
-                                <input
-                                    type="number"
-                                    name="foodQuantity"
-                                    value={meal.foodQuantity}
-                                    onChange={handleChange}
-                                    placeholder="Enter quantity"
-                                    className="w-full p-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-400"
-                                />
-                                <select
-                                    name="foodUnit"
-                                    value={meal.foodUnit}
-                                    onChange={handleChange}
-                                    className="border border-gray-300 rounded-r-md p-3 bg-gray-100 text-gray-700 focus:outline-none"
+                <h1 className="mt-10 text-5xl font-bold text-fuchsia-700 text-center mb-6">Add Your Meal</h1>
+                <div className="p-6 max-w-full bg-gradient-to-br from-fuchsia-200 to-fuchsia-50 rounded-lg flex justify-between m-8">
+                    <div className="w-full">
+                        <form
+                            onSubmit={handleSubmit}
+                            className="pl-10 pt-3"
+                        >
+                            {/* Food Type */}
+                            <div className="mb-4 relative">
+                                <label className="block text-gray-700 font-medium">Food Type</label>
+                                <div
+                                    className="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                    onClick={() => setIsFoodDropdownOpen(!isFoodDropdownOpen)}
                                 >
-                                    <option value="grams">Grams</option>
-                                    <option value="kilograms">Kilograms</option>
-                                    <option value="milligrams">Milligrams</option>
-                                    <option value="pounds">Pounds</option>
-                                    <option value="ounces">Ounces</option>
-                                </select>
-                            </div>
-                        </div>
+                                    {meal.havingFood || "Select Food Type"}
+                                </div>
 
-                        {/* Date */}
-                        {/* <div className="mb-4">
+                                {isFoodDropdownOpen && (
+                                    <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
+                                        <input
+                                            type="text"
+                                            placeholder="Search Food..."
+                                            value={foodSearch}
+                                            onChange={(e) => setFoodSearch(e.target.value)}
+                                            className="w-full p-3 border-b border-gray-300 focus:outline-none"
+                                        />
+                                        <ul className="max-h-60 overflow-y-auto">
+                                            {filteredFoodOptions.map((food) => (
+                                                <li
+                                                    key={food}
+                                                    className="p-3 hover:bg-blue-50 cursor-pointer"
+                                                    onClick={() => handleFoodChange(food)}
+                                                >
+                                                    {food}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Quantity */}
+                            <div className="mb-4">
+                                <label className="block text-gray-700 font-medium">Food Quantity</label>
+                                <div className="flex">
+                                    <input
+                                        type="number"
+                                        name="foodQuantity"
+                                        value={meal.foodQuantity}
+                                        onChange={handleChange}
+                                        placeholder="Enter quantity"
+                                        className="w-full p-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                                    />
+                                    <select
+                                        name="foodUnit"
+                                        value={meal.foodUnit}
+                                        onChange={handleChange}
+                                        className="border border-gray-300 rounded-r-md p-3 bg-gray-100 text-gray-700 focus:outline-none"
+                                    >
+                                        <option value="grams">Grams</option>
+                                        <option value="kilograms">Kilograms</option>
+                                        <option value="milligrams">Milligrams</option>
+                                        <option value="pounds">Pounds</option>
+                                        <option value="ounces">Ounces</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            {/* Date */}
+                            {/* <div className="mb-4">
                             <label className="block text-gray-700 font-medium">Date</label>
                             <input
                                 type="date"
@@ -365,17 +380,18 @@ const HealthCondition = ({ activeContent, foodData, setFoodData, healthId, setHe
                             />
                         </div> */}
 
-                        {/* Submit Button */}
-                        <button
-                            type="submit"
-                            className="mt-5 w-full bg-green-600 text-white p-3 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        >
-                            Submit
-                        </button>
-                    </form>
+                            {/* Submit Button */}
+                            <button
+                                type="submit"
+                                className="mt-5 w-full bg-green-600 text-white p-3 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            >
+                                Submit
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -1,38 +1,52 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { Link, useLocation } from "react-router-dom";
 
-const MealInputForm = ({ healthId, setHealthId }) => {
+const MealInputForm = () => {
   const [expandedMeal, setExpandedMeal] = useState(null);
-  const { userDb } = useContext(AuthContext);
+  const { userDb, healthId } = useContext(AuthContext);
 
   const [breakfastMeal, setBreakfastMeals] = useState([]);
   const [lunchMeal, setLunchMeals] = useState([]);
   const [dinnerMeal, setDinnerMeals] = useState([]);
-  const [snakesMeal, setSnakesMeals] = useState([]);
+  const [snacksMeal, setSnacksMeals] = useState([]);
 
-  // Fetch user health ID
-  const fetchUserHealthId = async () => {
-    try {
-      const response = await fetch(`https://kawan.onrender.com/api/v1/health`, {
-        method: "GET",
-      });
+  // // Fetch user health ID
+  // const fetchUserHealthId = async () => {
+  //   try {
+  //     const response = await fetch(`https://kawan.onrender.com/api/v1/health`, {
+  //       method: "GET",
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
 
-      const result = await response.json();
-      const userHealthInfo = result.data.find((userHealth) => userHealth.user === userDb._id);
+  //     const result = await response.json();
+  //     const userHealthInfo = result.data.find((userHealth) => userHealth.user === userDb._id);
 
-      if (userHealthInfo) {
-        setHealthId(userHealthInfo._id);
-      } else {
-        console.warn("No health information found for the user.");
-      }
-    } catch (error) {
-      console.error("Error fetching user health ID:", error);
-    }
-  };
+  //     if (userHealthInfo) {
+  //       setHealthId(userHealthInfo._id);
+  //     } else {
+  //       console.warn("No health information found for the user.");
+
+  //       // Create new health information for the user
+  //       const createHealthResponse = await fetch(`https://kawan.onrender.com/api/v1/health`, {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           user: userDb._id,
+  //         }),
+  //       });
+
+  //       fetchUserHealthId();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching user health ID:", error);
+  //   }
+  // };
 
   // Fetch user meal data
   const fetchUserData = async () => {
@@ -60,7 +74,7 @@ const MealInputForm = ({ healthId, setHealthId }) => {
           (today.getFullYear() === mealDate.getFullYear() &&
             today.getMonth() === mealDate.getMonth() &&
             today.getDate() === mealDate.getDate()
-          ) || true
+          )
         ) {
           switch (userMeal.havingMeal) {
             case "breakfast":
@@ -84,10 +98,10 @@ const MealInputForm = ({ healthId, setHealthId }) => {
                 ))
               }
               break;
-            case "snakes":
+            case "snacks":
               {
                 userMeal.havingFood.map((foodItem) => (
-                  setSnakesMeals((prev) => [...prev, foodItem.foodType])
+                  setSnacksMeals((prev) => [...prev, foodItem.foodType])
                 ))
               }
               break;
@@ -96,55 +110,63 @@ const MealInputForm = ({ healthId, setHealthId }) => {
           }
         }
       });
-
       // setMeals(updatedMeals);
-
     } catch (error) {
       console.error("Error fetching user meal data:", error);
     }
   };
 
-  // Fetch data on component mount or when healthId changes
   useEffect(() => {
-    if (!healthId) {
-      fetchUserHealthId();
-    } else {
-      fetchUserData();
-    }
+    const fetchInitialData = async () => {
+      try {
+        await fetchUserData();
+      } catch (error) {
+        console.error("Error fetching initial data:", error);
+      } finally {
+        console.log("Initial data fetched.");
+      }
+    };
+
+    fetchInitialData();
   }, [healthId]);
+
 
   const toggleCollapse = (mealType) => {
     setExpandedMeal((prev) => (prev === mealType ? null : mealType));
   };
 
   return (
-    // <div className="m-16">
-    //   <h1 className="text-5xl w-fit mx-auto mt-16 mb-10 font-bold text-fuchsia-700">
-    //     Title
-    //   </h1>
-    //   <div className="p-6 w-full mx-auto bg-white rounded-lg shadow-md">
-        
-    //   </div>
-    // </div>
-
     <div className="m-16">
       <h1 className="text-5xl w-fit mx-auto mt-16 mb-10 font-bold text-fuchsia-700">
-        Meal Input Form
+        Your Meals
       </h1>
       <div className="p-6 w-full mx-auto bg-white rounded-lg shadow-md space-y-4">
         {[
           { type: "breakfast", meals: breakfastMeal },
           { type: "lunch", meals: lunchMeal },
           { type: "dinner", meals: dinnerMeal },
-          { type: "snakes", meals: snakesMeal },
+          { type: "snacks", meals: snacksMeal },
         ].map(({ type, meals }) => (
           <div key={type}>
-            <button
-              className="w-full p-4 text-left bg-gray-100 rounded-md shadow-md hover:bg-gray-200"
-              onClick={() => toggleCollapse(type)}
-            >
-              {type.charAt(0).toUpperCase() + type.slice(1)}
-            </button>
+            <div className="flex justify-between items-center bg-gray-100 rounded-md shadow-md hover:bg-gray-200 p-4">
+              <button
+                className="text-left w-full"
+                onClick={() => toggleCollapse(type)}
+              >
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </button>
+              <Link
+                to={`/health-and-nutrition/${type}/${healthId}`}
+              >
+                <button
+                  className="ml-4 px-3 py-1 bg-green-500 text-white rounded shadow-md hover:bg-green-600"
+                //     onClick={() => {console.log(`Add meal to ${type}`)  }
+                // }
+                >
+                  +
+                </button>
+              </Link>
+            </div>
             {expandedMeal === type && (
               <div className="p-4 bg-gray-50 rounded-md shadow-inner">
                 {meals.length > 0 ? (
@@ -166,52 +188,3 @@ const MealInputForm = ({ healthId, setHealthId }) => {
 };
 
 export default MealInputForm;
-
-
-// {Object.keys(meals).map((meal, index) => (
-//   <div
-//     key={meal}
-//     className={`py-3 ${index !== Object.keys(meals).length - 1 ? "border-b" : ""
-//       }`}
-//   >
-//     <div
-//       className="flex justify-between items-center cursor-pointer"
-//       onClick={() => toggleCollapse(meal)}
-//     >
-//       <div>
-//         <h3 className="text-lg font-medium capitalize">{meal}</h3>
-//         <p className="text-sm text-gray-500">
-//           Total:{" "}
-//           <span className="font-bold text-yellow-600">
-//             {meals[meal].length} items
-//           </span>
-//         </p>
-//       </div>
-//       <button
-//         className="hover:bg-fuchsia-900 btn btn-sm bg-fuchsia-600 border-none text-2xl text-white rounded-full w-8 h-8 flex items-center justify-center"
-//         onClick={(e) => {
-//           e.stopPropagation(); // Prevent toggle when clicking the button
-//           // setActiveContent(meal);
-//         }}
-//       >
-//         +
-//       </button>
-//     </div>
-
-//     {expandedMeal === meal && (
-//       <div className="mt-4 pl-4">
-//         <ul className="list-disc list-inside text-gray-700">
-//           {meals[meal].length > 0 ? (
-//             meals[meal].map((food, index) => (
-//               <div key={index} className="flex justify-between mr-10">
-//                 <li>{food}</li>
-//               </div>
-//             ))
-//           ) : (
-//             <li>No items added</li>
-//           )}
-//         </ul>
-//       </div>
-//     )}
-//   </div>
-// ))}
