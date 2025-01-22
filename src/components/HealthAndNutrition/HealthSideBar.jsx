@@ -13,7 +13,6 @@ import SetTheGoal from "./SetTheGoal";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useLoaderData } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import HealthDashboard from "./HealthDashboard";
 
 
 const HealthAndNutrition = () => {
@@ -45,6 +44,8 @@ const HealthAndNutrition = () => {
     }, [userDb]);
 
     console.log(userDb.hight);
+
+    // const renderContent = () => {
     //     switch (activeContent) {
     //         case "dashboard":
     //             return <div>
@@ -92,8 +93,75 @@ const HealthAndNutrition = () => {
     // };
 
     return (
-        <div>
-            <HealthDashboard></HealthDashboard>
+        <div className="flex min-h-screen">
+            {/* Sidebar */}
+            <div
+                className={`${isSidebarOpen ? "fixed h-full bg-gray-50 shadow-md transform  translate-x-0" : "fixed left-0 h-full bg-gray-50 shadow-md transform -translate-x-full"
+                    } transition-transform duration-300 ease-in-out w-64`}
+            >
+                <div className="flex justify-end items-center p-4 mt-5 pb-12">
+                </div>
+                <ul className="p-4 space-y-4">
+                    <li>
+                        <Link to="/health-and-nutrition">
+                            <button
+                                // onClick={() => setActiveContent("dashboard")}
+                                className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "dashboard" ? "bg-fuchsia-500 text-white" : ""
+                                    }`}
+                            >
+                                Dashboard
+                            </button>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link to={'/calorie-calculation'}>
+                            <button
+                                // onClick={() => setActiveContent("meal-input")}
+                                className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "meal-input" ? "bg-fuchsia-500 text-white" : ""
+                                    }`}
+                            >
+                                Calorie Calculation
+                            </button>
+                        </Link>
+                    </li>
+                    <li>
+                        <button
+                            // onClick={() => setActiveContent("goal")}
+                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "goal" ? "bg-fuchsia-500 text-white" : ""
+                                }`}
+                        >
+                            Set Your Goal
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            // onClick={() => setActiveContent("blog")}
+                            className={`text-fuchsia-500 hover:text-fuchsia-700 w-full text-left p-2 rounded-md ${activeContent === "blog" ? "bg-fuchsia-500 text-white" : ""
+                                }`}
+                        >
+                            Blog
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            {/* Sidebar Toggle Button */}
+            <button
+                onClick={toggleSidebar}
+                className="p-4 mt-4 bg-fuchsia-600 text-white fixed z-50 rounded-r-full shadow-lg focus:outline-none focus:ring-2 focus:ring-fuchsia-300 hover:pl-5 transition-all duration-300 ease-in-out"
+            >
+                {isSidebarOpen ? <FiX className="text-2xl" /> : <FiMenu className="text-2xl" />}
+            </button>
+
+            {/* Main Content */}
+            <div
+                className={`flex-1 ml-0 transition-all duration-300 ease-in-out ${isSidebarOpen ? "ml-64" : "ml-0"
+                    }`}
+            >
+                <Banner />
+                {/* {renderContent()} Dynamically render content */}
+            </div>
         </div>
     );
 };

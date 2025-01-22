@@ -10,6 +10,7 @@ const Navbar = () => {
     const { user, signOutUser, theme, setTheme } = useContext(AuthContext);
     const [isHovered, setIsHovered] = useState(false);
     const [isProfileShow, setIsProfileShow] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
     const userName = user?.displayName;
 
@@ -35,10 +36,21 @@ const Navbar = () => {
         document.querySelector('html').setAttribute('data-theme', theme);
     }, [theme]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 0);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
         <div
-            className={`navbar bg-fuchsia-600 text-white lg:px-10 mx-auto max-w-[5000px] 
-                        sticky top-0 z-50 backdrop-blur-lg bg-opacity-100 shadow-md`}
+            className={`navbar text-white lg:px-10 mx-auto max-w-[5000px] sticky top-0 z-50 backdrop-blur-lg shadow-md
+                bg-fuchsia-600 transition-opacity duration-300 ${
+                    isScrolled ? "bg-opacity-80" : "bg-opacity-100"
+                }`}
         >
             <Toaster />
             <div className="navbar-start">
@@ -65,7 +77,7 @@ const Navbar = () => {
                     >
                         <li><Link className="text-black" to="/">Home</Link></li>
                         <li><Link className="text-black" to="/e-book">E-Book</Link></li>
-                        <li><Link className="text-black" to="/ai-chatbot">AI ChatBot</Link></li>
+                        <li><Link className="text-black" to="/ai-chatbot">Live Counselling</Link></li>
                         {
                             user ?
                                 <></>
@@ -86,7 +98,7 @@ const Navbar = () => {
                     <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/e-book' ? 'text-yellow-300' : ''}`}>E-Book</button>
                 </Link>
                 <Link to="/ai-chatbot">
-                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/ai-chatbot' ? 'text-yellow-300' : ''}`}>AI ChatBot</button>
+                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/ai-chatbot' ? 'text-yellow-300' : ''}`}>Live Counselling</button>
                 </Link>
                 <Link to={`/health-and-nutrition`}>
                     <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/health-and-nutrition' ? 'text-yellow-300' : ''}`}>Health & Nutrition</button>

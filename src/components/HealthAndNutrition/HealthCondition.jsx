@@ -4,8 +4,9 @@ import Lottie from "lottie-react";
 import RingProgressB from "./RingProgressB";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { time } from "motion";
 
-const HealthCondition = ({  activeContent, foodData, setFoodData, healthId, setHealthId, setActiveContent }) => {
+const HealthCondition = ({ activeContent, foodData, setFoodData, healthId, setHealthId, setActiveContent }) => {
     const { userDb } = useContext(AuthContext);
 
     const [meal, setMeal] = useState({
@@ -16,7 +17,7 @@ const HealthCondition = ({  activeContent, foodData, setFoodData, healthId, setH
         foodUnit: "grams",
     });
 
-    
+
 
     const [isFoodDropdownOpen, setIsFoodDropdownOpen] = useState(false);
     const [foodSearch, setFoodSearch] = useState("");
@@ -99,7 +100,7 @@ const HealthCondition = ({  activeContent, foodData, setFoodData, healthId, setH
                 return res.json();
             })
             .then((data) => {
-                const foodD = data[meal["havingFood"]];                
+                const foodD = data[meal["havingFood"]];
                 // Pass food data and quantity to the calculation function
                 foodDataCalculation(parseFloat(meal["foodQuantity"]), foodD);
             })
@@ -122,7 +123,7 @@ const HealthCondition = ({  activeContent, foodData, setFoodData, healthId, setH
             foodUnit: "grams",
         };
         console.log("meal", updatedMeal);
-        
+
         if (healthId) {
             // PATCH OPERATION - for update
             // fetch(`https://kawan.onrender.com/api/v1/health/${healthId}`, {
@@ -207,7 +208,7 @@ const HealthCondition = ({  activeContent, foodData, setFoodData, healthId, setH
                 });
 
 
-            setActiveContent("meal-input");
+            // setActiveContent("meal-input");
         } else {
             // POST OPERATION
             try {
@@ -246,14 +247,14 @@ const HealthCondition = ({  activeContent, foodData, setFoodData, healthId, setH
                     console.error(result);
                 }
 
-                setActiveContent("meal-input");
+                // setActiveContent("meal-input");
             } catch (error) {
                 console.error("Error submitting data:", error);
                 alert("An error occurred while submitting data.");
             }
 
 
-            setActiveContent("meal-input");
+            // setActiveContent("meal-input");
         }
 
 
@@ -270,8 +271,9 @@ const HealthCondition = ({  activeContent, foodData, setFoodData, healthId, setH
         //     .then((data) => { console.log(data); })
 
 
-
-
+        setTimeout(() => {
+            setActiveContent("meal-input");
+        }, 3000);
 
     };
 

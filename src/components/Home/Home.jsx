@@ -10,6 +10,7 @@ import CommunityStories from "../CommunityStories/CommunityStories";
 import WhyChooseKawan from "../WhyChooseKawan/WhyChooseKawan";
 import Banner from "../Banner/Banner";
 import StarTesting from '../StarTesting/StarTesting'
+import ParticleBg from "../Particle/ParticleBg";
 
 const Home = () => {
     // const [loading, setLoading] = useState(true);
@@ -22,11 +23,11 @@ const Home = () => {
 
 
         const timer = setTimeout(() => {
-    //         setLoading(false);
-         }, 2000);
+            //         setLoading(false);
+        }, 2000);
 
-       return () => clearTimeout(timer);
-     }, []);
+        return () => clearTimeout(timer);
+    }, []);
 
     // if (loading) {
     //     return (
@@ -54,7 +55,7 @@ const Home = () => {
                 <Banner></Banner>
             </div>
 
-            <div data-aos="fade-down">
+            <div data-aos="fade-down" className="relative">
                 <KawanNewsAndUpdates></KawanNewsAndUpdates>
             </div>
 
@@ -62,7 +63,6 @@ const Home = () => {
             <div data-aos="fade-up">
                 <CommunityStories></CommunityStories>
             </div>
-
             <div data-aos="fade-down">
                 <HowKawanWorks></HowKawanWorks>
             </div>
@@ -70,7 +70,7 @@ const Home = () => {
             <div data-aos="fade-up">
                 <WhyChooseKawan></WhyChooseKawan>
             </div>
-        
+
             <div data-aos="fade-down">
                 <FAQSection></FAQSection>
             </div>

@@ -6,6 +6,7 @@ import Navbar from "../Navbar/Navbar";
 import AiChatbotMain from "../AiChatbot/AiChatbotMain";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import ParticleBg from "../Particle/ParticleBg";
 
 const Root = () => {
     const { setIsSidebarOpen } = useContext(AuthContext);
@@ -18,10 +19,11 @@ const Root = () => {
     }, [location, setIsSidebarOpen]);
 
     return (
-        <div>
+        <div className="bg-fuchsia-50">
             <div>
                 <Navbar></Navbar>
-                <Outlet></Outlet>
+                <Outlet>
+                </Outlet>
             </div>
             <AiChatbotMain></AiChatbotMain>
             <Footer></Footer>

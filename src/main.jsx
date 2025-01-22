@@ -18,15 +18,15 @@ import Profile from './components/Profile/Profile';
 import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import BookDetail from './components/EBook/BookDetail/BookDetail';
-import AiChatbotSection from './components/AiChatbot/AiChatbotSection';
 import BookDashboard from './components/EBook/BookDashboard/BookDashboard';
 import AllBooks from './components/EBook/AllBooks/AllBooks';
 import ReadListen from './components/EBook/ReadListen/ReadListen';
 import B1 from './components/EBook/Chapter/B1';
 import B2 from './components/EBook/Chapter/B2';
 import HealthAndNutrition from './components/HealthAndNutrition/HealthAndNutrition';
-import VideoStreaming from './components/VideoStreaming/VideoStreaming/VideoStreaming';
-import App from './components/LiveMeeting/src/App';
+import LiveMeeting from './components/LiveMeeting/src/LiveMeeting';
+import HealthDashboard from './components/HealthAndNutrition/HealthDashboard';
+import HealthCal from './components/HealthAndNutrition/HealthCal';
 
 
 const queryClient = new QueryClient();
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'ai-chatbot',
-        element: <App></App>
+        element: <LiveMeeting></LiveMeeting>
       },
       {
         path: 'profile',
@@ -89,8 +89,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'health-and-nutrition',
-        element: <PrivateRoute><HealthAndNutrition></HealthAndNutrition></PrivateRoute>,
-        loader: () => fetch('https://kawan.onrender.com/api/v1/health')
+        element: <PrivateRoute><HealthDashboard></HealthDashboard></PrivateRoute>,
+      },
+      {
+        path: 'calorie-calculation',
+        element: <PrivateRoute><HealthCal></HealthCal></PrivateRoute>,
       }
     ]
   },
@@ -101,7 +104,7 @@ createRoot(document.getElementById('root')).render(
     <HelmetProvider>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
-          <div className='max-w-screen-2xl mx-auto'>
+          <div>
             <RouterProvider router={router} />
           </div>
         </QueryClientProvider>

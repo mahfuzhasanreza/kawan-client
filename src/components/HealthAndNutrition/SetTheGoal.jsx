@@ -1,18 +1,111 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
 
-const SetTheGoal = () => {
-  const [calorieGoal, setCalorieGoal] = useState('');
+const SetTheGoal = ({ healthId, setHealthId }) => {
+  const [targetWeight, settargetWeight] = useState('');
   const [duration, setDuration] = useState('');
   const [formError, setFormError] = useState('');
+  const { userDb } = useContext(AuthContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!calorieGoal || !duration) {
+    const targetWeight = e.target.targetWeight.value;
+    const duration = e.target.duration.value;
+
+    if (!targetWeight || !duration) {
       setFormError('Please fill in both fields.');
       return;
     }
-    alert(`Goal set! Calorie Goal: ${calorieGoal} kcal, Duration: ${duration} days`);
+
     setFormError('');
+
+    try {
+      if (!healthId) {
+        // Fetch user health ID if not already available
+        const response = await fetch(`https://kawan.onrender.com/api/v1/health`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        const userHealthInfo = result.data.find((userHealth) => userHealth.user === userDb._id);
+
+        if (userHealthInfo) {
+          setHealthId(userHealthInfo._id);
+        }
+      }
+
+      if (healthId) {
+        // Update existing health data
+        const res = await fetch(`https://kawan.onrender.com/api/v1/health/${healthId}`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        await res.json();
+        
+        console.log(
+          'targetWeight',
+          targetWeight,
+          'duration',
+          duration
+        );
+
+        const updateRes = await fetch(`https://kawan.onrender.com/api/v1/health/${healthId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            targetWeight,
+            duration,
+          }),
+        });
+
+        if (!updateRes.ok) {
+          throw new Error(`HTTP error! status: ${updateRes.status}`);
+        }
+
+        const updateResult = await updateRes.json();
+        console.log('Update successful:', updateResult);
+      } else {
+        // Create new health data
+        const createRes = await fetch('https://kawan.onrender.com/api/v1/health/create-health', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user: userDb._id,
+            BMI: '22.5',
+            height: '170',
+            weight: '65',
+            Meal: [
+              {
+                havingMeal: 'Lunch',
+                havingFood: [
+                  {
+                    foodType: 'Apple',
+                    quantity: 100,
+                  },
+                ],
+                havingTime: new Date().toISOString(),
+              },
+            ],
+            dailyCalCount: [],
+          }),
+        });
+
+        if (!createRes.ok) {
+          throw new Error(`HTTP error! status: ${createRes.status}`);
+        }
+
+        const createResult = await createRes.json();
+        console.log('Create successful:', createResult);
+      }
+    } catch (error) {
+      console.error('Error handling request:', error);
+      setFormError('An error occurred while processing your request.');
+    }
   };
 
   return (
@@ -21,14 +114,15 @@ const SetTheGoal = () => {
         <h2 className="text-5xl font-semibold text-center text-fuchsia-700 mb-6">Set Calorie Goal</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="calorieGoal" className="block text-lg font-medium text-gray-600 mb-2">
+            <label htmlFor="targetWeight" className="block text-lg font-medium text-gray-600 mb-2">
               Targeted Weight:
             </label>
             <input
               type="number"
-              id="calorieGoal"
-              value={calorieGoal}
-              onChange={(e) => setCalorieGoal(e.target.value)}
+              id="targetWeight"
+              name='targetWeight'
+              value={targetWeight}
+              onChange={(e) => settargetWeight(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your weight goal"
             />
@@ -40,6 +134,7 @@ const SetTheGoal = () => {
             <input
               type="number"
               id="duration"
+              name='duration'
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
