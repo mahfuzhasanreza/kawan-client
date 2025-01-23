@@ -1,14 +1,14 @@
-// @ts-check
-
+// index.js
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
-import levelFactory from './lib/levels-factory';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
-import './styles/index.css';
+const FifteenPuzzle = () => {
+  return (
+    <div>
+      <App />
+    </div>
+  );
+}
 
-const MuiTheme = () => (
-    <App level={levelFactory(4 ** 2)} />
-);
-
-ReactDOM.render(<MuiTheme />, document.getElementById('root'));
+export default FifteenPuzzle;
