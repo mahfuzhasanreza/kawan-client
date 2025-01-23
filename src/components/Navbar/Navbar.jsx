@@ -107,8 +107,12 @@ const Navbar = () => {
                     <button className={`hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/meditation' ? 'text-yellow-300' : ''}`}>Meditation</button>
                 </Link>
                 <Link to={`/game/tic-tac`}>
-                    <button className={`mr-7 hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/game/tic-tac' ? 'text-yellow-300' : ''}`}>TicTacToe</button>
+                    <button className={`hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/game/tic-tac' ? 'text-yellow-300' : ''}`}>TicTacToe</button>
                 </Link>
+                <Link to={`/game/fifteen-puzzle`}>
+                    <button className={`mr-7 hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/game/fifteen-puzzle' ? 'text-yellow-300' : ''}`}>15 Puzzle</button>
+                </Link>
+                
 
                 {user ? (
                     <>
