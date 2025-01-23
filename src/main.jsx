@@ -33,6 +33,7 @@ import Blogs from './components/HealthAndNutrition/Blogs/Blogs/Blogs';
 import Meditation from './components/Meditation/Meditation';
 import TicTacGame from './components/Games/tic-tac-toe/TicTacGame';
 import FifteenPuzzle from './components/Games/FifteenPuzzle/src/FifteenPuzzle';
+import KawanPuzzle from './components/Games/KawanPuzzle/KawanPuzzle'
 
 
 const queryClient = new QueryClient();
@@ -125,7 +126,11 @@ const router = createBrowserRouter([
       {
         path: 'game/fifteen-puzzle',
         element: <FifteenPuzzle></FifteenPuzzle>,
-      }
+      },
+      {
+        path: 'game/kawan-puzzle',
+        element: <KawanPuzzle></KawanPuzzle>,
+      },
     ]
   },
 ]);
