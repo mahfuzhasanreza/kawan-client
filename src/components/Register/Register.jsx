@@ -15,7 +15,7 @@ import registerLottieData from '../../assets/lottie/register.json';
 const Register = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { signInUser, createUser, signInWithGoogle } = useContext(AuthContext);
+    const { signInUser, createUser, signInWithGoogle, setUserType } = useContext(AuthContext);
 
 
     const [fullNameValue, setFullNameValue] = useState('');
@@ -34,7 +34,12 @@ const Register = () => {
         const password = event.target.password.value;
         const confirmPassword = event.target.confirmPassword.value;
         const name = event.target.name.value;
+        const userType = event.target.userType.value;
         // const photo = event.target.photo.value;
+
+        // if(userType === 'professional') {
+
+        // }
 
 
         // console.log(email, password, name, photo);
@@ -204,6 +209,8 @@ const Register = () => {
                             </label>
                         </div>
 
+                        
+
                         {/* Password */}
                         <div className="relative mt-6">
                             {/* Password Input */}
@@ -270,6 +277,21 @@ const Register = () => {
                             </button>
                         </div>
 
+                        {/* Dropdown for User Type, where type can be user or professional. Default value should be user */}
+                        <div className="relative mt-6">
+                            {/* <label htmlFor="user-type" className="block text-gray-700">User Type</label> */}
+                            <select
+                                id="user-type"
+                                name="userType"
+                                defaultValue="user"
+                                className="block w-full h-12 px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
+                                required
+                            >
+                                <option value="user">User</option>
+                                <option value="professional">Professional</option>
+                            </select>
+                        </div>
+
                         <div className="form-control mt-7">
                             <button className="btn btn-primary bg-fuchsia-600 text-white  text-lg border-none hover:bg-fuchsia-900">Sign up</button>
                         </div>
@@ -281,7 +303,7 @@ const Register = () => {
                     </div>
                     <button
                         onClick={handleGoogleLogin}
-                        className='btn btn-outline mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-fuchsia-200 hover:border-fuchsia-200 hover:text-black'>
+                        className='btn btn-outline mx-8 mt-7 bg-purple-100 text-black text-lg font-medium gap-5 hover:bg-fuchsia-200 hover:border-fuchsia-200 hover:text-black'>
                         <FcGoogle className='text-4xl'></FcGoogle>
                         Sign up with Google
                     </button>

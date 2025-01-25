@@ -7,5 +7,9 @@ Set the specific port number at `/kawan-client/src/components/FaceDetection`
     http-server -p 8080
 ```
 
+**Live Link:**
+- firebase: https://kawan-assist.web.app
+- vercel: https://kawan-one.vercel.app
+
 ## **Author**
 [Mahfuz Hasan Reza](https://github.com/mahfuzhasanreza)

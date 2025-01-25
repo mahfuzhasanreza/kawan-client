@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isHealthData, setIsHealthData] = useState(false);
     const [healthId, setHealthId] = useState(null);
+    const [userType, setUserType] = useState('user');
 
     const fetchUserHealthId = async () => {
         try {
@@ -234,6 +235,8 @@ const AuthProvider = ({ children }) => {
         isHealthData,
         healthId,
         fetchUserHealthId,
+        userType,
+        setUserType,
     };
 
     return (
