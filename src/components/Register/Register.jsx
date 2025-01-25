@@ -35,12 +35,8 @@ const Register = () => {
         const confirmPassword = event.target.confirmPassword.value;
         const name = event.target.name.value;
         const userType = event.target.userType.value;
+        // console.log(userType==='professional',"gg");
         // const photo = event.target.photo.value;
-
-        // if(userType === 'professional') {
-
-        // }
-
 
         // console.log(email, password, name, photo);
 
@@ -68,10 +64,27 @@ const Register = () => {
             return;
         }
 
-
         createUser(email, password)
             .then(result => {
-                // console.log("RESULT", result);
+                
+                if (userType === 'professional') {
+                    console.log("YESS");
+                    try {
+                        fetch("http://localhost:5000/professionals", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                name: name,
+                                email: email,
+                            }),
+                        });
+                    } catch (error) {
+                        console.error("Error submitting data:", error);
+                        // alert("An error occurred while submitting data.");
+                    }
+                }
 
                 // send user data to db
                 try {
@@ -209,7 +222,7 @@ const Register = () => {
                             </label>
                         </div>
 
-                        
+
 
                         {/* Password */}
                         <div className="relative mt-6">
