@@ -333,7 +333,7 @@ export function JoiningScreen({
             onMouseLeave={closeTooltip}
             onClick={onClick}
             className={`rounded-full min-w-auto w-11 h-11 flex items-center justify-center ${
-              onState ? "bg-white" : "bg-red-650 text-white"
+              onState ? "bg-white" : "bg-red-650 text-white bg-red-500"
             }`}
             disabled={meetingMode === Constants.modes.VIEWER}
           >

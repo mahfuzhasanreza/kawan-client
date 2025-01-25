@@ -55,9 +55,9 @@ const Home = () => {
                 <Banner></Banner>
             </div>
 
-            <div data-aos="fade-down" className="relative">
+            {/* <div data-aos="fade-down" className="relative">
                 <KawanNewsAndUpdates></KawanNewsAndUpdates>
-            </div>
+            </div> */}
 
 
             <div data-aos="fade-up">

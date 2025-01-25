@@ -12,39 +12,74 @@ function ILSParticipantView({ isPresenting }) {
     presenterId,
   } = useMeeting();
 
+  // const participantIds = useMemo(() => {
+  //   const pinnedParticipantId = [...pinnedParticipants.keys()].filter(
+  //     (participantId) => {
+  //       return participantId != localParticipant.id;
+  //     }
+  //   );
+  //   const regularParticipantIds = [...participants.keys()].filter(
+  //     (participantId) => {
+  //       return (
+  //         ![...pinnedParticipants.keys()].includes(participantId) &&
+  //         localParticipant.id != participantId
+  //       );
+  //     }
+  //   );
+
+  //   const ids = [
+  //     localParticipant.id,
+  //     ...pinnedParticipantId,
+  //     ...regularParticipantIds,
+  //   ];
+
+  //   const filteredParticipants = ids
+  //     .filter((participantId) => {
+  //       return participants.get(participantId)?.mode === "CONFERENCE";
+  //     })
+  //     .slice(0, 16);
+
+  //   if (activeSpeakerId) {
+  //     if (!ids.includes(activeSpeakerId)) {
+  //       ids[ids.length - 1] = activeSpeakerId;
+  //     }
+  //   }
+  //   return filteredParticipants;
+  // }, [
+  //   participants,
+  //   activeSpeakerId,
+  //   pinnedParticipants,
+  //   presenterId,
+  //   localScreenShareOn,
+  // ]);
+
   const participantIds = useMemo(() => {
     const pinnedParticipantId = [...pinnedParticipants.keys()].filter(
-      (participantId) => {
-        return participantId != localParticipant.id;
-      }
+      (participantId) => participantId !== localParticipant.id
     );
+  
     const regularParticipantIds = [...participants.keys()].filter(
-      (participantId) => {
-        return (
-          ![...pinnedParticipants.keys()].includes(participantId) &&
-          localParticipant.id != participantId
-        );
-      }
+      (participantId) => ![...pinnedParticipants.keys()].includes(participantId) && participantId !== localParticipant.id
     );
-
+  
     const ids = [
       localParticipant.id,
       ...pinnedParticipantId,
       ...regularParticipantIds,
     ];
-
-    const filteredParticipants = ids
-      .filter((participantId) => {
-        return participants.get(participantId)?.mode === "CONFERENCE";
-      })
-      .slice(0, 16);
-
-    if (activeSpeakerId) {
-      if (!ids.includes(activeSpeakerId)) {
-        ids[ids.length - 1] = activeSpeakerId;
-      }
+  
+    // Ensure activeSpeakerId is added only if not already in the list
+    if (activeSpeakerId && !ids.includes(activeSpeakerId)) {
+      ids.push(activeSpeakerId);
     }
-    return filteredParticipants;
+  
+    // Filter for conference mode and limit to 16 participants
+    const filteredParticipants = ids
+      .filter((participantId) => participants.get(participantId)?.mode === "CONFERENCE")
+      .slice(0, 16);
+  
+    // Remove any duplicates from the array
+    return [...new Set(filteredParticipants)];
   }, [
     participants,
     activeSpeakerId,
@@ -53,6 +88,7 @@ function ILSParticipantView({ isPresenting }) {
     localScreenShareOn,
   ]);
 
+  
   return (
     <MemoizedParticipantGrid
       participantIds={participantIds}

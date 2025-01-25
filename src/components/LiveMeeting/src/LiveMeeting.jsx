@@ -37,7 +37,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const LiveMeeting = () => {
   return (
-      <div>
+      <div className="bg-gradient-to-br from-black to-purple-700">
         <ToastContainer
           toastClassName={() =>
             "relative flex py-4 px-3 rounded overflow-hidden cursor-pointer bg-white shadow-lg"

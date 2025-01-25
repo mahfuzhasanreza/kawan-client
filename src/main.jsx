@@ -34,7 +34,8 @@ import Meditation from './components/Meditation/Meditation';
 import TicTacGame from './components/Games/tic-tac-toe/TicTacGame';
 import FifteenPuzzle from './components/Games/FifteenPuzzle/src/FifteenPuzzle';
 import KawanPuzzle from './components/Games/KawanPuzzle/KawanPuzzle'
-
+// import LiveCounselling from './components/LiveCounselling/src/LiveCounselling'
+import CheckApi from './components/CheckApi';
 
 const queryClient = new QueryClient();
 
@@ -62,7 +63,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'ai-chatbot',
-        element: <LiveMeeting></LiveMeeting>
+        element: <LiveMeeting></LiveMeeting>,
+        // element: <CheckApi></CheckApi>
+        // element: <LiveCounselling></LiveCounselling>
       },
       {
         path: 'profile',

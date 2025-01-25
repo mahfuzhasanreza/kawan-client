@@ -1,6 +1,7 @@
-import {  CheckIcon, ClipboardIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import { Constants } from "@videosdk.live/react-sdk";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../../../providers/AuthProvider";
 
 export function MeetingDetailsScreen({
   onClickJoin,
@@ -18,14 +19,16 @@ export function MeetingDetailsScreen({
   const [isCopied, setIsCopied] = useState(false);
   const [iscreateMeetingClicked, setIscreateMeetingClicked] = useState(false);
   const [isJoinMeetingClicked, setIsJoinMeetingClicked] = useState(false);
+  const { userDb } = useContext(AuthContext);
+
 
   return (
     <div
       className={`flex flex-1 flex-col justify-center w-full md:p-[6px] sm:p-1 p-1.5`}
     >
       {iscreateMeetingClicked ? (
-        <div className="border border-solid border-gray-400 rounded-xl px-4 py-3  flex items-center justify-center">
-          <p className="text-black  text-base">{`Studio code : ${studioCode}`}</p>
+        <div className="border border-solid border-gray-400  rounded-xl px-4 py-3  flex items-center justify-center">
+          <p className="text-white text-base">{`Studio code : ${studioCode}`}</p>
           <button
             className="ml-2"
             onClick={() => {
@@ -63,17 +66,16 @@ export function MeetingDetailsScreen({
 
       {(iscreateMeetingClicked || isJoinMeetingClicked) && (
         <>
-          <input
+          {/* <input
             value={participantName}
             onChange={(e) => setParticipantName(e.target.value)}
             placeholder="Enter your name"
+            defaultValue={userDb?.name}
             className="px-4 py-3 mt-5 bg-gray-650 rounded-xl text-white bg-blue-800 w-full text-center"
-          />
+          /> */}
           <button
-            disabled={participantName.length < 3}
-            className={`w-full ${
-              participantName.length < 3 ? "bg-gray-650" : "bg-purple-350"
-            }  text-white bg-green-400 px-2 py-3 rounded-xl mt-5`}
+            // disabled={participantName.length < 3}
+            className={`w-full bg-gray-650 text-white bg-green-400 px-2 py-3 rounded-xl mt-5`}
             onClick={(e) => {
               if (iscreateMeetingClicked) {
                 if (videoTrack) {
@@ -92,8 +94,8 @@ export function MeetingDetailsScreen({
               ? "Start a meeting"
               : isJoinMeetingClicked &&
                 meetingMode === Constants.modes.CONFERENCE
-              ? "Join Studio"
-              : "Join Streaming Room"}
+                ? "Join Studio"
+                : "Join Streaming Room"}
           </button>
         </>
       )}

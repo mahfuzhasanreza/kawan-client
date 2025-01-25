@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Constants, MeetingProvider } from "@videosdk.live/react-sdk";
 import { LeaveScreen } from "./components/screens/LeaveScreen";
 import { JoiningScreen } from "./components/screens/JoiningScreen";
 import { ILSContainer } from "./interactive-live-streaming/ILSContainer";
 import { MeetingAppProvider } from "./MeetingAppContextDef";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -20,6 +21,7 @@ const App = () => {
   const [selectMicDeviceId, setSelectMicDeviceId] = useState(selectedMic.id);
   const [isMeetingStarted, setMeetingStarted] = useState(false);
   const [isMeetingLeft, setIsMeetingLeft] = useState(false);
+  const {userDb}  = useContext(AuthContext);
 
   const isMobile = window.matchMedia(
     "only screen and (max-width: 768px)"
@@ -47,7 +49,7 @@ const App = () => {
               meetingId,
               micEnabled: micOn,
               webcamEnabled: webcamOn,
-              name: participantName ? participantName : "TestUser",
+              name: userDb ? userDb.name : "Participant",
               mode: meetingMode,
               multiStream: false,
             }}

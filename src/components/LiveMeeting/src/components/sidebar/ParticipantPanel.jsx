@@ -55,10 +55,21 @@ function ParticipantListItem({ participantId, raisedHand }) {
 export function ParticipantPanel({ panelHeight }) {
   const { raisedHandsParticipants } = useMeetingAppContext();
   const mMeeting = useMeeting();
+
+
   const participants = mMeeting.participants;
+  
+  console.log(mMeeting, "mMeeting-----------------------------");
+  console.log(participants, "participants///-----------------------------");
 
   const sortedRaisedHandsParticipants = useMemo(() => {
     const participantIds = [...participants.keys()];
+
+    // // Remove the last element
+    // participantIds.pop();
+
+    // console.log(participantIds, "participantIds-----------------------------");
+
 
     const notRaised = participantIds.filter(
       (pID) =>
@@ -110,6 +121,7 @@ export function ParticipantPanel({ panelHeight }) {
           const { raisedHand, participantId: peerId } = part[index];
           return (
             <ParticipantListItem
+              key={participantId}
               participantId={peerId}
               raisedHand={raisedHand}
             />

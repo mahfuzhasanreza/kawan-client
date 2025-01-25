@@ -67,10 +67,10 @@ const BookDetail = () => {
                         <p className='text-gray-600'>Author Details: {aboutAuthor}</p>
                     </div>
                     <div className='space-y-5 gap-5'>
-                        <h1>Check Book</h1>
+                        {/* <h1>Check Book</h1>
                         <div>
                             {book[0]}
-                        </div>
+                        </div> */}
 
                         <Link to={`/b1`}>
                             <button className='mb-5 btn w-full bg-purple-500 border-none shadow-lg hover:bg-purple-600 text-xl text-white'>Chapter 1</button>

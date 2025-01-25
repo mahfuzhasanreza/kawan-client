@@ -116,7 +116,7 @@ export default function Game() {
             <Timer time={time} timerActive={timerActive} setTime={setTime} />
             <div className="outer">
               <div className="dot"></div>
-              <div className="card">
+              <div className="card-game">
                 <div className="ray"></div>
                 <div className="text">{moves}</div>
                 <div className="text-2xl mb-5 font-bold text-gray-300">Moves</div>

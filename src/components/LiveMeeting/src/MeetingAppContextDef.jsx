@@ -81,7 +81,7 @@ export const MeetingAppProvider = ({ children }) => {
   };
 
   return (
-    <MeetingAppContext.Provider
+      <MeetingAppContext.Provider
       value={{
         // states
         raisedHandsParticipants,

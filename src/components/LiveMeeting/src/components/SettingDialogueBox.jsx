@@ -177,7 +177,7 @@ export default function SettingDialogueBox({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded bg-gray-750 p-6 text-center align-middle shadow-xl transition-all">
+                <Dialog.Panel className="bg-gray-900 w-full max-w-2xl transform overflow-hidden rounded bg-gray-750 p-6 text-center align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h5"
                     className="text-lg font-medium leading-6 text-white"
@@ -203,14 +203,13 @@ export default function SettingDialogueBox({
                           {[
                             { value: "audio", label: "Audio" },
                             { value: "video", label: "Video" },
-                          ].map(({ value, label }) =>
+                          ].map(({ index, value, label }) =>
                             label === "Audio" || label === "Video" ? (
-                              <button
-                                className={`inline-flex items-center justify-center px-4 py-2 border ${
-                                  setting === value
-                                    ? "bg-purple-350 border-transparent border-purple-350"
-                                    : "border-gray-100"
-                                }  text-sm font-medium rounded-sm text-white bg-gray-750`}
+                              <button key={index}
+                                className={`inline-flex items-center justify-center px-4 py-2 border ${setting === value
+                                  ? "bg-purple-350 border-transparent border-purple-350"
+                                  : "border-gray-100"
+                                  }  text-sm font-medium rounded-sm text-white bg-gray-750`}
                                 onClick={() => {
                                   handleSetting(null, value);
                                 }}
@@ -239,7 +238,7 @@ export default function SettingDialogueBox({
                                       {({ close }) => (
                                         <>
                                           <Popover.Button className="flex  w-full ">
-                                            <button className="flex items-center justify-between text-white w-full border border-gray-300 rounded py-3 px-2">
+                                            <button className="flex items-center justify-between text-white w-full !border !border-gray-300 rounded py-3 px-2">
                                               {selectedMicLabel
                                                 ? selectedMicLabel
                                                 : "Select"}
@@ -271,7 +270,7 @@ export default function SettingDialogueBox({
                                                         (item, index) => {
                                                           return (
                                                             item?.kind ===
-                                                              "audioinput" && (
+                                                            "audioinput" && (
                                                               <div
                                                                 className={`px-3 py-1 my-1 pl-6 text-white text-left 
                                                             `}
@@ -302,10 +301,9 @@ export default function SettingDialogueBox({
                                                                 >
                                                                   {item?.label
                                                                     ? item?.label
-                                                                    : `Mic ${
-                                                                        index +
-                                                                        1
-                                                                      }`}
+                                                                    : `Mic ${index +
+                                                                    1
+                                                                    }`}
                                                                 </button>
                                                               </div>
                                                             )
@@ -356,8 +354,8 @@ export default function SettingDialogueBox({
                                     <Popover className="relative">
                                       {({ close }) => (
                                         <>
-                                          <Popover.Button className="flex  w-full ">
-                                            <button className="flex items-center justify-between text-white w-full border border-gray-300 rounded py-3 px-2">
+                                          <Popover.Button className="flex w-full ">
+                                            <button className="flex items-center justify-between text-white w-full !border !border-gray-300 rounded py-3 px-2">
                                               {selectedWebcamLabel
                                                 ? selectedWebcamLabel
                                                 : "Select"}
@@ -389,7 +387,7 @@ export default function SettingDialogueBox({
                                                         (item, index) => {
                                                           return (
                                                             item?.kind ===
-                                                              "videoinput" && (
+                                                            "videoinput" && (
                                                               <div
                                                                 className={`px-3 py-1 my-1 pl-6 text-white text-left 
                                                             `}
@@ -420,11 +418,10 @@ export default function SettingDialogueBox({
                                                                   }}
                                                                 >
                                                                   {item?.label ===
-                                                                  ""
-                                                                    ? `Webcam ${
-                                                                        index +
-                                                                        1
-                                                                      }`
+                                                                    ""
+                                                                    ? `Webcam ${index +
+                                                                    1
+                                                                    }`
                                                                     : item?.label}
                                                                 </button>
                                                               </div>
