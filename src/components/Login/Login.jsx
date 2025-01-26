@@ -19,7 +19,7 @@ const Login = () => {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    
+
 
 
 
@@ -38,9 +38,8 @@ const Login = () => {
             // console.log(result.user);
             setSuccess(true);
             e.target.reset();
-            navigate(location?.state ? location.state : '/');
+            navigate('/');
 
-            
             console.log('User Type:', userType);
         } catch (error) {
             // toast.error('Email and Password does not match'); // Trigger toast notification
@@ -70,7 +69,7 @@ const Login = () => {
             </Helmet>
 
             <ToastContainer />
-            <div className="mt-4 lg:mt-0 flex flex-col lg:flex-row items-center lg:w-10/12 mx-auto content-center justify-center">
+            <div className="h-screen mt-4 lg:mt-0 flex flex-col lg:flex-row items-center lg:w-10/12 mx-auto content-center justify-center">
                 <div className="mx-auto w-3/5 lg:w-1/3">
                     <Lottie animationData={loginLottieData}></Lottie>
                 </div>
@@ -139,10 +138,7 @@ const Login = () => {
                                     {showPassword ? <FaEye className='text-lg text-black'></FaEye> : <FaEyeSlash className='text-black text-lg'></FaEyeSlash>}
                                 </button>
                             </div>
-                            <label onClick={handleForgetPassword}
-                                className="label">
-                                <a href="#" className="label-text-alt link link-hover hover:text-fuchsia-700 text-black hover:no-underline">Forgotten password?</a>
-                            </label>
+
 
                             <div className="form-control mt-2">
                                 <button className="btn btn-primary bg-fuchsia-700 text-white text-lg border-none hover:bg-fuchsia-900">Login</button>
@@ -150,19 +146,8 @@ const Login = () => {
                         </form>
 
                         {success && <p className="text-green-500 text-center mt-4">Login successful!</p>}
+                       
 
-                        <div className='flex items-center'>
-                            <hr className='ml-10 mr-2 w-1/2 border' />
-                            <p className='text-gray-500'>Or</p>
-                            <hr className='mr-10 ml-2 w-1/2 border' />
-                        </div>
-                        <button onClick={handleGoogleLogin}
-                            className='btn btn-outline bg-purple-100 mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-fuchsia-200 hover:border-fuchsia-200 hover:text-black'>
-                            <FcGoogle className='text-4xl'></FcGoogle>
-                            Sign In with Google</button>
-                        <div className='mx-auto mt-8 font-medium'>
-                            <p>Don't haven an account? <span><Link to={'/register'} className='hover:underline text-fuchsia-700 font-medium'>Register here</Link></span> </p>
-                        </div>
                     </div>
                 </div>
             </div>

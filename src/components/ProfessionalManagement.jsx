@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaCheckCircle, FaTrash } from 'react-icons/fa'; // Importing icons
 import axios from 'axios'; // For making HTTP requests
 
-const AdminProfessionalVerify = () => {
+const ProfessionalManagement = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,7 +11,7 @@ const AdminProfessionalVerify = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/req-professionals');
+                const response = await axios.get('http://localhost:5000/verify-professionals-list');
                 setData(response.data);
                 setLoading(false);
             } catch (error) {
@@ -55,8 +55,9 @@ const AdminProfessionalVerify = () => {
         if (!selectedEmail) return;
 
         try {
+            await axios.put(`http://localhost:5000/delete-professionals/${selectedEmail}`);
             // Delete the professional from the 'req-professionals' collection
-            await axios.delete(`http://localhost:5000/req-professionals/${selectedEmail}`);
+            await axios.delete(`http://localhost:5000/professionals-manage/${selectedEmail}`);
 
             // Remove the deleted item from state
             setData((prevData) => prevData.filter(item => item.email !== selectedEmail));
@@ -87,7 +88,7 @@ const AdminProfessionalVerify = () => {
 
     return (
         <div className="h-screen max-w-7xl mx-auto p-6">
-            <h1 className="text-5xl my-10 font-bold text-center mb-6">Professional Data Verification</h1>
+            <h1 className="text-5xl my-10 font-bold text-center mb-6">Verified Professionals Details</h1>
 
             {/* Scrollable Table */}
             <div className="overflow-x-auto">
@@ -131,16 +132,16 @@ const AdminProfessionalVerify = () => {
                                     )}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <button
+                                    {/* <button
                                         onClick={() => handleVerify(item.email, item)} // Pass the item for storing
                                         className="text-green-500 hover:text-green-700 mr-7 transition duration-200 transform hover:scale-110"
                                     >
                                         <FaCheckCircle />
-                                    </button>
+                                    </button> */}
 
                                     <button
                                         onClick={() => openModal(item.email)} // Open the modal on delete button click
-                                        className="text-red-500 hover:text-red-700 transition duration-200 transform hover:scale-110"
+                                        className="ml-6 text-red-500 hover:text-red-700 transition duration-200 transform hover:scale-110"
                                     >
                                         <FaTrash />
                                     </button>
@@ -177,4 +178,4 @@ const AdminProfessionalVerify = () => {
     );
 };
 
-export default AdminProfessionalVerify;
+export default ProfessionalManagement;

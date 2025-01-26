@@ -60,36 +60,25 @@ const Banner = () => {
                 position: 'relative',
             }}
         >
-            <div className='hidden lg:block content-center mt-20 mx-auto z-10'>
-                <p className='text-gray-300 font-mono text-md mb-5'>MENTAL HEALTH & SELF-DEVELOPMENT SUPPORT</p>
+            <div className='ml-36 hidden lg:block content-center mt-20 mx-auto z-10'>
+                
                 <div className='flex'>
                     <h2 className='text-6xl font-bold text-white'>
-                        Revitalize Your
-                    </h2>
-                    <h2 className='ml-3 text-6xl font-bold text-white'>
-                        <TypeAnimation
-                            sequence={[
-                                'Mental Health',
-                                2000,
-                                'Personal Growth',
-                                2000,
-                            ]}
-                            repeat={Infinity}
-                        />
+                    ADMIN DASHBOARD
                     </h2>
                 </div>
                 <div className='content-center mx-auto z-10'>
                     <h2 className='mt-5 text-6xl font-bold text-white'>
-                        with
-                        <span className='border-b-4 border-fuchsia-600 ml-2 text-fuchsia-900 bg-yellow-500 rounded-tr-full rounded-bl-full px-10'>KAWAN</span>
+
+                        <span className='ml-24 border-b-4 border-fuchsia-600 text-fuchsia-900 bg-yellow-500 rounded-tr-full rounded-bl-full px-10'>CONTROL CENTER</span>
                     </h2>
                 </div>
 
-                <p className='text-gray-300 text-lg mt-10 mb-24'>
-                    Kawan is your trusted companion for mental health and self-development, designed
-
-                    to empower individuals on their
-                    <br /> journey to emotional well-being.
+                <p className='text-gray-300 text-xl mt-10 mb-24'>
+                Welcome to the Kawan Admin Dashboard,
+                 the central hub for managing
+                 
+                  mental health and <br></br>self-development support.
                 </p>
                 {
                     (userType === 'professional') && (

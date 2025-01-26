@@ -103,66 +103,11 @@ const AuthProvider = ({ children }) => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const loggedInUser = userCredential.user;
 
-            if (loggedInUser.emailVerified) {
-                setUser(loggedInUser);
 
-                // Fetch user data from the server
-                // try {
-                //     const response = await fetch("https://kawan.onrender.com/api/v1/user", {
-                //         method: "GET",
-                //     });
-                //     const data = await response.json();
-                //     const foundUser = data.find(userData => userData.email === email);
-                //     setUserDb(foundUser);
-                // } catch (error) {
-                //     console.error("Error fetching user data:", error);
-                // }
+            setUser(loggedInUser);
+            console.log(loggedInUser, "logged in user");
+            toast.success('Login successful! Welcome back to Kawan.');
 
-
-                // Check if the user is a professional
-                // try {
-                //     const response = await fetch(`http://localhost:5000/professionals/${email}`, {
-                //         method: "GET",
-                //     });
-
-                //     if (!response.ok) {
-                //         throw new Error(`Server returned status: ${response.status}`);
-                //     }
-
-                //     const data = await response.json();
-                //     console.log(data.status, "Status received from API");
-
-                //     console.log(data.status === 1, "data");
-
-                //     if (data.status === 2) {
-                //         // Verified professional
-                //         console.log("User is a verified professional");
-                //         setUserType('professional');
-                //         setIsVerifyProfessional(true);
-                //     } else if (data.status === 1) {
-                //         // Unverified professional
-                //         console.log("User is an unverified professional");
-                //         setUserType('professional');
-                //         setIsVerifyProfessional(false);
-                //     } else if (data.status === 0) {
-                //         // Not a professional
-                //         console.log("User is not a professional");
-                //         setUserType('user');
-                //         setIsVerifyProfessional(false);
-                //     }
-                // } catch (error) {
-                //     console.error("Error fetching user data:", error.message);
-                // }
-
-
-
-                console.log(loggedInUser, "logged in user");
-
-                toast.success('Login successful! Welcome back to Kawan.');
-            } else {
-                await signOutUser();
-                throw new Error('Please verify your email before logging in.');
-            }
             setLoading(false);
             return loggedInUser;
         } catch (error) {
