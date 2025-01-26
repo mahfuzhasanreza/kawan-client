@@ -43,7 +43,7 @@ const WhatKawanOffers = () => {
             {/* Animation Styles */}
             <style>{`
         .animate-scroll {
-          animation: scroll 20s linear infinite;
+          animation: scroll 5s linear infinite;
         }
 
         @keyframes scroll {

@@ -55,7 +55,7 @@ const Navbar = () => {
             <Toaster />
             <div className="navbar-start">
                 <div className="dropdown">
-                    <div tabIndex={0} role="button" className="font-semibold lg:hidden mx-3">
+                    <div tabIndex={0} role="button" className="font-semibold lg:hidden mx-1 lg:mx-3">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-5"
@@ -88,11 +88,11 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <Link to="/">
-                    <img className="w-16 mr-2 lg:mr-0" src={logo} alt="" />
+                    <img className="w-9 lg:w-16 lg:mr-0" src={logo} alt="" />
                 </Link>
                 <Link to="/" className="hidden lg:block font-semibold text-sm lg:text-xl ml-0 lg:ml-5">Kawan</Link>
             </div>
-            <div className="navbar-end w-full gap-7">
+            <div className="navbar-end lg:w-full gap-2 lg:gap-7">
                 <Link to="/">
                     <button className={`hidden lg:flex font-semibold ${location.pathname === '/' ? 'text-yellow-300' : ''}`}>Home</button>
                 </Link>
@@ -207,12 +207,14 @@ const Navbar = () => {
                         </>
                     </>
                 ) : (
-                    <div className='flex space-x-2 lg:space-x-4'>
+                    <div className='flex content-center items-center justify-center space-x-1 lg:space-x-4'>
                         <Link to={'/login'}>
-                            <a className="btn border-2 btn-outline hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl px-4 lg:px-7 text-lg">Login</a>
+                            <a className="px-2 py-1 lg:px-7 lg:py-3 font-semibold border-2 btn-outline hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl text-xs sm:text-sm lg:text-lg">Login</a>
                         </Link>
                         <Link to={'/register'}>
-                            <a className="btn border-2 btn-outline bg-yellow-300 text-gray-700 border-yellow-300 hover:text-yellow-300 px-4 hover:bg-transparent hover:border-yellow-300 rounded-3xl lg:px-7 text-lg">Register</a>
+                            <a className="px-2 py-1 lg:px-7 lg:py-3 font-semibold border-2 btn-outline bg-yellow-300 text-gray-700 border-yellow-300 hover:text-yellow-300 hover:bg-transparent hover:border-yellow-300 rounded-3xl text-xs sm:text-sm lg:text-lg">
+                                Register
+                            </a>
                         </Link>
                     </div>
                 )}
