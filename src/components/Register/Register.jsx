@@ -15,7 +15,7 @@ import registerLottieData from '../../assets/lottie/register.json';
 const Register = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { signInUser, createUser, signInWithGoogle, setUserType } = useContext(AuthContext);
+    const { signInUser, createUser, signInWithGoogle } = useContext(AuthContext);
 
 
     const [fullNameValue, setFullNameValue] = useState('');

@@ -37,6 +37,8 @@ import KawanPuzzle from './components/Games/KawanPuzzle/KawanPuzzle'
 // import LiveCounselling from './components/LiveCounselling/src/LiveCounselling'
 import CheckApi from './components/CheckApi';
 import ContactUs from './components/ContactUs/ContactUs';
+import ProfessionalDashboard from './components/ProfessionalDashboard/ProfessionalDashboard';
+import VerifyForm from './components/ProfessionalDashboard/VerifyForm';
 
 const queryClient = new QueryClient();
 
@@ -134,12 +136,16 @@ const router = createBrowserRouter([
         element: <KawanPuzzle></KawanPuzzle>,
       },
       {
-        path: 'professional',
-        element: <LiveMeeting></LiveMeeting>,
+        path: 'professional-dashboard',
+        element: <ProfessionalDashboard></ProfessionalDashboard>,
       },
       {
         path: 'contact-us',
         element: <ContactUs></ContactUs>,
+      },
+      {
+        path: 'professional-verify-form',
+        element: <VerifyForm></VerifyForm>,
       }
     ]
   },

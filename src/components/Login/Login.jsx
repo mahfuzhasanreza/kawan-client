@@ -12,13 +12,14 @@ import loginLottieData from '../../assets/lottie/login.json';
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { signInUser, signInWithGoogle } = useContext(AuthContext);
+    const { signInUser, signInWithGoogle, userType } = useContext(AuthContext);
     const [success, setSuccess] = useState(false);
     const emailRef = useRef();
 
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    
 
 
 
@@ -38,7 +39,9 @@ const Login = () => {
             setSuccess(true);
             e.target.reset();
             navigate(location?.state ? location.state : '/');
+
             
+            console.log('User Type:', userType);
         } catch (error) {
             // toast.error('Email and Password does not match'); // Trigger toast notification
         }
