@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home></Home>,
+        element: <PrivateRoute><Home></Home></PrivateRoute>,
       },
       {
         path: 'login',
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'professional-verification',
-        element: <PrivateRoute><Professional></Professional></PrivateRoute>
+        element: <PrivateRoute><Professional></Professional></PrivateRoute>,
       },
       {
         path: 'professional-management',
