@@ -1,9 +1,10 @@
 
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import breathingLottieData from "../../assets/lottie/breathing.json";
 import Lottie from "lottie-react";
 import backgroundAnimation from "../../assets/lottie/meditationBg.json";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Meditation = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -11,6 +12,9 @@ const Meditation = () => {
   const [customMinutes, setCustomMinutes] = useState(5); // Default: 5 minutes
   const [customSeconds, setCustomSeconds] = useState(0); // Default: 0 seconds
   const alarmSound = new Audio("../../../public/assets/alarm-voice.mp3"); // Replace with your alarm sound path
+  const {userType, userDb} = useContext(AuthContext);
+
+  console.log(userType, "UserType");
 
   const togglePlay = () => {
     setIsPlaying((prev) => !prev);

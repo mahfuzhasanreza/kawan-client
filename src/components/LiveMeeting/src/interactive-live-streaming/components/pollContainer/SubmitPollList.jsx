@@ -166,7 +166,7 @@ const SubmitPollListItem = ({ poll }) => {
 
   return (
     <div style={{ borderBottom: "1px solid #70707033" }}>
-      <div className="xl:m-4 m-2 xl:my-[18px] lg:my-4 md:my-[14px] sm:my-3 my-[10px]">
+      <div className="xl:m-4 m-2 xl:my-[18px] lg:my-4 lg:my-[14px] sm:my-3 my-[10px]">
         <div className="flex items-center p-0 m-0">
           <p className="text-sm text-gray-900 font-medium my-0">{`Poll ${index}`}</p>
           <p className="mx-2 text-gray-900 font-medium my-0">&#x2022;</p>

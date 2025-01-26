@@ -366,12 +366,12 @@ export function JoiningScreen({
   return (
     <div className="inset-0">
       <div className="overflow-y-auto flex flex-col flex-1 h-screen bg-flu">
-        <div className="flex flex-1 flex-col md:flex-row items-center justify-center md:m-[72px] m-16">
-          <div className="container grid  md:grid-flow-col grid-flow-row ">
+        <div className="flex flex-1 flex-col lg:flex-row items-center justify-center lg:m-[72px] m-16">
+          <div className="container grid  lg:grid-flow-col grid-flow-row ">
             <div className="grid grid-cols-12">
-              <div className="md:col-span-7 2xl:col-span-6 col-span-12">
+              <div className="lg:col-span-7 2xl:col-span-6 col-span-12">
                 <div className="flex items-center justify-center p-1.5 sm:p-4 lg:p-6">
-                  <div className="relative w-full md:pl-4 sm:pl-10 pl-5  md:pr-4 sm:pr-10 pr-5">
+                  <div className="relative w-full lg:pl-4 sm:pl-10 pl-5  lg:pr-4 sm:pr-10 pr-5">
                     <div className="w-full relative" style={{ height: "45vh" }}>
                       <video
                         autoPlay
@@ -422,7 +422,7 @@ export function JoiningScreen({
 
                       {meetingMode === Constants.modes.CONFERENCE && (
                         <div className="absolute xl:bottom-6 bottom-4 left-0 right-0">
-                          <div className="container grid grid-flow-col space-x-4 items-center justify-center md:-m-2">
+                          <div className="container grid grid-flow-col space-x-4 items-center justify-center lg:-m-2">
                             <ButtonWithTooltip
                               onClick={_handleToggleMic}
                               onState={micOn}
@@ -445,7 +445,7 @@ export function JoiningScreen({
                     {!isMobile &&
                       meetingMode === Constants.modes.CONFERENCE && (
                         <div
-                          className="m-4 absolute md:left-12 lg:left-24 xl:left-44 md:right-12 lg:right-24 xl:right-44 rounded cursor-pointer bg-gray-700"
+                          className="m-4 absolute lg:left-12 lg:left-24 xl:left-44 lg:right-12 lg:right-24 xl:right-44 rounded cursor-pointer bg-gray-700"
                           onClick={(e) => {
                             handleClickOpen();
                           }}
@@ -463,8 +463,8 @@ export function JoiningScreen({
                   </div>
                 </div>
               </div>
-              <div className="md:col-span-5 2xl:col-span-6 col-span-12 md:relative">
-                <div className="flex flex-1 flex-col items-center justify-center xl:m-16 lg:m-6 md:mt-9 lg:mt-14 xl:mt-20 mt-3 md:absolute md:left-0 md:right-0 md:top-0 md:bottom-0">
+              <div className="lg:col-span-5 2xl:col-span-6 col-span-12 lg:relative">
+                <div className="flex flex-1 flex-col items-center justify-center xl:m-16 lg:m-6 lg:mt-9 lg:mt-14 xl:mt-20 mt-3 lg:absolute lg:left-0 lg:right-0 lg:top-0 lg:bottom-0">
                   <MeetingDetailsScreen
                     participantName={participantName}
                     setParticipantName={setParticipantName}

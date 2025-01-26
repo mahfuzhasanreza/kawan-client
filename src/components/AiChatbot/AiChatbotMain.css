@@ -244,11 +244,11 @@ body {
   }
 
   .chatbot-popup {
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    border-radius: 0;
-    width: 100%;
+    right: 1.5rem;
+    bottom: 10;
+    height: 80%;
+    border-radius: 10;
+    width: 90%;
   }
 
   .chatbot-popup .chat-header {

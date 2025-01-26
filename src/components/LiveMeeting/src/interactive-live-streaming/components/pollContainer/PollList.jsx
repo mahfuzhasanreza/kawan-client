@@ -147,7 +147,7 @@ const Poll = ({ poll, isDraft, publishDraftPoll }) => {
 
   return (
     <div style={{ borderBottom: "1px solid #70707033" }}>
-      <div className="xl:m-4 m-2 xl:my-[18px] lg:my-4 md:my-[14px] sm:my-3 my-[10px]">
+      <div className="xl:m-4 m-2 xl:my-[18px] lg:my-4 lg:my-[14px] sm:my-3 my-[10px]">
         <div className="flex items-center p-0 m-0">
           <p className="text-sm text-gray-900 font-medium my-0">{`Poll ${
             index || ""
@@ -313,7 +313,7 @@ const PollList = ({ panelHeight }) => {
               );
             })}
         </div>
-        <div className="xl:p-3 p-2 xl:mt-[18px] lg:mt-4 md:mt-[14px] sm:mt-3 mt-[10px]">
+        <div className="xl:p-3 p-2 xl:mt-[18px] lg:mt-4 lg:mt-[14px] sm:mt-3 mt-[10px]">
           <button
             className="w-full text-white p-3 bg-purple-550"
             onClick={() => {

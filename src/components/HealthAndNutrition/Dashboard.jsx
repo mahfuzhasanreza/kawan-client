@@ -36,7 +36,7 @@ const Dashboard = () => {
                 </h1>
 
                 {/* BMI Card */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div className="bg-white shadow-lg rounded-lg p-6 text-center">
                         <h2 className="text-2xl font-semibold text-gray-800">BMI</h2>
                         <p className="text-4xl font-bold text-blue-600 mt-4">{bmi}</p>

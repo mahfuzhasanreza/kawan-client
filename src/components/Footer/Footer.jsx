@@ -45,7 +45,7 @@ const Footer = () => {
 
             {/* Footer Bottom Section */}
             <div className="py-4 bg-fuchsia-700 text-white text-center">
-                <p className="md:text-base text-sm">© {new Date().getFullYear()} Kawan. All rights reserved.</p>
+                <p className="lg:text-base text-sm">© {new Date().getFullYear()} Kawan. All rights reserved.</p>
             </div>
         </footer>
     );

@@ -926,8 +926,8 @@ export function ILSBottomBar({
                           <div
                             className={`grid items-center justify-center ${
                               icon === BottomBarButtonTypes.MEETING_ID_COPY
-                                ? "col-span-7 sm:col-span-5 md:col-span-3"
-                                : "col-span-4 sm:col-span-3 md:col-span-2"
+                                ? "col-span-7 sm:col-span-5 lg:col-span-3"
+                                : "col-span-4 sm:col-span-3 lg:col-span-2"
                             }`}
                           >
                             {icon === BottomBarButtonTypes.RAISE_HAND ? (
@@ -1015,7 +1015,7 @@ export function ILSBottomBar({
       </SwipeableDrawer> */}
     </div>
   ) : (
-    <div className="md:flex lg:px-2 xl:px-6 pb-2 px-2 hidden">
+    <div className="lg:flex lg:px-2 xl:px-6 pb-2 px-2 hidden">
       <MeetingIdCopyBTN />
 
       <div className="flex flex-1 items-center justify-center" ref={tollTipEl}>

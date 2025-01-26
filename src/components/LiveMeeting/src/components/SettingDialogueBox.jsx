@@ -324,12 +324,12 @@ export default function SettingDialogueBox({
                               </div>
 
                               <div class="col-span-5">
-                                <div className="p-4 relative mt-0 md:mt-10 ">
+                                <div className="p-4 relative mt-0 lg:mt-10 ">
                                   <div
-                                    className="flex flex-1 relative w-1/2 md:w-full h-1/2 md:h-auto overflow-hidden rounded"
+                                    className="flex flex-1 relative w-1/2 lg:w-full h-1/2 lg:h-auto overflow-hidden rounded"
                                     style={{ paddingTop: "56.25%" }}
                                   >
-                                    <div className="md:absolute top-0 bottom-0 left-0 right-0 flex items-start flex-col rounded-sm overflow-hidden">
+                                    <div className="lg:absolute top-0 bottom-0 left-0 right-0 flex items-start flex-col rounded-sm overflow-hidden">
                                       <AudioAnalyser audioTrack={audioTrack} />
                                     </div>
                                   </div>
@@ -442,12 +442,12 @@ export default function SettingDialogueBox({
                                 </div>
                               </div>
                               <div className="col-span-5">
-                                <div className="p-4 relative mt-0 md:mt-10 ">
+                                <div className="p-4 relative mt-0 lg:mt-10 ">
                                   <div
-                                    className="flex flex-1 relative w-1/2 md:w-full h-1/2 md:h-auto overflow-hidden rounded"
+                                    className="flex flex-1 relative w-1/2 lg:w-full h-1/2 lg:h-auto overflow-hidden rounded"
                                     style={{ paddingTop: "56.25%" }}
                                   >
-                                    <div className="md:absolute top-0 bottom-0 left-0 right-0 flex items-start flex-col rounded-sm overflow-hidden">
+                                    <div className="lg:absolute top-0 bottom-0 left-0 right-0 flex items-start flex-col rounded-sm overflow-hidden">
                                       <video
                                         autoPlay
                                         playsInline

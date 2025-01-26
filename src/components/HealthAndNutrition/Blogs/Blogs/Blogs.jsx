@@ -71,12 +71,12 @@ const AvailableBlogs = () => {
                     </div>
                 ) : (
                     <>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl text-center font-bold mb-10 lg:mb-20 text-orange-700">
+                        <h2 className="text-4xl lg:text-5xl lg:text-6xl text-center font-bold mb-10 lg:mb-20 text-orange-700">
                             Health Blogs
                         </h2>
 
                         {/* Search and Sort Section */}
-                        <div className="flex flex-col mx-auto md:flex-row justify-center px-10 mb-10 gap-4">
+                        <div className="flex flex-col mx-auto lg:flex-row justify-center px-10 mb-10 gap-4">
                             <input
                                 type="text"
                                 value={searchQuery}
@@ -96,7 +96,7 @@ const AvailableBlogs = () => {
 
                         {/* Blogs Grid */}
                         <div className="flex mx-20">
-                            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                            <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3 gap-10">
                                 {Array.isArray(loadedBlogs) && loadedBlogs.length > 0 ? (
                                     loadedBlogs.map((blog) => (
                                         <Blog blog={blog} key={blog.id} />

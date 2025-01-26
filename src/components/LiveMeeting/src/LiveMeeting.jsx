@@ -2,6 +2,7 @@ import "./index.css";
 import App from "./App";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 
 // const LiveMeeting = () => {
 //   return (
@@ -38,6 +39,9 @@ import "react-toastify/dist/ReactToastify.css";
 const LiveMeeting = () => {
   return (
       <div className="bg-gradient-to-br from-black to-purple-700">
+        <Helmet>
+        <title>Professional Support | Kawan</title>
+      </Helmet>
         <ToastContainer
           toastClassName={() =>
             "relative flex py-4 px-3 rounded overflow-hidden cursor-pointer bg-white shadow-lg"

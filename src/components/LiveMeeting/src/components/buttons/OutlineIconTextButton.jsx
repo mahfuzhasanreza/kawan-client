@@ -80,7 +80,7 @@ const OutlineIconTextButton = ({
               : bgColor
               ? "border-2 border-transparent border-solid"
               : "border-2 border-solid border-[#ffffff33]"
-          } md:m-2 m-1 cursor-pointer`}
+          } lg:m-2 m-1 cursor-pointer`}
           style={{
             transition: "all 200ms",
             transitionTimingFunction: "ease-in-out",

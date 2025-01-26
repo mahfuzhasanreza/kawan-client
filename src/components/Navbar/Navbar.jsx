@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import logo from '../../assets/kawanLogoMsg.png';
+import { FaChevronDown } from 'react-icons/fa';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -48,14 +49,13 @@ const Navbar = () => {
     return (
         <div
             className={`navbar text-white lg:px-10 mx-auto max-w-[5000px] sticky top-0 z-50 backdrop-blur-lg shadow-md
-                bg-fuchsia-600 transition-opacity duration-300 ${
-                    isScrolled ? "bg-opacity-80" : "bg-opacity-100"
+                bg-fuchsia-600 transition-opacity duration-300 ${isScrolled ? "bg-opacity-80" : "bg-opacity-100"
                 }`}
         >
             <Toaster />
             <div className="navbar-start">
                 <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                    <div tabIndex={0} role="button" className="font-semibold lg:hidden mx-3">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-5"
@@ -77,42 +77,92 @@ const Navbar = () => {
                     >
                         <li><Link className="text-black" to="/">Home</Link></li>
                         <li><Link className="text-black" to="/e-book">E-Book</Link></li>
-                        <li><Link className="text-black" to="/ai-chatbot">Live Counselling</Link></li>
-                        {
-                            user ?
-                                <></>
-                                : (<li><Link className="md:hidden text-black" to="/register">Register</Link></li>)
-                        }
+                        <li><Link className="text-black" to="/professional-support">Professionals Support</Link></li>
+
+                        <li><Link className="text-black" to="/health-and-nutrition">Health & Nutrition</Link></li>
+                        <li><Link className="text-black" to="/meditation">Meditation</Link></li>
+                        <li><Link className="text-black" to="/game/tic-tac">TicTacToe</Link></li>
+                        <li><Link className="text-black" to="/game/fifteen-puzzle">15 Puzzle</Link></li>
+                        <li><Link className="text-black" to="/game/kawan-puzzle">Kawan Puzzle</Link></li>
+                        <li><Link className="text-black" to="/contact-us">Contact Us</Link></li>
                     </ul>
                 </div>
                 <Link to="/">
-                    <img className="hidden md:flex w-16" src={logo} alt="" />
+                    <img className="w-16 mr-2 lg:mr-0" src={logo} alt="" />
                 </Link>
-                <Link to="/" className="btn btn-ghost text-sm md:text-xl ml-0 lg:ml-5">Kawan</Link>
+                <Link to="/" className="hidden lg:block font-semibold text-sm lg:text-xl ml-0 lg:ml-5">Kawan</Link>
             </div>
-            <div className="navbar-end w-full">
+            <div className="navbar-end w-full gap-7">
                 <Link to="/">
-                    <button className={`hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/' ? 'text-yellow-300' : ''}`}>Home</button>
+                    <button className={`hidden lg:flex font-semibold ${location.pathname === '/' ? 'text-yellow-300' : ''}`}>Home</button>
                 </Link>
                 <Link to="/e-book">
-                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/e-book' ? 'text-yellow-300' : ''}`}>E-Book</button>
+                    <button className={`hidden lg:flex font-semibold w-full ${location.pathname === '/e-book' ? 'text-yellow-300' : ''}`}>E-Book</button>
                 </Link>
-                <Link to="/ai-chatbot">
-                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/ai-chatbot' ? 'text-yellow-300' : ''}`}>Live Counselling</button>
+                <Link to="/professional-support">
+                    <button className={`hidden lg:flex font-semibold   w-full ${location.pathname === '/professional-support' ? 'text-yellow-300' : ''}`}>Professionals Support</button>
                 </Link>
                 <Link to={`/health-and-nutrition`}>
-                    <button className={`hidden lg:flex btn btn-ghost ml-5 w-full ${location.pathname === '/health-and-nutrition' ? 'text-yellow-300' : ''}`}>Health & Nutrition</button>
+                    <button className={`hidden lg:flex font-semibold  w-full ${location.pathname === '/health-and-nutrition' ? 'text-yellow-300' : ''}`}>Health & Nutrition</button>
                 </Link>
                 <Link to={`/meditation`}>
-                    <button className={`hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/meditation' ? 'text-yellow-300' : ''}`}>Meditation</button>
+                    <button className={`hidden lg:flex font-semibold  ${location.pathname === '/meditation' ? 'text-yellow-300' : ''}`}>Meditation</button>
                 </Link>
-                <Link to={`/game/tic-tac`}>
-                    <button className={`hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/game/tic-tac' ? 'text-yellow-300' : ''}`}>TicTacToe</button>
-                </Link>
-                <Link to={`/game/fifteen-puzzle`}>
-                    <button className={`mr-7 hidden lg:flex btn btn-ghost ml-5 ${location.pathname === '/game/fifteen-puzzle' ? 'text-yellow-300' : ''}`}>15 Puzzle</button>
-                </Link>
-                
+
+
+                {/* Game  */}
+                <div className="hidden lg:flex relative dropdown dropdown-hover">
+                    <div
+                        tabIndex={0}
+                        role="button"
+                        className="flex items-center font-semibold bg-none cursor-pointer"
+                    >
+                        Game
+                        <FaChevronDown
+                            className="ml-2 transition-transform duration-300 ease-in-out dropdown-toggle"
+                        />
+                    </div>
+                    <ul
+                        tabIndex={0}
+                        className="dropdown-content menu bg-gray-500 text-white rounded-box z-[1] p-2 w-40 content-center shadow"
+                    >
+                        <li>
+                            <Link to={`/game/tic-tac`}>
+                                <a className={`hidden text-md font-bold lg:flex ${location.pathname === '/game/tic-tac' ? 'text-yellow-300' : ''}`}>TicTacToe</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={`/game/fifteen-puzzle`}>
+                                <a className={`hidden lg:flex text-md font-bold ${location.pathname === '/game/fifteen-puzzle' ? 'text-yellow-300' : ''}`}>15 Puzzle</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={`/game/kawan-puzzle`}>
+                                <a className={`hidden lg:flex text-md font-bold ${location.pathname === '/game/kawan-puzzle' ? 'text-yellow-300' : ''}`}>Kawan Puzzle</a>
+                            </Link>
+                        </li>
+                    </ul>
+
+                    {/* Styles */}
+                    <style>{`
+        .dropdown:hover .dropdown-toggle {
+          transform: rotate(-180deg);
+        }
+      `}</style>
+                </div>
+
+                {/* Game end */}
+
+                {/* COntact us */}
+                <div>
+
+                    <Link to={`/contact-us`}>
+                        <a className={`hidden lg:flex text-md font-bold ${location.pathname === '/contact-us' ? 'text-yellow-300' : ''}`}>Contact Us</a>
+                    </Link>
+                </div>
+
+
+
 
                 {user ? (
                     <>
@@ -157,12 +207,12 @@ const Navbar = () => {
                         </>
                     </>
                 ) : (
-                    <div className='space-x-4'>
+                    <div className='flex space-x-2 lg:space-x-4'>
                         <Link to={'/login'}>
-                            <a className="btn border-2 btn-outline hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl px-7 text-lg">Login</a>
+                            <a className="btn border-2 btn-outline hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl px-4 lg:px-7 text-lg">Login</a>
                         </Link>
                         <Link to={'/register'}>
-                            <a className="btn border-2 btn-outline bg-yellow-300 text-gray-700 border-yellow-300 hover:text-yellow-300 hover:bg-transparent hover:border-yellow-300 rounded-3xl px-7 text-lg">Register</a>
+                            <a className="btn border-2 btn-outline bg-yellow-300 text-gray-700 border-yellow-300 hover:text-yellow-300 px-4 hover:bg-transparent hover:border-yellow-300 rounded-3xl lg:px-7 text-lg">Register</a>
                         </Link>
                     </div>
                 )}

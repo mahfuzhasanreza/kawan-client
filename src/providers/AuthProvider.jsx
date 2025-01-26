@@ -25,6 +25,8 @@ const AuthProvider = ({ children }) => {
     const [isHealthData, setIsHealthData] = useState(false);
     const [healthId, setHealthId] = useState(null);
     const [userType, setUserType] = useState('user');
+    const [isVerifyProfessional, setIsVerifyProfessional] = useState(false);
+
 
     const fetchUserHealthId = async () => {
         try {
@@ -102,10 +104,10 @@ const AuthProvider = ({ children }) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const loggedInUser = userCredential.user;
-    
+
             if (loggedInUser.emailVerified) {
                 setUser(loggedInUser);
-    
+
                 // Fetch user data from the server
                 // try {
                 //     const response = await fetch("https://kawan.onrender.com/api/v1/user", {
@@ -117,7 +119,32 @@ const AuthProvider = ({ children }) => {
                 // } catch (error) {
                 //     console.error("Error fetching user data:", error);
                 // }
-    
+
+                // Check Professional
+                try {
+                    const response = await fetch(`http://localhost:5000/professionals/${email}`, {
+                        method: "GET",
+                    });
+                    const data = await response.json();
+                    // const foundUser = data.find(userData => userData.email === result.user.email);
+                    // setUserDb(foundUser);
+
+                    if (data == 2) {
+                        console.log(data, "dataAAAAA");
+                        setUserType('professional');
+                        setIsVerifyProfessional(true);
+                        console.log(userType, "userTypeeeeeeeeeee");
+                    } else if (data == 1) {
+                        setUserType('professional');
+                    }
+
+                    console.log(userType, "userType");
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                }
+
+                console.log(loggedInUser, "logged in user");
+
                 toast.success('Login successful! Welcome back to Kawan.');
             } else {
                 await signOutUser();
@@ -143,7 +170,7 @@ const AuthProvider = ({ children }) => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
             setUser(result.user);
-    
+
             // Send user data to the server
             try {
                 await fetch("https://kawan.onrender.com/api/v1/user/create-user", {
@@ -160,19 +187,31 @@ const AuthProvider = ({ children }) => {
             } catch (error) {
                 console.error("Error submitting user data:", error);
             }
-    
-            // Fetch user data from the server
-            // try {
-            //     const response = await fetch("https://kawan.onrender.com/api/v1/user", {
-            //         method: "GET",
-            //     });
-            //     const data = await response.json();
-            //     const foundUser = data.find(userData => userData.email === result.user.email);
-            //     setUserDb(foundUser);
-            // } catch (error) {
-            //     console.error("Error fetching user data:", error);
-            // }
-    
+
+            // Check Professional
+            try {
+                const response = await fetch(`http://localhost:5000/professionals/${result.user.email}`, {
+                    method: "GET",
+                });
+                const data = await response.json();
+                // const foundUser = data.find(userData => userData.email === result.user.email);
+                // setUserDb(foundUser);
+                console.log(data, "data");
+
+                if (data == 2) {
+                    console.log(data, "dataAAAAA");
+                    setUserType('professional');
+                    setIsVerifyProfessional(true);
+                    console.log(userType, "userTypeeeeeeeeeee");
+                } else if (data == 1) {
+                    setUserType('professional');
+                }
+
+                console.log(userType, "userType");
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+
             toast.success('Google login successful! Welcome to Kawan.');
             setLoading(false);
             return result.user;
@@ -211,12 +250,12 @@ const AuthProvider = ({ children }) => {
             }
             setLoading(false);
         });
-    
+
         return () => {
             unSubscribe();
         };
     }, []);
-    
+
 
     const authInfo = {
         user,
@@ -237,6 +276,8 @@ const AuthProvider = ({ children }) => {
         fetchUserHealthId,
         userType,
         setUserType,
+        isVerifyProfessional,
+        setIsVerifyProfessional
     };
 
     return (

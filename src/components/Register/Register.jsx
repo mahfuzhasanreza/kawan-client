@@ -78,6 +78,7 @@ const Register = () => {
                             body: JSON.stringify({
                                 name: name,
                                 email: email,
+                                isVerify: false,
                             }),
                         });
                     } catch (error) {
@@ -159,14 +160,14 @@ const Register = () => {
             <ToastContainer />
 
 
-            <div className="w-10/12 lg:flex mx-auto mt-20">
+            <div className="lg:w-10/12 flex flex-col lg:flex-row mx-auto lg:mt-20">
 
-                <div className="mx-auto w-2/5">
+                <div className="mx-auto w-11/12 lg:w-2/5">
                     <Lottie animationData={registerLottieData}></Lottie>
                 </div>
 
 
-                <div className="bg-white shadow-lg p-5 rounded-2xl mt-10 mb-10 card w-1/2 max-w-xl shrink-0 content-center mx-auto">
+                <div className="bg-white shadow-lg p-5 rounded-2xl lg:mt-10 mb-10 card lg:w-1/2 max-w-xl shrink-0 content-center mx-auto">
                     <h2 className='text-4xl  mb-5 mx-auto text-black'>Create a new account !</h2>
                     <form onSubmit={handleRegister} className="card-body">
 
@@ -320,8 +321,8 @@ const Register = () => {
                         <FcGoogle className='text-4xl'></FcGoogle>
                         Sign up with Google
                     </button>
-                    <div className='mx-auto mt-8 font-medium'>
-                        <p>Don't haven an account? <span><Link to={'/login'} className='hover:underline text-fuchsia-700 font-medium'>Login here</Link></span> </p>
+                    <div className='mx-auto mt-8 mb-7 font-medium'>
+                        <p>Already have an account? <span><Link to={'/login'} className='hover:underline text-fuchsia-700 font-medium'>Login here</Link></span> </p>
                     </div>
                 </div>
             </div>

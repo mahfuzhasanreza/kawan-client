@@ -24,7 +24,7 @@ export function MeetingDetailsScreen({
 
   return (
     <div
-      className={`flex flex-1 flex-col justify-center w-full md:p-[6px] sm:p-1 p-1.5`}
+      className={`flex flex-1 flex-col justify-center w-full lg:p-[6px] sm:p-1 p-1.5`}
     >
       {iscreateMeetingClicked ? (
         <div className="border border-solid border-gray-400  rounded-xl px-4 py-3  flex items-center justify-center">
@@ -101,7 +101,7 @@ export function MeetingDetailsScreen({
       )}
 
       {!iscreateMeetingClicked && !isJoinMeetingClicked && (
-        <div className="w-full md:mt-0 mt-4 flex flex-col">
+        <div className="w-full lg:mt-0 mt-4 flex flex-col">
           <div className="flex items-center justify-center flex-col w-full">
             <button
               className="w-full bg-purple- text-white px-2 py-3 rounded-xl bg-red-500"

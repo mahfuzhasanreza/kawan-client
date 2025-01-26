@@ -47,15 +47,15 @@ function ParticipantGrid({ participantIds, isPresenting }) {
 
   return (
     <div
-      className={`flex flex-col md:flex-row flex-grow m-3 items-center justify-center ${participantIds.length < 2 && !sideBarMode && !isPresenting
-        ? "md:px-16 md:py-2"
+      className={`flex flex-col lg:flex-row flex-grow m-3 items-center justify-center ${participantIds.length < 2 && !sideBarMode && !isPresenting
+        ? "lg:px-16 lg:py-2"
         : participantIds.length < 3 && !sideBarMode && !isPresenting
-          ? "md:px-16 md:py-8"
+          ? "lg:px-16 lg:py-8"
           : participantIds.length < 4 && !sideBarMode && !isPresenting
-            ? "md:px-16 md:py-4"
+            ? "lg:px-16 lg:py-4"
             : participantIds.length > 4 && !sideBarMode && !isPresenting
-              ? "md:px-14"
-              : "md:px-0"
+              ? "lg:px-14"
+              : "lg:px-0"
         }`}
     >
       <div className="flex flex-col w-full h-full">
@@ -80,14 +80,14 @@ function ParticipantGrid({ participantIds, isPresenting }) {
                         key={`participant_${participantId}`}
                         className={`flex flex-1 ${isPresenting
                           ? participantIds.length === 1
-                            ? "md:h-48 md:w-44 xl:w-52 xl:h-48 "
+                            ? "lg:h-48 lg:w-44 xl:w-52 xl:h-48 "
                             : participantIds.length === 2
-                              ? "md:w-44 xl:w-56"
-                              : "md:w-44 xl:w-48"
+                              ? "lg:w-44 xl:w-56"
+                              : "lg:w-44 xl:w-48"
                           : "w-full"
                           } items-center justify-center h-full ${participantIds.length === 1
-                            ? "md:max-w-7xl 2xl:max-w-[1480px] "
-                            : "md:max-w-lg 2xl:max-w-2xl"
+                            ? "lg:max-w-7xl 2xl:max-w-[1480px] "
+                            : "lg:max-w-lg 2xl:max-w-2xl"
                           } overflow-clip overflow-hidden  p-1`}
                       >
                         <MemoizedParticipant participantId={participantId} />

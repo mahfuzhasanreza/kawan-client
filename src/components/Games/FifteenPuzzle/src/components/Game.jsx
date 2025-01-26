@@ -62,22 +62,22 @@ export default function Game() {
   };
 
   return (
-    <div className="px-32 pb-32 pt-20 text-gray-300 bg-gray-950">
+    <div className="px-3 lg:px-32 pb-32 pt-20 text-gray-300 bg-gray-950">
       <div className="mx-auto w-full text-center">
-        <h1 className="text-4xl text-fuchsia-600 font-bold text-center">
+        <h1 className="text-3xl lg:text-4xl text-fuchsia-600 font-bold text-center">
           15 Puzzle Game
         </h1>
         <h3 className="mt-4 mb-10 text-xl font-bold 
       text-center bg-clip-text 
       text-transparent bg-gradient-to-r 
       from-indigo-500 from-10% via-sky-500 
-      via-30% to-emerald-500 to-90% w-2/3 mx-auto">
+      via-30% to-emerald-500 to-90% lg:w-2/3 mx-auto">
           Challenge your mind and unwind your thoughts with this calming puzzle game. A simple way to boost focus, relieve stress, and refresh your mental clarity—one move at a time.
         </h3>
       </div>
 
-      <div className="mt-14 flex justify-between">
-        <div className="flex w-3/4">
+      <div className="mt-14  flex flex-col-reverse lg:flex-row justify-between">
+        <div className="lg:flex w-fit  mx-auto lg:w-3/4">
           <div className="mx-auto mr-0">
             {win && (
               <div className="rounded-md border-l-4 border-green-500 bg-green-100 p-2 mb-2">
@@ -110,11 +110,11 @@ export default function Game() {
 
           </div>
         </div>
-        <div className="flex justify-center items-center content-center text-center w-full">
+        <div className="mb-8 lg:mb-0 flex justify-center items-center content-center text-center w-full">
           <div className="flex flex-col gap-5 justify-start text-start px-6 mt-2">
             {/* <p>Moves: {moves}</p> */}
             <Timer time={time} timerActive={timerActive} setTime={setTime} />
-            <div className="outer">
+            <div className="outer z-0">
               <div className="dot"></div>
               <div className="card-game">
                 <div className="ray"></div>

@@ -29,7 +29,7 @@ function Carousel({ slides }) {
     }, [current]); // Effect depends on 'current' state to ensure interval runs after each slide change
 
     return (
-        <div className="overflow-hidden relative">
+        <div className="hidden lg:block overflow-hidden relative">
             <div
                 className="flex transition ease-out duration-500"
                 style={{
@@ -66,9 +66,9 @@ function Carousel({ slides }) {
             </div>
 
 
-            <Link className="h-full w-full text-white" to="/books">
+            {/* <Link className="h-full w-full text-white" to="/books">
                 <button className="px-10 text-lg absolute top-2/3 left-60 font-semibold bg-fuchsia-600 border-none hover:bg-fuchsia-800 text-white btn">Explore Now</button>
-            </Link>
+            </Link> */}
 
 
             {/* Dot Indicators */}

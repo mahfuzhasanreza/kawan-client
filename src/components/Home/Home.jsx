@@ -11,6 +11,7 @@ import WhyChooseKawan from "../WhyChooseKawan/WhyChooseKawan";
 import Banner from "../Banner/Banner";
 import StarTesting from '../StarTesting/StarTesting'
 import ParticleBg from "../Particle/ParticleBg";
+import WhatKawanOffers from "../WhatKawanOffers/WhatKawanOffers";
 
 const Home = () => {
     // const [loading, setLoading] = useState(true);
@@ -55,14 +56,17 @@ const Home = () => {
                 <Banner></Banner>
             </div>
 
+            <div>
+                {/* <FeaturesPlanet></FeaturesPlanet> */}
+                <WhatKawanOffers></WhatKawanOffers>
+            </div>
+
             {/* <div data-aos="fade-down" className="relative">
                 <KawanNewsAndUpdates></KawanNewsAndUpdates>
             </div> */}
 
 
-            <div data-aos="fade-up">
-                <CommunityStories></CommunityStories>
-            </div>
+           
             <div data-aos="fade-down">
                 <HowKawanWorks></HowKawanWorks>
             </div>
@@ -71,15 +75,19 @@ const Home = () => {
                 <WhyChooseKawan></WhyChooseKawan>
             </div>
 
-            <div data-aos="fade-down">
+            <div data-aos="fade-up">
+                <CommunityStories></CommunityStories>
+            </div>
+
+            <div data-aos="fade-down" className="mb-24">
                 <FAQSection></FAQSection>
             </div>
 
-            <div>
+            {/* <div>
                 <h1>Star Will Develop In Many Section</h1>
 
                 <StarTesting></StarTesting>
-            </div>
+            </div> */}
 
         </div>
     );

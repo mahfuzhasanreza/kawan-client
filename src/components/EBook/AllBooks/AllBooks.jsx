@@ -26,7 +26,7 @@ const AllBooks = () => {
     return (
         <div className='w-3/4 mx-auto mt-20'>
             <Helmet>
-                <title>All e-Book | Kawan</title>
+                <title>eBook | Kawan</title>
             </Helmet>
             <h2 className="text-5xl font-bold text-center text-purple-800">All Books</h2>
 
@@ -56,7 +56,7 @@ const AllBooks = () => {
                 </div>
             ) : (
 
-                <div className={`mb-20 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10`}>
+                <div className={`mb-20 mx-auto grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-4 gap-10`}>
                     {
                         filteredBooks.map(book => <Book books={book} key={book._id}></Book>)
                     }

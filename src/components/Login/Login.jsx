@@ -38,6 +38,7 @@ const Login = () => {
             setSuccess(true);
             e.target.reset();
             navigate(location?.state ? location.state : '/');
+            
         } catch (error) {
             // toast.error('Email and Password does not match'); // Trigger toast notification
         }
@@ -66,11 +67,11 @@ const Login = () => {
             </Helmet>
 
             <ToastContainer />
-            <div className="flex items-center w-10/12 mx-auto content-center justify-center">
-                <div className="mx-auto w-1/3">
+            <div className="mt-4 lg:mt-0 flex flex-col lg:flex-row items-center lg:w-10/12 mx-auto content-center justify-center">
+                <div className="mx-auto w-3/5 lg:w-1/3">
                     <Lottie animationData={loginLottieData}></Lottie>
                 </div>
-                <div className="lg:flex h-fit w-fit bg-white border-gray border px-11 py-0 rounded-2xl mx-auto mt-20">
+                <div className="lg:flex h-fit w-fit bg-white border-gray border px-11 py-0 rounded-2xl mx-auto mt-4 lg:mt-20">
 
 
                     <div className="mt-10 mb-10 card max-w-xl shrink-0 content-center mx-auto">
@@ -153,7 +154,7 @@ const Login = () => {
                             <hr className='mr-10 ml-2 w-1/2 border' />
                         </div>
                         <button onClick={handleGoogleLogin}
-                            className='btn btn-outline mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-fuchsia-200 hover:border-fuchsia-200 hover:text-black'>
+                            className='btn btn-outline bg-purple-100 mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-fuchsia-200 hover:border-fuchsia-200 hover:text-black'>
                             <FcGoogle className='text-4xl'></FcGoogle>
                             Sign In with Google</button>
                         <div className='mx-auto mt-8 font-medium'>

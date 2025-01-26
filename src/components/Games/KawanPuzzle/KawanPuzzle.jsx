@@ -5,9 +5,10 @@ import img from "./mahfuzDPFB.jpg";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 function App() {
-    const text = "UNPUZZLE THE PIECES!!";
+    const text = "Kawan Puzzle";
     const { userDb } = useContext(AuthContext);
 
     const set = () => {
@@ -21,6 +22,9 @@ function App() {
 
     return (
         <div className="bg-gradient-to-br from-black to-purple-700 pb-14">
+            <Helmet>
+                <title>KawanPuzzle | Kawan</title>
+            </Helmet>
             <h2 className="text-4xl font-bold tag">{text}</h2>
             <JigsawPuzzle
                 imageSrc={img}

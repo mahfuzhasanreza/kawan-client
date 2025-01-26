@@ -36,6 +36,7 @@ import FifteenPuzzle from './components/Games/FifteenPuzzle/src/FifteenPuzzle';
 import KawanPuzzle from './components/Games/KawanPuzzle/KawanPuzzle'
 // import LiveCounselling from './components/LiveCounselling/src/LiveCounselling'
 import CheckApi from './components/CheckApi';
+import ContactUs from './components/ContactUs/ContactUs';
 
 const queryClient = new QueryClient();
 
@@ -62,10 +63,8 @@ const router = createBrowserRouter([
         element: <BookDashboard></BookDashboard>
       },
       {
-        path: 'ai-chatbot',
+        path: 'professional-support',
         element: <LiveMeeting></LiveMeeting>,
-        // element: <CheckApi></CheckApi>
-        // element: <LiveCounselling></LiveCounselling>
       },
       {
         path: 'profile',
@@ -134,6 +133,14 @@ const router = createBrowserRouter([
         path: 'game/kawan-puzzle',
         element: <KawanPuzzle></KawanPuzzle>,
       },
+      {
+        path: 'professional',
+        element: <LiveMeeting></LiveMeeting>,
+      },
+      {
+        path: 'contact-us',
+        element: <ContactUs></ContactUs>,
+      }
     ]
   },
 ]);
