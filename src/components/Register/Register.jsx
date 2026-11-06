@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FcGoogle } from 'react-icons/fc';
 import Lottie from "lottie-react";
 import registerLottieData from '../../assets/lottie/register.json';
+import { SERVER_URL } from '../../config';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -70,7 +71,7 @@ const Register = () => {
                 if (userType === 'professional') {
                     console.log("YESS");
                     try {
-                        fetch("http://localhost:5000/professionals", {
+                        fetch(`${SERVER_URL}/professionals`, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",

@@ -4,6 +4,8 @@ import { TypeAnimation } from 'react-type-animation';
 import { AuthContext } from '../../providers/AuthProvider';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { SERVER_URL } from '../../config';
+import bannerBg from '../../assets/banner/bannerBg3.jpg';
 
 const Banner = () => {
     const { userDb } = useContext(AuthContext);
@@ -14,8 +16,9 @@ const Banner = () => {
     useEffect(() => {
 
         const checkProfessionalStatus = async () => {
+            if (!userDb?.email) return;
             try {
-                const response = await fetch(`http://localhost:5000/professionals/${userDb.email}`, {
+                const response = await fetch(`${SERVER_URL}/professionals/${userDb.email}`, {
                     method: "GET",
                 });
 
@@ -54,31 +57,42 @@ const Banner = () => {
         <div
             className='flex justify-between bg-cover bg-center opacity-80 shadow-lg h-1/2'
             style={{
-                backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('https://i.ibb.co/Wn8KZ23/banner-Bg3.jpg')`,
+                backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url(${bannerBg})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 position: 'relative',
             }}
         >
-            <div className='ml-36 hidden lg:block content-center mt-20 mx-auto z-10'>
-                
+            <div className='hidden lg:block content-center mt-20 mx-auto lg:pl-16 xl:pl-24 z-10'>
+                <p className='text-gray-300 font-mono text-md mb-5'>MENTAL HEALTH & SELF-DEVELOPMENT SUPPORT</p>
                 <div className='flex'>
                     <h2 className='text-6xl font-bold text-white'>
-                    ADMIN DASHBOARD
+                        Revitalize Your
+                    </h2>
+                    <h2 className='ml-3 text-6xl font-bold text-white'>
+                        <TypeAnimation
+                            sequence={[
+                                'Mental Health',
+                                2000,
+                                'Personal Growth',
+                                2000,
+                            ]}
+                            repeat={Infinity}
+                        />
                     </h2>
                 </div>
                 <div className='content-center mx-auto z-10'>
                     <h2 className='mt-5 text-6xl font-bold text-white'>
-
-                        <span className='ml-24 border-b-4 border-fuchsia-600 text-fuchsia-900 bg-yellow-500 rounded-tr-full rounded-bl-full px-10'>CONTROL CENTER</span>
+                        with
+                        <span className='border-b-4 border-fuchsia-600 ml-2 text-fuchsia-900 bg-yellow-500 rounded-tr-full rounded-bl-full px-10'>KAWAN</span>
                     </h2>
                 </div>
 
-                <p className='text-gray-300 text-xl mt-10 mb-24'>
-                Welcome to the Kawan Admin Dashboard,
-                 the central hub for managing
-                 
-                  mental health and <br></br>self-development support.
+                <p className='text-gray-300 text-lg mt-10 mb-24'>
+                    Kawan is your trusted companion for mental health and self-development, designed
+
+                    to empower individuals on their
+                    <br /> journey to emotional well-being.
                 </p>
                 {
                     (userType === 'professional') && (
