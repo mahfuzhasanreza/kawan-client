@@ -1,4 +1,3 @@
-import { StrictMode } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { createRoot } from 'react-dom/client';
 import './index.css';
@@ -152,16 +151,16 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <HelmetProvider>
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <div>
-            <RouterProvider router={router} />
-          </div>
-        </QueryClientProvider>
-      </AuthProvider>
-      <Toaster />
-    </HelmetProvider>
-  </StrictMode>
+  // No <StrictMode>: its dev-only double effect run makes the VideoSDK
+  // MeetingProvider join twice, showing a duplicate "ghost" participant.
+  <HelmetProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <div>
+          <RouterProvider router={router} />
+        </div>
+      </QueryClientProvider>
+    </AuthProvider>
+    <Toaster />
+  </HelmetProvider>
 )
