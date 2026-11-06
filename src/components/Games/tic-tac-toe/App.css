@@ -1,0 +1,12 @@
+.App{
+    position: relative;
+    height: 100vh; 
+    overflow: hidden;
+
+}
+@media screen and (min-width: 900px) {
+    .App{
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+}
