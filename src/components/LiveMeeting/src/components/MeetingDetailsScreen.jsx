@@ -107,6 +107,7 @@ export function MeetingDetailsScreen({
               className="w-full bg-purple- text-white px-2 py-3 rounded-xl bg-red-500"
               onClick={async (e) => {
                 const studioCode = await _handleOnCreateMeeting();
+                if (!studioCode) return;
                 setStudioCode(studioCode);
                 setIscreateMeetingClicked(true);
                 setMeetingMode(Constants.modes.CONFERENCE);
