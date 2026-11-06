@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { MeetingDetailsScreen } from "../MeetingDetailsScreen";
 import { createMeeting, getToken, validateMeeting } from "../../api";
+import { toast } from "react-toastify";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import SettingDialogueBox from "../SettingDialogueBox";
 import ConfirmBox from "../ConfirmBox";
@@ -176,24 +177,29 @@ export function JoiningScreen({
     }
 
     if (webcam) {
-      const videoConstraints = {
-        video: {
-          width: 1280,
-          height: 720,
-        },
-      };
+      try {
+        const videoConstraints = {
+          video: {
+            width: 1280,
+            height: 720,
+          },
+        };
 
-      const stream = await navigator.mediaDevices.getUserMedia(
-        videoConstraints
-      );
-      const videoTracks = stream.getVideoTracks();
+        const stream = await navigator.mediaDevices.getUserMedia(
+          videoConstraints
+        );
+        const videoTracks = stream.getVideoTracks();
 
-      const videoTrack = videoTracks.length ? videoTracks[0] : null;
-      setVideoTrack(videoTrack);
-      if (firstTime) {
-        setSelectedWebcam({
-          id: videoTrack?.getSettings()?.deviceId,
-        });
+        const videoTrack = videoTracks.length ? videoTracks[0] : null;
+        setVideoTrack(videoTrack);
+        if (firstTime) {
+          setSelectedWebcam({
+            id: videoTrack?.getSettings()?.deviceId,
+          });
+        }
+      } catch (error) {
+        console.log("Failed to access webcam", error);
+        setWebcamOn(false);
       }
     }
   };
@@ -474,11 +480,14 @@ export function JoiningScreen({
                     meetingMode={meetingMode}
                     onClickStartMeeting={onClickStartMeeting}
                     onClickJoin={async (id) => {
-                      const token = await getToken();
-                      const valid = await validateMeeting({
-                        roomId: id,
-                        token,
-                      });
+                      let token, valid;
+                      try {
+                        token = await getToken();
+                        valid = await validateMeeting({ roomId: id, token });
+                      } catch (err) {
+                        toast.error(err.message || "Could not join meeting");
+                        return;
+                      }
 
                       if (valid) {
                         setToken(token);
@@ -492,8 +501,14 @@ export function JoiningScreen({
                       } else alert("Invalid Meeting Id");
                     }}
                     _handleOnCreateMeeting={async () => {
-                      const token = await getToken();
-                      const _meetingId = await createMeeting({ token });
+                      let token, _meetingId;
+                      try {
+                        token = await getToken();
+                        _meetingId = await createMeeting({ token });
+                      } catch (err) {
+                        toast.error(err.message || "Could not create meeting");
+                        return null;
+                      }
                       setToken(token);
                       setMeetingId(_meetingId);
                       setParticipantName("");
