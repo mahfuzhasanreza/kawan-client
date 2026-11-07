@@ -8,6 +8,7 @@ import { kawanInfo } from "../../kawanInfo";
 import "./AiChatbotMain.css";
 import AiChatbotSection from "./AiChatbotSection";
 import { Helmet } from "react-helmet-async";
+import { SERVER_URL } from "../../config";
 
 const AiChatbotMain = () => {
   const chatBodyRef = useRef();
@@ -21,58 +22,41 @@ const AiChatbotMain = () => {
   ]);
 
   const generateBotResponse = async (history) => {
-    // Format chat history to extract the user's most recent query
-    const lastMessage = history[history.length - 1]?.text;
-    const userQuery = lastMessage?.split(": ")?.[1]?.trim();
+    // Last entry is the user's new message; earlier visible turns give context.
+    const userMessage = history[history.length - 1]?.text?.trim();
+    if (!userMessage) return;
 
-    if (!userQuery) return;
+    const previousTurns = history
+      .slice(0, -1)
+      .filter((msg) => !msg.hideInChat && !msg.isError && msg.text !== "Thinking...")
+      .map(({ role, text }) => ({ role, text }));
 
-    // // Add a temporary "Thinking..." message to the chat
-    // setChatHistory((prev) => [
-    //   ...prev,
-    //   { role: "model", text: "Thinking...", isError: false },
-    // ]);
+    const showReply = (text, isError = false) =>
+      setChatHistory((prev) =>
+        prev.filter((msg) => msg.text !== "Thinking...").concat({ role: "model", text, isError })
+      );
 
     try {
-      // Prepare API request
-      const url = import.meta.env.VITE_API_URL;
-      const requestBody = { query: userQuery };
-
-      const response = await fetch(url, {
+      const response = await fetch(`${SERVER_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify({ message: userMessage, history: previousTurns }),
       });
+      const result = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // Server sends a user-friendly message (e.g. rate limit reached).
+        throw new Error(result?.message || `HTTP error! status: ${response.status}`);
       }
 
-      const result = await response.json();
-      // console.log(result, "RRRRRRRRRRRR");
-      
-      const botResponse = (result?.response || "No response received.").replace(
-        "Processed query: ",
-        ""
-      );
-
-      // Update chat history with the bot's response
-      setChatHistory((prev) =>
-        prev.filter((msg) => msg.text !== "Thinking...").concat({
-          role: "model",
-          text: botResponse,
-        })
-      );
+      showReply(result?.response || "No response received.");
     } catch (error) {
       console.error("Error generating bot response:", error);
-
-      // Update chat history with an error message
-      setChatHistory((prev) =>
-        prev.filter((msg) => msg.text !== "Thinking...").concat({
-          role: "model",
-          text: "Something went wrong while fetching the response. Please try again.",
-          isError: true,
-        })
+      showReply(
+        error?.message && !error.message.startsWith("HTTP error") && error.name !== "TypeError"
+          ? error.message
+          : "Something went wrong while fetching the response. Please try again.",
+        true
       );
     }
   };
