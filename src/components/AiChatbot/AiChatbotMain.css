@@ -264,3 +264,35 @@ body {
     padding: 10px 15px 15px;
   }
 }
+/* Mood check-in: quick replies + hint */
+.chat-body .quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -8px 0 0 46px;
+}
+
+.chat-body .quick-reply {
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  text-align: left;
+  color: #8a1f8a;
+  background: #fff;
+  border: 1px solid #e3c6ef;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.chat-body .quick-reply:hover {
+  background: #fbeefb;
+  border-color: #cc31cc;
+}
+
+.chat-body .mood-hint {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  color: #6b5a7a;
+}
