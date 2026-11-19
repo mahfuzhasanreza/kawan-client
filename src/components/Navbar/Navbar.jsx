@@ -8,7 +8,7 @@ import { FaChevronDown } from 'react-icons/fa';
 const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { user, signOutUser, theme, setTheme } = useContext(AuthContext);
+    const { user, signOutUser, signInAsGuest, theme, setTheme } = useContext(AuthContext);
     const [isHovered, setIsHovered] = useState(false);
     const [isProfileShow, setIsProfileShow] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -208,6 +208,11 @@ const Navbar = () => {
                     </>
                 ) : (
                     <div className='flex content-center items-center justify-center space-x-1 lg:space-x-4'>
+                        <button type="button" onClick={() => signInAsGuest().catch(() => {})}
+                            title="Explore Kawan with a shared demo account"
+                            className="px-2 py-1 lg:px-7 lg:py-3 font-semibold border-2 border-dashed border-yellow-300 text-yellow-300 hover:bg-yellow-300 hover:text-gray-700 rounded-3xl text-xs sm:text-sm lg:text-lg">
+                            Guest
+                        </button>
                         <Link to={'/login'}>
                             <span className="px-2 py-1 lg:px-7 lg:py-3 font-semibold border-2 btn-outline hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl text-xs sm:text-sm lg:text-lg">Login</span>
                         </Link>
