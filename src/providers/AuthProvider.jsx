@@ -11,6 +11,7 @@ import {
 import { createContext, useEffect, useState } from 'react';
 import { auth } from '../firebase.init';
 import toast from 'react-hot-toast';
+import { GUEST_EMAIL, GUEST_PASSWORD } from '../config';
 
 export const AuthContext = createContext(null);
 
@@ -177,6 +178,22 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    // One-click demo login: signs into the shared guest account (skips the email-verification check).
+    const signInAsGuest = async () => {
+        setLoading(true);
+        try {
+            const { user: guestUser } = await signInWithEmailAndPassword(auth, GUEST_EMAIL, GUEST_PASSWORD);
+            setUser(guestUser);
+            toast.success('Logged in as Guest. Enjoy exploring Kawan!');
+            return guestUser;
+        } catch (error) {
+            toast.error('Guest login is unavailable right now. Please try again.');
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const signInWithGoogle = async () => {
         setLoading(true);
         try {
@@ -251,6 +268,7 @@ const AuthProvider = ({ children }) => {
         createUser,
         signInUser,
         signInWithGoogle,
+        signInAsGuest,
         signOutUser,
         theme,
         setTheme,
