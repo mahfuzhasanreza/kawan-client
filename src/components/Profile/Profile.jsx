@@ -3,9 +3,10 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
 import { updateProfile } from 'firebase/auth'; // Import Firebase updateProfile function
 import { auth } from '../../firebase.init';
+import Avatar from '../Avatar/Avatar';
 
 const Profile = () => {
-    const { user } = useContext(AuthContext); // Fetch logged-in user's data from AuthContext
+    const { user, refreshUser } = useContext(AuthContext); // Fetch logged-in user's data from AuthContext
     const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
     const [newName, setNewName] = useState(user?.displayName || ''); // For profile name input
     const [newPhotoURL, setNewPhotoURL] = useState(user?.photoURL || ''); // For profile photo URL input
@@ -17,6 +18,7 @@ const Profile = () => {
                 displayName: newName,
                 photoURL: newPhotoURL,
             });
+            refreshUser();
 
             // Close modal after update
             setIsModalOpen(false);
@@ -39,11 +41,7 @@ const Profile = () => {
 
             <div className="card bg-white shadow-xl w-96 mt-10 p-5">
                 <div className="flex justify-center mb-5">
-                    <img
-                        src={user.photoURL || ''}
-                        alt="User Avatar"
-                        className="rounded-full w-32 h-32 object-cover"
-                    />
+                    <Avatar user={user} size={128} />
                 </div>
                 <div className="space-y-3 text-center">
                     <p><strong>Name:</strong> {user.displayName || 'Not Provided'}</p>

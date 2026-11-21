@@ -7,121 +7,85 @@ import { Link } from 'react-router-dom';
 import { SERVER_URL } from '../../config';
 import bannerBg from '../../assets/banner/bannerBg3.jpg';
 
+const primaryBtn =
+    'inline-flex items-center justify-center rounded-full bg-yellow-300 px-6 py-3 font-semibold text-gray-900 shadow-lg transition hover:bg-yellow-400';
+const secondaryBtn =
+    'inline-flex items-center justify-center rounded-full border-2 border-white/80 px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-fuchsia-700';
+
 const Banner = () => {
-    const { userDb } = useContext(AuthContext);
-    const [userType, setUserType] = useState('user');
-    const [verifyProfessional, setVerifyProfessional] = useState('user');
-    console.log(userDb, "User DB");
+    const { user, userDb } = useContext(AuthContext);
+    const [isProfessional, setIsProfessional] = useState(false);
 
+    // status 1 (unverified) and 2 (verified) are professionals; 0 / 404 is a regular user.
     useEffect(() => {
-
-        const checkProfessionalStatus = async () => {
-            if (!userDb?.email) return;
-            try {
-                const response = await fetch(`${SERVER_URL}/professionals/${userDb.email}`, {
-                    method: "GET",
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                console.log(data, "Professional data");
-
-                if (data.status === 2) {
-                    setUserType('professional');
-                    setVerifyProfessional(true);
-                    console.log("Verified Professional");
-                } else if (data.status === 1) {
-                    setUserType('professional');
-                    setVerifyProfessional(false);
-                    console.log("Unverified Professional");
-                } else if (data.status === 0) {
-                    setUserType('user');
-                    setVerifyProfessional(false);
-                    console.log("Regular User");
-                }
-            } catch (error) {
-                console.error("Error fetching professional status:", error);
-            }
-        };
-
-        checkProfessionalStatus();
-    }, [userDb]); // Dependency array ensures this runs when the `user` state changes
-
-
-    console.log(userType, "User Type, banner");
+        if (!userDb?.email) {
+            setIsProfessional(false);
+            return;
+        }
+        const controller = new AbortController();
+        fetch(`${SERVER_URL}/professionals/${userDb.email}`, { signal: controller.signal })
+            .then((res) => res.json())
+            .then((data) => setIsProfessional(data?.status === 1 || data?.status === 2))
+            .catch(() => { });
+        return () => controller.abort();
+    }, [userDb?.email]);
 
     return (
-        <div
-            className='flex justify-between bg-cover bg-center opacity-80 shadow-lg h-1/2'
-            style={{
-                backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url(${bannerBg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                position: 'relative',
-            }}
-        >
-            <div className='hidden lg:block content-center mt-20 mx-auto lg:pl-16 xl:pl-24 z-10'>
-                <p className='text-gray-300 font-mono text-md mb-5'>MENTAL HEALTH & SELF-DEVELOPMENT SUPPORT</p>
-                <div className='flex'>
-                    <h2 className='text-6xl font-bold text-white'>
+        <section className="relative overflow-hidden shadow-lg">
+            {/* Background on its own layer so the 80% opacity doesn't fade the text */}
+            <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-cover bg-center opacity-80"
+                style={{
+                    backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url(${bannerBg})`,
+                }}
+            />
+            <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:py-20 lg:grid-cols-2 lg:px-8 lg:py-24">
+                {/* Text */}
+                <div className="text-center lg:text-left">
+                    <p className="font-mono text-xs uppercase tracking-[0.2em] text-gray-300 sm:text-sm">
+                        Mental health &amp; self-development support
+                    </p>
+
+                    <h1 className="mt-5 text-4xl font-bold leading-tight text-white sm:text-5xl xl:text-6xl">
                         Revitalize Your
-                    </h2>
-                    <h2 className='ml-3 text-6xl font-bold text-white'>
-                        <TypeAnimation
-                            sequence={[
-                                'Mental Health',
-                                2000,
-                                'Personal Growth',
-                                2000,
-                            ]}
-                            repeat={Infinity}
-                        />
-                    </h2>
+                        <span className="block min-h-[1.25em] whitespace-nowrap text-yellow-300">
+                            <TypeAnimation
+                                sequence={['Mental Health', 2000, 'Personal Growth', 2000]}
+                                repeat={Infinity}
+                            />
+                        </span>
+                        <span className="mt-2 inline-block">
+                            with{' '}
+                            <span className="ml-1 inline-block rounded-bl-full rounded-tr-full border-b-4 border-fuchsia-600 bg-yellow-400 px-6 text-fuchsia-900 sm:px-10">
+                                KAWAN
+                            </span>
+                        </span>
+                    </h1>
+
+                    <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-gray-200 sm:text-lg lg:mx-0">
+                        Kawan is your trusted companion for mental health and self-development, designed to
+                        empower individuals on their journey to emotional well-being.
+                    </p>
+
+                    <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+                        {isProfessional ? (
+                            <Link to="/professional-dashboard" className={primaryBtn}>Professional Dashboard</Link>
+                        ) : user ? (
+                            <Link to="/meditation" className={primaryBtn}>Start Meditating</Link>
+                        ) : (
+                            <Link to="/register" className={primaryBtn}>Get Started</Link>
+                        )}
+                        <Link to="/professional-support" className={secondaryBtn}>Professional Support</Link>
+                    </div>
                 </div>
-                <div className='content-center mx-auto z-10'>
-                    <h2 className='mt-5 text-6xl font-bold text-white'>
-                        with
-                        <span className='border-b-4 border-fuchsia-600 ml-2 text-fuchsia-900 bg-yellow-500 rounded-tr-full rounded-bl-full px-10'>KAWAN</span>
-                    </h2>
+
+                {/* Illustration */}
+                <div className="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
+                    <Lottie animationData={bannerLottieData} loop aria-hidden="true" />
                 </div>
-
-                <p className='text-gray-300 text-lg mt-10 mb-24'>
-                    Kawan is your trusted companion for mental health and self-development, designed
-
-                    to empower individuals on their
-                    <br /> journey to emotional well-being.
-                </p>
-                {
-                    (userType === 'professional') && (
-                        <Link to='/professional-dashboard' className=''>
-                            <button
-                                type="submit"
-                                className="mb-16 flex justify-center gap-2 shadow-xl text-lg bg-gray-50 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-fuchsia-600 hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
-                            >
-                                Professional Dashboard
-                                <svg
-                                    className="w-8 h-8 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 rounded-full border border-gray-700 group-hover:border-none p-2 rotate-45"
-                                    viewBox="0 0 16 19"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
-                                        className="fill-gray-800 group-hover:fill-gray-800"
-                                    ></path>
-                                </svg>
-                            </button>
-
-                        </Link>
-                    )
-                }
             </div>
-            <div className='mx-auto w-1/2 lg:mx-none lg:w-1/3 z-10'>
-                <Lottie animationData={bannerLottieData}></Lottie>
-            </div>
-        </div>
+        </section>
     );
 };
 

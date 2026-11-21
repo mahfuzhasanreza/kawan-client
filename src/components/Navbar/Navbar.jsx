@@ -1,225 +1,212 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import logo from '../../assets/kawanLogoMsg.png';
 import { FaChevronDown } from 'react-icons/fa';
+import { HiMenu, HiX } from 'react-icons/hi';
+import Avatar from "../Avatar/Avatar";
+
+const NAV_LINKS = [
+    { to: '/', label: 'Home', end: true },
+    { to: '/e-book', label: 'E-Book' },
+    { to: '/professional-support', label: 'Professional Support' },
+    { to: '/meditation', label: 'Meditation' },
+];
+
+const GAME_LINKS = [
+    { to: '/game/tic-tac', label: 'Tic-Tac-Toe' },
+    { to: '/game/fifteen-puzzle', label: '15 Puzzle' },
+    { to: '/game/kawan-puzzle', label: 'Kawan Puzzle' },
+];
+
+const desktopLinkClass = ({ isActive }) =>
+    `whitespace-nowrap font-semibold transition-colors hover:text-yellow-200 ${isActive ? 'text-yellow-300' : ''}`;
+
+const mobileLinkClass = ({ isActive }) =>
+    `block rounded-lg px-4 py-2 font-medium ${isActive ? 'bg-fuchsia-100 text-fuchsia-700' : 'text-gray-700 hover:bg-gray-100'}`;
 
 const Navbar = () => {
-    const navigate = useNavigate();
     const location = useLocation();
-    const { user, signOutUser, theme, setTheme } = useContext(AuthContext);
-    const [isHovered, setIsHovered] = useState(false);
-    const [isProfileShow, setIsProfileShow] = useState(false);
+    const { user, signOutUser, theme } = useContext(AuthContext);
     const [isScrolled, setIsScrolled] = useState(false);
-
-    const userName = user?.displayName;
-
-    const handleSignOutUser = () => {
-        signOutUser()
-            .then(() => { });
-    };
-
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const [isGamesOpen, setIsGamesOpen] = useState(false);
     const profileRef = useRef(null);
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (profileRef.current && !profileRef.current.contains(event.target)) {
-                setIsProfileShow(false);
-            }
-        };
-        document.addEventListener('click', handleClickOutside);
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, []);
+    const gamesRef = useRef(null);
+
+    const isGameRoute = location.pathname.startsWith('/game');
 
     useEffect(() => {
         document.querySelector('html').setAttribute('data-theme', theme);
     }, [theme]);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 0);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        const handleScroll = () => setIsScrolled(window.scrollY > 0);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Close every menu when the route changes.
+    useEffect(() => {
+        setIsMenuOpen(false);
+        setIsProfileOpen(false);
+        setIsGamesOpen(false);
+    }, [location.pathname]);
+
+    // Close dropdowns on outside click or Escape.
+    useEffect(() => {
+        const handleClick = (event) => {
+            if (profileRef.current && !profileRef.current.contains(event.target)) setIsProfileOpen(false);
+            if (gamesRef.current && !gamesRef.current.contains(event.target)) setIsGamesOpen(false);
+        };
+        const handleKey = (event) => {
+            if (event.key === 'Escape') {
+                setIsProfileOpen(false);
+                setIsGamesOpen(false);
+                setIsMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClick);
+        document.addEventListener('keydown', handleKey);
+        return () => {
+            document.removeEventListener('mousedown', handleClick);
+            document.removeEventListener('keydown', handleKey);
+        };
+    }, []);
+
+    const handleSignOut = () => {
+        setIsProfileOpen(false);
+        signOutUser();
+    };
+
     return (
-        <div
-            className={`navbar text-white lg:px-10 mx-auto max-w-[5000px] sticky top-0 z-50 backdrop-blur-lg shadow-md
-                bg-fuchsia-600 transition-opacity duration-300 ${isScrolled ? "bg-opacity-80" : "bg-opacity-100"
-                }`}
+        <header
+            className={`sticky top-0 z-50 bg-fuchsia-600 text-white shadow-md backdrop-blur-lg transition-colors duration-300 ${isScrolled ? 'bg-opacity-90' : 'bg-opacity-100'}`}
         >
             <Toaster />
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <div tabIndex={0} role="button" className="font-semibold lg:hidden mx-1 lg:mx-3">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
+            <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 lg:h-20 lg:px-8">
+                {/* Brand */}
+                <Link to="/" className="flex shrink-0 items-center gap-3">
+                    <img className="h-10 w-10 object-contain lg:h-12 lg:w-12" src={logo} alt="Kawan logo" />
+                    <span className="text-xl font-bold tracking-wide">Kawan</span>
+                </Link>
+
+                {/* Desktop links */}
+                <div className="hidden items-center gap-6 xl:flex">
+                    {NAV_LINKS.map(({ to, label, end }) => (
+                        <NavLink key={to} to={to} end={end} className={desktopLinkClass}>{label}</NavLink>
+                    ))}
+
+                    <div className="relative" ref={gamesRef}>
+                        <button
+                            type="button"
+                            onClick={() => setIsGamesOpen((open) => !open)}
+                            aria-haspopup="true"
+                            aria-expanded={isGamesOpen}
+                            className={`flex items-center gap-1 whitespace-nowrap font-semibold transition-colors hover:text-yellow-200 ${isGameRoute ? 'text-yellow-300' : ''}`}
                         >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 6h16M4 12h8m-8 6h16"
-                            />
-                        </svg>
+                            Games
+                            <FaChevronDown className={`h-3 w-3 transition-transform ${isGamesOpen ? 'rotate-180' : ''}`} />
+                        </button>
+                        {isGamesOpen && (
+                            <ul className="absolute left-1/2 top-full mt-3 w-44 -translate-x-1/2 rounded-xl bg-white p-2 text-gray-700 shadow-lg">
+                                {GAME_LINKS.map(({ to, label }) => (
+                                    <li key={to}>
+                                        <NavLink to={to} className={mobileLinkClass}>{label}</NavLink>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
-                    <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-                    >
-                        <li><Link className="text-black" to="/">Home</Link></li>
-                        <li><Link className="text-black" to="/e-book">E-Book</Link></li>
-                        <li><Link className="text-black" to="/professional-support">Professionals Support</Link></li>
 
-                        <li><Link className="text-black" to="/health-and-nutrition">Health & Nutrition</Link></li>
-                        <li><Link className="text-black" to="/meditation">Meditation</Link></li>
-                        <li><Link className="text-black" to="/game/tic-tac">TicTacToe</Link></li>
-                        <li><Link className="text-black" to="/game/fifteen-puzzle">15 Puzzle</Link></li>
-                        <li><Link className="text-black" to="/game/kawan-puzzle">Kawan Puzzle</Link></li>
-                        <li><Link className="text-black" to="/contact-us">Contact Us</Link></li>
-                    </ul>
-                </div>
-                <Link to="/">
-                    <img className="w-9 lg:w-16 lg:mr-0" src={logo} alt="" />
-                </Link>
-                <Link to="/" className="hidden lg:block font-semibold text-sm lg:text-xl ml-0 lg:ml-5">Kawan</Link>
-            </div>
-            <div className="navbar-end lg:w-full gap-2 lg:gap-7">
-                <Link to="/">
-                    <button className={`hidden lg:flex font-semibold ${location.pathname === '/' ? 'text-yellow-300' : ''}`}>Home</button>
-                </Link>
-                <Link to="/e-book">
-                    <button className={`hidden lg:flex font-semibold w-full ${location.pathname === '/e-book' ? 'text-yellow-300' : ''}`}>E-Book</button>
-                </Link>
-                <Link to="/professional-support">
-                    <button className={`hidden lg:flex font-semibold   w-full ${location.pathname === '/professional-support' ? 'text-yellow-300' : ''}`}>Professionals Support</button>
-                </Link>
-                <Link to={`/health-and-nutrition`}>
-                    <button className={`hidden lg:flex font-semibold  w-full ${location.pathname === '/health-and-nutrition' ? 'text-yellow-300' : ''}`}>Health & Nutrition</button>
-                </Link>
-                <Link to={`/meditation`}>
-                    <button className={`hidden lg:flex font-semibold  ${location.pathname === '/meditation' ? 'text-yellow-300' : ''}`}>Meditation</button>
-                </Link>
-
-
-                {/* Game  */}
-                <div className="hidden lg:flex relative dropdown dropdown-hover">
-                    <div
-                        tabIndex={0}
-                        role="button"
-                        className="flex items-center font-semibold bg-none cursor-pointer"
-                    >
-                        Game
-                        <FaChevronDown
-                            className="ml-2 transition-transform duration-300 ease-in-out dropdown-toggle"
-                        />
-                    </div>
-                    <ul
-                        tabIndex={0}
-                        className="dropdown-content menu bg-gray-500 text-white rounded-box z-[1] p-2 w-40 content-center shadow"
-                    >
-                        <li>
-                            <Link to={`/game/tic-tac`}>
-                                <span className={`hidden text-md font-bold lg:flex ${location.pathname === '/game/tic-tac' ? 'text-yellow-300' : ''}`}>TicTacToe</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={`/game/fifteen-puzzle`}>
-                                <span className={`hidden lg:flex text-md font-bold ${location.pathname === '/game/fifteen-puzzle' ? 'text-yellow-300' : ''}`}>15 Puzzle</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={`/game/kawan-puzzle`}>
-                                <span className={`hidden lg:flex text-md font-bold ${location.pathname === '/game/kawan-puzzle' ? 'text-yellow-300' : ''}`}>Kawan Puzzle</span>
-                            </Link>
-                        </li>
-                    </ul>
-
-                    {/* Styles */}
-                    <style>{`
-        .dropdown:hover .dropdown-toggle {
-          transform: rotate(-180deg);
-        }
-      `}</style>
+                    <NavLink to="/contact-us" className={desktopLinkClass}>Contact Us</NavLink>
                 </div>
 
-                {/* Game end */}
-
-                {/* COntact us */}
-                <div>
-
-                    <Link to={`/contact-us`}>
-                        <span className={`hidden lg:flex text-md font-bold ${location.pathname === '/contact-us' ? 'text-yellow-300' : ''}`}>Contact Us</span>
-                    </Link>
-                </div>
-
-
-
-
-                {user ? (
-                    <>
+                {/* Right side: profile or auth buttons, plus the mobile menu toggle */}
+                <div className="flex shrink-0 items-center gap-2 lg:gap-3">
+                    {user ? (
+                        <div className="relative" ref={profileRef}>
+                            <button
+                                type="button"
+                                onClick={() => setIsProfileOpen((open) => !open)}
+                                aria-haspopup="true"
+                                aria-expanded={isProfileOpen}
+                                aria-label="Open profile menu"
+                                className={`rounded-full ring-2 transition ${isProfileOpen ? 'ring-yellow-300' : 'ring-white/70 hover:ring-yellow-300'}`}
+                            >
+                                <Avatar user={user} size={40} />
+                            </button>
+                            {isProfileOpen && (
+                                <div className="absolute right-0 top-full mt-3 w-64 rounded-xl bg-white p-2 text-gray-700 shadow-lg">
+                                    <div className="flex items-center gap-3 px-3 py-2">
+                                        <Avatar user={user} size={40} />
+                                        <div className="min-w-0">
+                                            <p className="truncate font-semibold text-gray-900">{user.displayName || 'Kawan User'}</p>
+                                            <p className="truncate text-sm text-gray-500">{user.email}</p>
+                                        </div>
+                                    </div>
+                                    <hr className="my-1 border-gray-200" />
+                                    <Link to="/profile" className="block rounded-lg px-3 py-2 hover:bg-gray-100">My Profile</Link>
+                                    <button
+                                        type="button"
+                                        onClick={handleSignOut}
+                                        className="block w-full rounded-lg px-3 py-2 text-left text-red-600 hover:bg-red-50"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
                         <>
-                            <div className="relative">
-                                <img
-                                    src={user.photoURL || ""}
-                                    ref={profileRef}
-                                    className={`${isProfileShow ? 'h-12 w-12 opacity-90 border-2 border-orange-400 rounded-full mr-8 cursor-pointer' : 'h-12 w-12 rounded-full mr-8 cursor-pointer'}`}
-                                    alt="User Profile"
-                                    onMouseEnter={() => setIsHovered(true)}
-                                    onMouseLeave={() => setIsHovered(false)}
-                                    onClick={() => setIsProfileShow(true)}
-                                />
-                                {/* Show the span only if the image is hovered */}
-                                {(isHovered || isProfileShow) && (
-                                    <span
-                                        className="w-56 z-20 absolute bottom-[-9rem] transform -translate-x-1/2 text-white text-sm bg-black lg:px-2 py-2 rounded-xl opacity-100 transition-opacity duration-300 space-y-2">
-                                        <Link to='/profile'>
-                                            <div className="ml-3 flex gap-0 items-center">
-                                                <img
-                                                    src={user.photoURL || ""}
-                                                    className="h-8 rounded-full cursor-pointer"
-                                                    alt="User Profile"
-                                                />
-                                                <p className="justify-start hover:bg-gray-600 btn lg:btn-md btn-outline border-none text-white">
-                                                    {user.displayName || "Anonymous User"}
-                                                </p>
-                                            </div>
-                                        </Link>
-                                        <hr className="w-5/6 border-gray-400 mx-auto" />
-                                        <button
-                                            onClick={handleSignOutUser}
-                                            className="justify-start w-full btn text-white btn-outline border-none hover:bg-gray-600"
-                                        >
-                                            Logout
-                                        </button>
-                                    </span>
-                                )}
-                            </div>
-
-                        </>
-                    </>
-                ) : (
-                    <div className='flex content-center items-center justify-center space-x-1 lg:space-x-4'>
-                        <Link to={'/login'}>
-                            <span className="px-2 py-1 lg:px-7 lg:py-3 font-semibold border-2 btn-outline hover:bg-yellow-300 text-yellow-300 hover:text-gray-700 hover:border-yellow-300 rounded-3xl text-xs sm:text-sm lg:text-lg">Login</span>
-                        </Link>
-                        <Link to={'/register'}>
-                            <span className="px-2 py-1 lg:px-7 lg:py-3 font-semibold border-2 btn-outline bg-yellow-300 text-gray-700 border-yellow-300 hover:text-yellow-300 hover:bg-transparent hover:border-yellow-300 rounded-3xl text-xs sm:text-sm lg:text-lg">
+                            <Link
+                                to="/login"
+                                className="whitespace-nowrap rounded-full border-2 border-yellow-300 px-4 py-1.5 text-sm font-semibold text-yellow-300 transition hover:bg-yellow-300 hover:text-gray-800 lg:px-6 lg:py-2 lg:text-base"
+                            >
+                                Login
+                            </Link>
+                            <Link
+                                to="/register"
+                                className="hidden whitespace-nowrap rounded-full border-2 border-yellow-300 bg-yellow-300 px-4 py-1.5 text-sm font-semibold text-gray-800 transition hover:bg-transparent hover:text-yellow-300 sm:inline-block lg:px-6 lg:py-2 lg:text-base"
+                            >
                                 Register
-                            </span>
-                        </Link>
-                    </div>
-                )}
-            </div>
-        </div>
+                            </Link>
+                        </>
+                    )}
+
+                    <button
+                        type="button"
+                        onClick={() => setIsMenuOpen((open) => !open)}
+                        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                        aria-expanded={isMenuOpen}
+                        className="rounded-lg p-2 hover:bg-white/10 xl:hidden"
+                    >
+                        {isMenuOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
+                    </button>
+                </div>
+            </nav>
+
+            {/* Mobile / tablet menu */}
+            {isMenuOpen && (
+                <div className="border-t border-white/20 bg-white shadow-lg xl:hidden">
+                    <ul className="mx-auto max-w-7xl space-y-1 px-4 py-3">
+                        {NAV_LINKS.map(({ to, label, end }) => (
+                            <li key={to}><NavLink to={to} end={end} className={mobileLinkClass}>{label}</NavLink></li>
+                        ))}
+                        <li className="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-gray-400">Games</li>
+                        {GAME_LINKS.map(({ to, label }) => (
+                            <li key={to}><NavLink to={to} className={mobileLinkClass}>{label}</NavLink></li>
+                        ))}
+                        <li className="pt-2"><NavLink to="/contact-us" className={mobileLinkClass}>Contact Us</NavLink></li>
+                        {!user && (
+                            <li className="sm:hidden"><NavLink to="/register" className={mobileLinkClass}>Register</NavLink></li>
+                        )}
+                    </ul>
+                </div>
+            )}
+        </header>
     );
 };
 
