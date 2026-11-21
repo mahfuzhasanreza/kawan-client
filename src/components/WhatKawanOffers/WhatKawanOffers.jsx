@@ -1,4 +1,4 @@
-import { FaRobot, FaGamepad, FaBook, FaSpa, FaPenFancy, FaAppleAlt, FaUserMd } from "react-icons/fa";
+import { FaRobot, FaGamepad, FaBook, FaSpa, FaPenFancy, FaUserMd } from "react-icons/fa";
 
 const WhatKawanOffers = () => {
     const offerings = [
@@ -7,7 +7,6 @@ const WhatKawanOffers = () => {
         { id: 3, title: "E-Books", description: "Access a library of insightful self-help books.", icon: <FaBook className="text-4xl text-blue-500" /> },
         { id: 4, title: "Meditation", description: "Guided meditation sessions for relaxation.", icon: <FaSpa className="text-4xl text-green-500" /> },
         { id: 5, title: "Journaling", description: "Track your progress with our journaling tools.", icon: <FaPenFancy className="text-4xl text-yellow-500" /> },
-        { id: 6, title: "Health & Nutrition", description: "Expert tips on maintaining a healthy lifestyle.", icon: <FaAppleAlt className="text-4xl text-orange-500" /> },
         { id: 7, title: "Live Counseling", description: "Connect with professionals for live sessions.", icon: <FaUserMd className="text-4xl text-teal-500" /> },
     ];
 

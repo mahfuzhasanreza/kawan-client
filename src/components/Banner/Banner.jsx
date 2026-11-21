@@ -40,7 +40,7 @@ const Banner = () => {
                     backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url(${bannerBg})`,
                 }}
             />
-            <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:py-20 lg:grid-cols-2 lg:px-8 lg:py-24">
+            <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:py-12 lg:grid-cols-2 lg:px-8 lg:py-12">
                 {/* Text */}
                 <div className="text-center lg:text-left">
                     <p className="font-mono text-xs uppercase tracking-[0.2em] text-gray-300 sm:text-sm">
@@ -81,7 +81,7 @@ const Banner = () => {
                 </div>
 
                 {/* Illustration */}
-                <div className="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
+                <div className="mx-auto w-full max-w-xs sm:max-w-sm lg:mr-0 lg:max-w-md lg:justify-self-end xl:-mr-8">
                     <Lottie animationData={bannerLottieData} loop aria-hidden="true" />
                 </div>
             </div>

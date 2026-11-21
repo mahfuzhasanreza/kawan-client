@@ -2,7 +2,7 @@
 
 # KAWAN: Your Mental Health Companion
 
-**The user-facing web app of KAWAN: AI chat, mood check-ins, live counselling, e-books, health tracking, meditation and games.**
+**The user-facing web app of KAWAN: AI chat, mood check-ins, live counselling, e-books, meditation and games.**
 
 *"Kawan" means **friend** in Malay.*
 
@@ -43,10 +43,10 @@
 
 **KAWAN** is a mental health and self-development platform built to act as a supportive friend. `kawan-client` is the React single-page app used by:
 
-- **Users**, who chat with the AI companion, check their mood, read and listen to books, track health, meditate, play games and join live counselling sessions.
+- **Users**, who chat with the AI companion, check their mood, read and listen to books, meditate, play games and join live counselling sessions.
 - **Professionals** (counsellors and therapists), who register, get verified by an admin, and run live video sessions with users.
 
-It talks to [kawan-server](https://github.com/mahfuzhasanreza/kawan-server) for chat, video tokens, professionals and counselling, and to a separate KAWAN REST API (`kawan.onrender.com/api/v1`) for user profiles, health records and the e-book catalogue.
+It talks to [kawan-server](https://github.com/mahfuzhasanreza/kawan-server) for chat, video tokens, professionals and counselling, and to a separate KAWAN REST API (`kawan.onrender.com/api/v1`) for user profiles and the e-book catalogue.
 
 ---
 
@@ -80,7 +80,6 @@ It talks to [kawan-server](https://github.com/mahfuzhasanreza/kawan-server) for 
 | **Professional Support** | Live 1:1 counselling on **VideoSDK**: device preview, create or join a meeting, mic/camera control, chat, screen share, raise hand, reactions, participant list, and HLS viewer mode. |
 | **Professional Dashboard** | Professionals sign up as a professional. Their dashboard stays locked until an admin verifies them. |
 | **E-Books & Audiobooks** | Book catalogue, details, read list / wish list, in-app reader and audio chapters. |
-| **Health & Nutrition** | BMI calculator, calorie-burned calculator, meal logging, goals, progress rings and charts (Recharts), diet plans and a health blog. |
 | **Meditation** | Guided breathing animation with a custom timer and an end-of-session alarm. |
 | **Stress-relief Games** | Tic-tac-toe, 15-puzzle and a KAWAN jigsaw puzzle. |
 | **Accounts** | Firebase email/password and Google sign-in, email verification, password reset, profile page and a guest demo login. |
@@ -100,7 +99,6 @@ It talks to [kawan-server](https://github.com/mahfuzhasanreza/kawan-server) for 
 | Auth | Firebase Authentication |
 | Video | `@videosdk.live/react-sdk`, `hls.js` |
 | Computer vision | `face-api.js` (Tiny Face Detector, 68-point tiny landmarks, expression net) |
-| Charts | Recharts, react-circular-progressbar |
 | Reading | react-pdf, @react-pdf-viewer, react-reader (EPUB) |
 | Feedback | react-hot-toast, react-toastify, SweetAlert2 |
 | Hosting | Vercel (primary), Firebase Hosting |
@@ -122,7 +120,7 @@ flowchart LR
 
     FB["Firebase Auth"]
     KS["kawan-server<br/>Express + MongoDB"]
-    KR["KAWAN REST API<br/>kawan.onrender.com/api/v1<br/>users, health, ebooks"]
+    KR["KAWAN REST API<br/>kawan.onrender.com/api/v1<br/>users, ebooks"]
     VS["VideoSDK cloud"]
     GM["Gemini"]
 
@@ -130,7 +128,7 @@ flowchart LR
     SPA <-->|"opens + postMessage"| FD
     SPA -->|"sign-in / sign-up"| FB
     SPA -->|"/chat, /videosdk-token<br/>/professionals, /contact"| KS
-    SPA -->|"user, health, ebook"| KR
+    SPA -->|"user, ebook"| KR
     SPA <-->|"rooms API + WebRTC"| VS
     KS --> GM
 
@@ -143,12 +141,12 @@ flowchart LR
 ```mermaid
 flowchart TB
     MAIN["main.jsx<br/>createBrowserRouter, HelmetProvider, QueryClientProvider"]
-    MAIN --> AP["AuthProvider<br/>(Firebase user + userDb + health data + guest login)"]
+    MAIN --> AP["AuthProvider<br/>(Firebase user + userDb + guest login)"]
     AP --> ROOT["Root layout<br/>Navbar, Outlet, Footer, Chatbot widget"]
 
     ROOT --> PUB["Public pages<br/>Home, Login, Register, Forget password<br/>E-book, Books, Games, Contact"]
     ROOT --> PR{{"PrivateRoute"}}
-    PR --> PRIV["Protected pages<br/>Profile, Book detail / reader<br/>Health & Nutrition, Meditation"]
+    PR --> PRIV["Protected pages<br/>Profile, Book detail / reader<br/>Meditation"]
     ROOT --> PROF["Professional<br/>Professional Support (LiveMeeting)<br/>Professional Dashboard, Verify form"]
 
     PROF --> LM["LiveMeeting<br/>MeetingProvider → JoiningScreen → ILSContainer → LeaveScreen"]
@@ -256,11 +254,6 @@ sequenceDiagram
 | `/professional-verify-form` | Verification form (placeholder, not built yet) | Professional |
 | `/e-book`, `/books` | Book dashboard and catalogue | Public |
 | `/books/:id`, `/book-read-listen/:id`, `/b1`, `/b2` | Book detail, reader and audio | Login required |
-| `/health-and-nutrition` | Health dashboard | Login required |
-| `/health-and-nutrition/goal/:healthId` | Set goal | Login required |
-| `/health-and-nutrition/progress/:healthId` | Progress and calories | Login required |
-| `/health-and-nutrition/:type/:healthId` | Health condition and meals | Login required |
-| `/health-and-nutrition/blogs` | Health blog | Login required |
 | `/meditation` | Guided breathing | Login required |
 | `/game/tic-tac`, `/game/fifteen-puzzle`, `/game/kawan-puzzle` | Games | Public |
 | `/contact-us` | Contact form | Public |
@@ -283,8 +276,6 @@ kawan-client/
 │   │   └── models/              # tiny_face_detector, face_landmark_68_tiny, face_expression
 │   ├── assets/                  # Audio (chapters, meditation alarm)
 │   ├── booksData.json
-│   ├── foodNutritionData.json
-│   └── healthBlogData.json
 ├── src/
 │   ├── main.jsx                 # Router + providers
 │   ├── config.js                # SERVER_URL, guest credentials
@@ -298,7 +289,6 @@ kawan-client/
 │       ├── LiveMeeting/         # VideoSDK app (api.jsx, meeting/, interactive-live-streaming/, hooks/)
 │       ├── Professional*/       # Professional dashboard and verification
 │       ├── EBook/, Audio/      # Books, reader, audiobook
-│       ├── HealthAndNutrition/  # BMI, calories, meals, goals, charts, diet plan
 │       ├── Meditation/
 │       ├── Games/               # tic-tac-toe, FifteenPuzzle, KawanPuzzle
 │       ├── Home/ Banner/ Navbar/ Footer/ FAQSecton/ …   # Landing page sections
@@ -416,7 +406,7 @@ Both hosts rewrite every path to `/index.html` so client-side routes work after 
 - **The professional verification form is not built yet.** `ProfessionalDashboard/VerifyForm.jsx` is an empty component. The server endpoint for it (`POST /professionals-verify-request`) is ready.
 - **No in-app booking.** Users can't send a counselling request from the UI yet. A professional creates a meeting and shares the meeting ID with the user outside the app. The server's `/req-counselling` and `/live` endpoints are ready for this.
 - **Professional Support is not role-gated.** Anyone can open `/professional-support` and create or join a meeting.
-- **Depends on a second backend.** Users, health data and e-books come from `kawan.onrender.com`. On Render's free tier the first request after a quiet period can take up to about a minute.
+- **Depends on a second backend.** User profiles and e-books come from `kawan.onrender.com`. On Render's free tier the first request after a quiet period can take up to about a minute.
 - **No automated tests.**
 
 ---
