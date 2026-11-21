@@ -69,6 +69,10 @@ It talks to [kawan-server](https://github.com/mahfuzhasanreza/kawan-server) for 
 | **E-books** | **Meditation** |
 | ![E-book library](docs/screenshots/e-books.jpg) | ![Guided meditation timer](docs/screenshots/meditation.jpg) |
 
+| Tic-Tac-Toe | 15 Puzzle | Kawan Puzzle |
+|---|---|---|
+| ![Tic-Tac-Toe game against the computer](docs/screenshots/tic-tac-toe.jpg) | ![15 Puzzle game with timer and move counter](docs/screenshots/fifteen-puzzle.jpg) | ![Kawan Puzzle jigsaw of the KAWAN logo](docs/screenshots/kawan-puzzle.jpg) |
+
 ---
 
 ## Features
