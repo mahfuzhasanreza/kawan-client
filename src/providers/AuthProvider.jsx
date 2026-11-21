@@ -19,6 +19,9 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    // Bumped after updateProfile() so components re-read user.displayName / photoURL.
+    const [, setProfileVersion] = useState(0);
+    const refreshUser = () => setProfileVersion((v) => v + 1);
     const [userDb, setUserDb] = useState(null);
     const [loading, setLoading] = useState(true);
     const [theme, setTheme] = useState('light');
@@ -270,6 +273,7 @@ const AuthProvider = ({ children }) => {
         signInWithGoogle,
         signInAsGuest,
         signOutUser,
+        refreshUser,
         theme,
         setTheme,
         isSidebarOpen,
