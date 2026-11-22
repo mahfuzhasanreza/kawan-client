@@ -19,7 +19,7 @@ const Login = () => {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    
+
 
 
 
@@ -40,7 +40,7 @@ const Login = () => {
             e.target.reset();
             navigate(location?.state ? location.state : '/');
 
-            
+
             console.log('User Type:', userType);
         } catch (error) {
             // toast.error('Email and Password does not match'); // Trigger toast notification
@@ -160,11 +160,6 @@ const Login = () => {
 
                         {success && <p className="text-green-500 text-center mt-4">Login successful!</p>}
 
-                        <button type="button" onClick={handleGuestLogin}
-                            className='btn bg-yellow-300 hover:bg-yellow-400 border-none text-gray-800 text-lg font-semibold mx-8 mt-4'>
-                            Continue as Guest (Demo)</button>
-                        <p className='text-center text-xs text-gray-500 mt-2'>No sign-up needed — explore with a shared demo account.</p>
-
                         <div className='flex items-center'>
                             <hr className='ml-10 mr-2 w-1/2 border' />
                             <p className='text-gray-500'>Or</p>
@@ -174,6 +169,11 @@ const Login = () => {
                             className='btn btn-outline bg-purple-100 mx-8 mt-7 border-5 text-black text-lg font-medium gap-5 hover:bg-fuchsia-200 hover:border-fuchsia-200 hover:text-black'>
                             <FcGoogle className='text-4xl'></FcGoogle>
                             Sign In with Google</button>
+
+                        <button type="button" onClick={handleGuestLogin}
+                            className='btn bg-yellow-300 hover:bg-yellow-400 border-none text-gray-800 text-lg font-semibold mx-8 mt-4'>
+                            Continue as Guest</button>
+
                         <div className='mx-auto mt-8 font-medium'>
                             <p>Don't haven an account? <span><Link to={'/register'} className='hover:underline text-fuchsia-700 font-medium'>Register here</Link></span> </p>
                         </div>
